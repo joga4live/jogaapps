@@ -346,7 +346,7 @@ class Component extends DCLogic {
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
 
-  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); }catch(e){} }
+  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
   toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} this.setState({ muted:this.muted }); }
   toggleLang(){ this.play('tap'); this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
   armLaunchBoom(){ const boom = this._sfx && this._sfx.boom; if(!boom) return; const tryPlay = () => { if(this.muted) return Promise.resolve(); try{ boom.currentTime=0; boom.volume=.5; return boom.play(); }catch(e){ return Promise.reject(e); } }; const p = tryPlay(); if(p && p.catch){ p.catch(() => { const once = () => { tryPlay(); window.removeEventListener('pointerdown', once); }; window.addEventListener('pointerdown', once, { once:true }); }); } }

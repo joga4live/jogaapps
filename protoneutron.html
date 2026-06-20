@@ -139,60 +139,74 @@
       </sc-if>
 
       <!-- ============ LIBRARY ============ -->
+      <!-- ============ PRÁCTICAS ============ -->
       <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
-        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#3fc7cf;margin-bottom:4px">Protoneutrón</div>
-        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 22px">{{ focusModesLabel }}</h2>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <sc-for list="{{ library }}" as="s" hint-placeholder-count="5">
-            <button onClick="{{ s.play }}" style="text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:16px;background:linear-gradient(160deg,#101a18,#0b1311);display:flex;align-items:center;gap:15px" style-hover="border-color:rgba(70,205,212,.4)">
-              <div style="flex:0 0 auto;width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:{{ s.chipBg }};font-size:19px">{{ s.icon }}</div>
-              <div style="flex:1;min-width:0">
-                <div style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#F2ECDD">{{ s.title }}</div>
-                <div style="font-size:12px;color:#82999b;margin-top:2px">{{ s.tag }} · {{ s.len }} min</div>
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#3fc7cf;margin-bottom:4px">{{ practicesKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 6px">{{ practicesTitle }}</h2>
+        <p style="font-size:13px;color:#82999b;margin:0 0 18px;line-height:1.5">{{ practicesSub }}</p>
+        <div style="margin-bottom:22px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+            <span style="font:600 10px Inter;letter-spacing:.18em;text-transform:uppercase;color:#8fe6ea">{{ progressLabel }}</span>
+            <span style="font-family:Newsreader,serif;font-weight:600;font-size:15px;color:#F2ECDD">{{ practiceCount }}</span>
+          </div>
+          <div style="height:7px;border-radius:7px;background:rgba(255,255,255,.08);overflow:hidden">
+            <div style="{{ practiceBarStyle }}"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <sc-for list="{{ practices }}" as="p" hint-placeholder-count="3">
+            <div style="{{ p.cardStyle }}">
+              <div style="display:flex;align-items:flex-start;gap:13px">
+                <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:{{ p.chipBg }};font-size:20px">{{ p.icon }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#82999b">{{ p.num }}</div>
+                  <div style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#F2ECDD;line-height:1.2;margin-top:2px">{{ p.title }}</div>
+                  <div style="font-size:13px;line-height:1.55;color:#bcd3d5;margin-top:6px">{{ p.desc }}</div>
+                  <div style="font-size:12px;line-height:1.55;color:#82999b;font-style:italic;margin-top:8px;border-left:2px solid rgba(70,205,212,.4);padding-left:10px">{{ p.extra }}</div>
+                </div>
               </div>
-              <span style="color:#3fc7cf;font-size:16px">▶</span>
-            </button>
+              <button onClick="{{ p.toggle }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
+            </div>
           </sc-for>
         </div>
       </div>
       </sc-if>
 
-      <!-- ============ PROGRESS ============ -->
-      <sc-if value="{{ isProgress }}" hint-placeholder-val="{{ false }}">
+      <!-- ============ LEYES ============ -->
+      <sc-if value="{{ isIdeas }}" hint-placeholder-val="{{ false }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
-        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#3fc7cf;margin-bottom:4px">Protoneutrón</div>
-        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 24px">{{ consistencyLabel }}</h2>
-
-        <div style="position:relative;border-radius:24px;overflow:hidden;padding:32px 24px;margin-bottom:18px;background:linear-gradient(165deg,rgba(50,180,190,.3),rgba(14,40,40,.45));border:1px solid rgba(70,205,212,.3);text-align:center">
-          <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#9fe5ea">{{ currentStreakLabel }}</div>
-          <div style="font-family:Newsreader,serif;font-weight:600;font-size:72px;line-height:1;color:#EAFCFB;margin:8px 0 2px">{{ streak }}</div>
-          <div style="font-size:13px;color:#9fb6b8">{{ streakUnitLabel }}</div>
-          <div style="display:flex;justify-content:center;gap:9px;margin-top:22px">
-            <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
-              <div style="text-align:center">
-                <div style="{{ d.dotStyle }}">{{ d.mark }}</div>
-                <div style="font-size:9.5px;color:#75898b;margin-top:5px">{{ d.label }}</div>
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#3fc7cf;margin-bottom:4px">{{ ideasKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 6px">{{ ideasTitle }}</h2>
+        <p style="font-size:13px;color:#82999b;margin:0 0 18px;line-height:1.5">{{ ideasSub }}</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ ideas }}" as="b" hint-placeholder-count="6">
+            <div style="border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;background:linear-gradient(160deg,#16201f,#0c1413)">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <div style="flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:{{ b.color }}"></div>
+                <div style="font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#F2ECDD;line-height:1.2">{{ b.title }}</div>
               </div>
-            </sc-for>
-          </div>
+              <div style="font-size:13px;line-height:1.55;color:#bcd3d5">{{ b.idea }}</div>
+              <div style="font-size:12px;line-height:1.5;color:#8fe6ea;margin-top:10px;background:rgba(50,196,205,.08);border-radius:10px;padding:10px 12px"><b style="color:#3fc7cf">→ </b>{{ b.ej }}</div>
+            </div>
+          </sc-for>
         </div>
+      </div>
+      </sc-if>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
-          <div style="background:linear-gradient(160deg,#101a18,#0b1311);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:18px">
-            <div style="font-family:Newsreader,serif;font-weight:600;font-size:30px;color:#E7C46A">{{ totalMin }}</div>
-            <div style="font-size:11.5px;color:#82999b;margin-top:2px">{{ minUnitLabel }}</div>
-          </div>
-          <div style="background:linear-gradient(160deg,#101a18,#0b1311);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:18px">
-            <div style="font-family:Newsreader,serif;font-weight:600;font-size:30px;color:#3fc7cf">{{ totalSessions }}</div>
-            <div style="font-size:11.5px;color:#82999b;margin-top:2px">{{ blocksUnitLabel }}</div>
-          </div>
+      <!-- ============ DIAGNÓSTICO IA ============ -->
+      <sc-if value="{{ isIA }}" hint-placeholder-val="{{ false }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#3fc7cf;margin-bottom:4px">{{ iaKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:26px;color:#F2ECDD;margin:0 0 6px">{{ iaTitle }}</h2>
+        <p style="font-size:13px;color:#82999b;margin:0 0 16px;line-height:1.5">{{ iaSub }}</p>
+        <textarea value="{{ iaInput }}" onChange="{{ onIaInput }}" placeholder="{{ iaPlaceholder }}" style="width:100%;min-height:120px;resize:vertical;box-sizing:border-box;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;color:#F2ECDD;font:400 13.5px Inter;line-height:1.5;outline:none"></textarea>
+        <button onClick="{{ runDiagnosis }}" style="width:100%;margin-top:12px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#0c1413;background:linear-gradient(135deg,#8fe6ea,#37b9c2)">{{ iaBtnLabel }}</button>
+        <sc-if value="{{ iaResult }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:18px;border:1px solid rgba(70,205,212,.3);border-radius:16px;padding:16px;background:rgba(14,70,75,.25)">
+          <div style="font-family:Newsreader,serif;font-weight:400;font-size:14.5px;line-height:1.6;color:#e4f6f4;white-space:pre-wrap">{{ iaResult }}</div>
         </div>
-
-        <div style="background:rgba(231,196,106,.06);border:1px solid rgba(231,196,106,.2);border-radius:18px;padding:20px">
-          <div style="font-family:Newsreader,serif;font-style:italic;font-weight:500;font-size:18px;color:#F2ECDD;line-height:1.4">{{ quoteText }}</div>
-          <div style="font-size:11.5px;color:#9a9189;margin-top:8px">{{ comebackText }}</div>
-        </div>
+        </sc-if>
       </div>
       </sc-if>
 
@@ -333,12 +347,12 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:900}}">
 class Component extends DCLogic {
   state = { aboutOpen:false, locked:true, lockOpening:false, celebrate:false, view:'home', playerOpen:false, playing:false, elapsed:0, duration:420, pTitle:'', pTag:'',
-            streak:4, totalSessions:11, baseMin:96, affirmed:false, showToast:false, breathStep:0 };
+            streak:4, totalSessions:11, baseMin:96, affirmed:false, showToast:false, breathStep:0, doneP:{}, iaInput:'', iaResult:'', iaLoading:false };
 
   componentDidMount(){
     try{ this.muted = localStorage.getItem('jiMute')==='1'; }catch(e){ this.muted=false; }
     let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
-    let locked=true; try{ if(localStorage.getItem('jiUnlocked_protoneutron')==='1') locked=false; }catch(e){} this.setState({ muted: this.muted, lang, locked });
+    let locked=true; try{ if(localStorage.getItem('jiUnlocked_protoneutron')==='1') locked=false; }catch(e){} let doneP={}; try{ doneP=JSON.parse(localStorage.getItem('jiPractices_protoneutron')||'{}')||{}; }catch(e){} this.setState({ muted: this.muted, lang, locked, doneP });
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
       this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.protoneutron) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
@@ -346,9 +360,11 @@ class Component extends DCLogic {
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
 
-  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); }catch(e){} }
+  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
   toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} this.setState({ muted:this.muted }); }
   toggleLang(){ this.play('tap'); this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
+  togglePractice(i){ this.setState(st => { const d = Object.assign({}, st.doneP); const was = !!d[i]; d[i] = !was; const total = Object.keys(d).filter(k=>d[k]).length; try{ localStorage.setItem('jiPractices_protoneutron', JSON.stringify(d)); }catch(e){} if(!was){ this.play('boom'); if(total>=3){ this._toast = setTimeout(()=>this.setState({celebrate:false}),3400); return { doneP:d, celebrate:true }; } } else { this.play('tap'); } return { doneP:d }; }); }
+  diagnose(){ const q=(this.state.iaInput||'').trim(); if(!q||this.state.iaLoading) return; this.play('tap'); this.setState({ iaLoading:true, iaResult:'' }); const L=this.state.lang||'es'; const prompt=(L==='es'?'Eres un coach de PROTONEUTRÓN, app para construir hábitos (bucle señal-rutina-recompensa, ley del 1% y hábitos atómicos). Analiza esta situación y responde en español, breve y accionable (máx 110 palabras): nombra la SEÑAL que dispara el hábito, el MICROHÁBITO de reemplazo, y 2 acciones concretas para hoy.\n\nSituación: ':'You are a PROTONEUTRÓN coach, an app to build habits (cue-routine-reward loop, the 1% law, atomic habits). Analyze this situation and answer in English, brief and actionable (max 110 words): name the CUE that triggers the habit, the replacement MICRO-HABIT, and 2 concrete actions for today.\n\nSituation: ')+q; if(window.claude && window.claude.complete){ window.claude.complete(prompt).then(r=>this.setState({ iaResult:String(r||'').trim(), iaLoading:false })).catch(()=>this.setState({ iaResult:(L==='es'?'No se pudo completar el análisis. Intenta de nuevo.':'Could not complete the analysis. Try again.'), iaLoading:false })); } else { this.setState({ iaResult:(L==='es'?'El diagnóstico con IA se activa cuando la app está publicada con la conexión de IA encendida. Mientras tanto, elige un microhábito y encádenalo a algo que ya haces cada día.':'AI diagnosis activates when the app is published with the AI connection on. Meanwhile, pick a micro-habit and chain it to something you already do every day.'), iaLoading:false }); } }
   armLaunchBoom(){ const boom = this._sfx && this._sfx.boom; if(!boom) return; const tryPlay = () => { if(this.muted) return Promise.resolve(); try{ boom.currentTime=0; boom.volume=.5; return boom.play(); }catch(e){ return Promise.reject(e); } }; const p = tryPlay(); if(p && p.catch){ p.catch(() => { const once = () => { tryPlay(); window.removeEventListener('pointerdown', once); }; window.addEventListener('pointerdown', once, { once:true }); }); } }
 
   go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
@@ -401,7 +417,15 @@ class Component extends DCLogic {
         quote:'"Somos lo que hacemos repetidamente."', comeback:'Vuelve mañana para no romper la cadena.',
         toast:'Práctica completada · cadena', paused:'En pausa', glowNote:'El glow cambia con la hora', aboutTitle:"Sobre este poder", aboutBody:"El laboratorio de tus hábitos. Separa los que te construyen de los que te frenan, y reemplaza uno cada día. Pequeñas reacciones diarias, resultados que explotan con el tiempo.", aboutClose:"Entendido", unlockTag:"Activa tus hábitos", unlockCta:"Entrar", cday:"Días 11–15", cdef:"El laboratorio de tus hábitos. Reemplaza uno que te frena cada día.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Empieza…','Mantén el ritmo…','Un paso más…'],
-        nav:['Hoy','Hábitos','Progreso'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
+        nav:['Hoy','Prácticas','Leyes','IA'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
+        pKicker:'Tu práctica diaria', pTitle:'Tus 3 prácticas', pSub:'Complétalas para construir tus hábitos.', pProgress:'Progreso', pMark:'Marcar como completada ✓', pDone:'Completada ✓',
+        ideasKicker:'Las leyes del hábito', ideasTitle:'Cómo se forma una costumbre', ideasSub:'Los principios que hacen que un hábito se quede — o se vaya.',
+        iaKicker:'Diagnóstico IA', iaTitle:'¿Qué hábito quieres cambiar?', iaSub:'Cuéntame el hábito y te digo cómo reprogramarlo.', iaPlaceholder:'Escribe el hábito que quieres cambiar…', iaBtn:'Analizar mi hábito', iaThinking:'Analizando…',
+        practices:[
+          {icon:'🔍', num:'Práctica 01', title:'Caza la señal', desc:'Identifica qué dispara el hábito que quieres cambiar: hora, lugar, emoción o persona.', extra:'Un hábito siempre tiene un gatillo. Si no ves la señal, no puedes cambiar la rutina.'},
+          {icon:'🔁', num:'Práctica 02', title:'Reemplaza, no borres', desc:'Mantén la misma señal y la misma recompensa, pero cambia la rutina del medio.', extra:'No intentes eliminar un hábito: sustítuyelo por uno mejor que dé la misma satisfacción.'},
+          {icon:'⛓️', num:'Práctica 03', title:'Encadena al día', desc:'Pega el nuevo hábito a algo que ya haces sin falta, para que el ancla lo sostenga.', extra:'«Después de [algo que ya hago], haré [nuevo hábito].» El 1% diario, repetido, te transforma.'},
+        ],
         sessions:[{title:'Identifica',tag:'Tus hábitos clave'},{title:'Reemplaza',tag:'Uno que te frena'},{title:'Encadena',tag:'No rompas la cadena'},{title:'Microhábito',tag:'Empieza pequeño'},{title:'Revisa',tag:'Tu laboratorio'}],
       },
       en:{
@@ -413,7 +437,15 @@ class Component extends DCLogic {
         quote:'"We are what we repeatedly do."', comeback:'Come back tomorrow to keep the chain alive.',
         toast:'Practice complete · chain', paused:'Paused', glowNote:'The glow shifts with the time', aboutTitle:"About this power", aboutBody:"The lab of your habits. Separate the ones that build you from the ones that hold you back, and swap one each day. Small daily reactions, results that explode over time.", aboutClose:"Got it", unlockTag:"Activate your habits", unlockCta:"Enter", cday:"Days 11–15", cdef:"The lab of your habits. Replace one that holds you back each day.", crule:"Never two days in a row without doing it.",
         breath:['Begin…','Keep the rhythm…','One more step…'],
-        nav:['Today','Habits','Progress'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
+        nav:['Today','Practices','Laws','AI'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
+        pKicker:'Your daily practice', pTitle:'Your 3 practices', pSub:'Complete them to build your habits.', pProgress:'Progress', pMark:'Mark as completed ✓', pDone:'Completed ✓',
+        ideasKicker:'The laws of habit', ideasTitle:'How a habit is formed', ideasSub:'The principles that make a habit stick — or leave.',
+        iaKicker:'AI Diagnosis', iaTitle:'Which habit do you want to change?', iaSub:'Tell me the habit and I’ll tell you how to reprogram it.', iaPlaceholder:'Write the habit you want to change…', iaBtn:'Analyze my habit', iaThinking:'Analyzing…',
+        practices:[
+          {icon:'🔍', num:'Practice 01', title:'Hunt the cue', desc:'Identify what triggers the habit you want to change: time, place, emotion or person.', extra:'A habit always has a trigger. If you can’t see the cue, you can’t change the routine.'},
+          {icon:'🔁', num:'Practice 02', title:'Replace, don’t erase', desc:'Keep the same cue and the same reward, but change the routine in between.', extra:'Don’t try to remove a habit: swap it for a better one that gives the same satisfaction.'},
+          {icon:'⛓️', num:'Practice 03', title:'Chain it to your day', desc:'Attach the new habit to something you already do without fail, so the anchor holds it.', extra:'“After [something I already do], I will [new habit].” The daily 1%, repeated, transforms you.'},
+        ],
         sessions:[{title:'Identify',tag:'Your key habits'},{title:'Replace',tag:'One that holds you back'},{title:'Chain',tag:"Don't break it"},{title:'Micro-habit',tag:'Start small'},{title:'Review',tag:'Your lab'}],
       },
     };
@@ -473,7 +505,8 @@ class Component extends DCLogic {
     const navDef = [
       { key:'home', icon:'◈', label:t.nav[0] },
       { key:'library', icon:'☰', label:t.nav[1] },
-      { key:'progress', icon:'✦', label:t.nav[2] },
+      { key:'ideas', icon:'❖', label:t.nav[2] },
+      { key:'ia', icon:'✶', label:t.nav[3] },
     ];
     const nav = navDef.map(n => {
       const active = st.view === n.key;
@@ -485,6 +518,16 @@ class Component extends DCLogic {
     const pct = st.duration ? Math.min(100, (st.elapsed/st.duration)*100) : 0;
     const breathWords = t.breath;
     const orbDur = ['6s','7s','8s'][st.breathStep];
+
+    const PRINS = [
+      {color:'#3fc7cf', es:{title:'El bucle del hábito', idea:'Todo hábito tiene 3 partes: señal → rutina → recompensa. Tu cerebro lo ejecuta solo para ahorrar energía.', ej:'Identifica las 3 partes de un hábito tuyo antes de intentar cambiarlo.'}, en:{title:'The habit loop', idea:'Every habit has 3 parts: cue → routine → reward. Your brain runs it automatically to save energy.', ej:'Spot the 3 parts of one of your habits before trying to change it.'}},
+      {color:'#4fcdd4', es:{title:'La ley del 1%', idea:'Mejorar 1% cada día no se nota hoy, pero a un año te hace 37 veces mejor. Lo pequeño, repetido, explota.', ej:'Elige una mejora mínima que puedas sostener todos los días sin esfuerzo.'}, en:{title:'The 1% law', idea:'Improving 1% a day isn’t visible today, but over a year it makes you 37x better. Small, repeated, explodes.', ej:'Pick a tiny improvement you can sustain every day effortlessly.'}},
+      {color:'#37b9c2', es:{title:'Házlo obvio', idea:'Un hábito que ves, lo haces. Deja la señal a la vista para el bueno, y esconde la del malo.', ej:'¿Quieres leer más? Deja el libro sobre la almohada. ¿Menos celular? Déjalo en otro cuarto.'}, en:{title:'Make it obvious', idea:'A habit you see, you do. Keep the cue visible for the good one, and hide the cue for the bad one.', ej:'Want to read more? Leave the book on your pillow. Less phone? Leave it in another room.'}},
+      {color:'#2ed0d0', es:{title:'Házlo fácil', idea:'Cuanto menos esfuerzo cuesta empezar, más probable es que lo hagas. Reduce la fricción a casi cero.', ej:'Quieres entrenar: deja la ropa lista la noche anterior. Empieza con 2 minutos.'}, en:{title:'Make it easy', idea:'The less effort it takes to start, the more likely you do it. Cut friction to nearly zero.', ej:'Want to work out: lay your clothes out the night before. Start with 2 minutes.'}},
+      {color:'#52cd86', es:{title:'No rompas la cadena', idea:'Cada día que cumples, sumas un eslabón. Ver la cadena crecer te motiva a no cortarla.', ej:'Marca en un calendario cada día que lo hagas. La regla: nunca dos días seguidos sin hacerlo.'}, en:{title:'Don’t break the chain', idea:'Every day you keep it, you add a link. Watching the chain grow motivates you not to cut it.', ej:'Mark a calendar each day you do it. The rule: never two days in a row without doing it.'}},
+      {color:'#82cd85', es:{title:'Identidad, no metas', idea:'No busques «correr un maratón», busca «ser alguien que corre». El hábito se sostiene cuando es parte de quién eres.', ej:'Cada vez que cumples, dite: «así soy yo». Refuerzas la identidad, no solo la tarea.'}, en:{title:'Identity, not goals', idea:'Don’t aim to “run a marathon,” aim to “be a runner.” A habit sticks when it’s part of who you are.', ej:'Each time you keep it, tell yourself: “this is who I am.” You reinforce identity, not just the task.'}},
+    ];
+    const ideasList = PRINS.map(b => ({ color:b.color, title:b[L].title, author:'', idea:b[L].idea, ej:b[L].ej }));
 
     return {
       muteIcon: st.muted ? '🔇' : '🔊',
@@ -511,7 +554,7 @@ class Component extends DCLogic {
           border: mode===c.key ? '1px solid #4fcdd4' : '1px solid rgba(255,255,255,.14)',
           background: mode===c.key ? 'rgba(50,196,205,.22)' : 'transparent',
           color: mode===c.key ? '#8fe6ea' : '#7f9799' } })),
-      isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress',
+      isHome: st.view==='home', isLibrary: st.view==='library', isIdeas: st.view==='ideas', isIA: st.view==='ia',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
       affirmation: t.aff, aboutOpen: st.aboutOpen, enterApp: () => { if(st.lockOpening) return; this.play('unlock'); this.setState({ lockOpening:true }); setTimeout(()=>{ try{ localStorage.setItem('jiUnlocked_protoneutron','1'); }catch(e){} this.setState({ locked:false, lockOpening:false }); }, 850); }, locked: st.locked, lockOpening: st.lockOpening, lockGlyph: st.lockOpening ? '\uD83D\uDD13' : '\uD83D\uDD12', lockStyle: { fontSize:'62px', lineHeight:1, animation: st.lockOpening ? 'jiLockBurst .85s ease-in forwards' : 'jiLockPop .6s ease-out both' }, ringStyle: { position:'absolute', width:'120px', height:'120px', borderRadius:'50%', border:'2px solid rgba(255,255,255,.35)', animation: st.lockOpening ? 'jiRingPulse .85s ease-out forwards' : 'none', opacity: st.lockOpening ? 1 : 0 }, unlockTag: t.unlockTag, unlockCta: t.unlockCta, aboutTitle: t.aboutTitle, aboutBody: t.aboutBody, aboutClose: t.aboutClose, openAbout: () => { this.play('tap'); this.setState({ aboutOpen:true }); }, closeAbout: () => this.setState({ aboutOpen:false }), challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
       affirmLabel: st.affirmed ? t.owned : t.own,
@@ -521,6 +564,24 @@ class Component extends DCLogic {
       goLibrary: this.go('library'),
       exploreList: sessions.slice(1).map(withPlay),
       library: sessions.map(withPlay),
+      practicesKicker: t.pKicker, practicesTitle: t.pTitle, practicesSub: t.pSub, progressLabel: t.pProgress,
+      practiceCount: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length) + ' / 3',
+      practiceBarStyle: { width: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length/3*100)+'%', height:'100%', borderRadius:'7px', background:'linear-gradient(90deg,#37b9c2,#8fe6ea)', transition:'width .5s ease' },
+      practices: t.practices.map((p,i) => {
+        const done = !!st.doneP[i];
+        return { icon:p.icon, num:p.num, title:p.title, desc:p.desc, extra:p.extra,
+          chipBg: done ? 'rgba(50,196,205,.3)' : 'rgba(50,196,205,.14)',
+          cardStyle: { border:'1px solid '+(done?'rgba(70,205,212,.5)':'rgba(255,255,255,.08)'), borderRadius:'18px', padding:'16px', background: done?'linear-gradient(160deg,rgba(14,70,75,.4),rgba(12,21,19,.6))':'linear-gradient(160deg,#16201f,#0c1413)', transition:'all .3s ease' },
+          btnLabel: done ? t.pDone : t.pMark,
+          btnStyle: { width:'100%', marginTop:'14px', appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'11px', font:'600 12.5px Inter', border:'0', color: done?'#0c1413':'#8fe6ea', background: done?'#8fe6ea':'rgba(50,196,205,.12)', transition:'all .3s ease' },
+          toggle: () => this.togglePractice(i) };
+      }),
+      ideasKicker: t.ideasKicker, ideasTitle: t.ideasTitle, ideasSub: t.ideasSub, ideas: ideasList,
+      iaKicker: t.iaKicker, iaTitle: t.iaTitle, iaSub: t.iaSub, iaPlaceholder: t.iaPlaceholder,
+      iaBtnLabel: st.iaLoading ? t.iaThinking : t.iaBtn,
+      iaInput: st.iaInput, iaResult: st.iaResult, iaLoading: st.iaLoading,
+      onIaInput: (e) => this.setState({ iaInput: e.target.value }),
+      runDiagnosis: () => this.diagnose(),
       week, nav,
       // player
       playerOpen: st.playerOpen,

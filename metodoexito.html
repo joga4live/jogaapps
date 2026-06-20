@@ -138,21 +138,35 @@
       </div>
       </sc-if>
 
-      <!-- ============ LIBRARY ============ -->
+      <!-- ============ LIBRARY · PRÁCTICAS ============ -->
       <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
-        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#42c07e;margin-bottom:4px">Pasley</div>
-        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 22px">{{ focusModesLabel }}</h2>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <sc-for list="{{ library }}" as="s" hint-placeholder-count="5">
-            <button onClick="{{ s.play }}" style="text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:16px;background:linear-gradient(160deg,#101a13,#0b130e);display:flex;align-items:center;gap:15px" style-hover="border-color:rgba(80,210,140,.4)">
-              <div style="flex:0 0 auto;width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:{{ s.chipBg }};font-size:19px">{{ s.icon }}</div>
-              <div style="flex:1;min-width:0">
-                <div style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#F2ECDD">{{ s.title }}</div>
-                <div style="font-size:12px;color:#829987;margin-top:2px">{{ s.tag }} · {{ s.len }} min</div>
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#42c07e;margin-bottom:4px">{{ practicesKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 6px">{{ practicesTitle }}</h2>
+        <p style="font-size:13px;color:#829987;margin:0 0 18px;line-height:1.5">{{ practicesSub }}</p>
+        <!-- progress bar -->
+        <div style="margin-bottom:22px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+            <span style="font:600 10px Inter;letter-spacing:.18em;text-transform:uppercase;color:#9fe6b8">{{ progressLabel }}</span>
+            <span style="font-family:Newsreader,serif;font-weight:600;font-size:15px;color:#F2ECDD">{{ practiceCount }}</span>
+          </div>
+          <div style="height:7px;border-radius:7px;background:rgba(255,255,255,.08);overflow:hidden">
+            <div style="{{ practiceBarStyle }}"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <sc-for list="{{ practices }}" as="p" hint-placeholder-count="3">
+            <div style="{{ p.cardStyle }}">
+              <div style="display:flex;align-items:flex-start;gap:13px">
+                <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:{{ p.chipBg }};font-size:20px">{{ p.icon }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#F2ECDD;line-height:1.2">{{ p.title }}</div>
+                  <div style="font-size:13px;line-height:1.55;color:#bcd3c2;margin-top:6px">{{ p.desc }}</div>
+                  <div style="font-size:12px;line-height:1.5;color:#829987;font-style:italic;margin-top:7px">{{ p.extra }}</div>
+                </div>
               </div>
-              <span style="color:#42c07e;font-size:16px">▶</span>
-            </button>
+              <button onClick="{{ p.toggle }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
+            </div>
           </sc-for>
         </div>
       </div>
@@ -231,6 +245,48 @@
           </div>
           <button onClick="{{ closeAbout }}" style="width:100%;margin-top:20px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#0b0b0c;background:#9fe6b8">{{ aboutClose }}</button>
         </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ LEYES ============ -->
+      <sc-if value="{{ isLaws }}" hint-placeholder-val="{{ false }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#42c07e;margin-bottom:4px">{{ lawsKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 6px">{{ lawsTitle }}</h2>
+        <p style="font-size:13px;color:#829987;margin:0 0 18px;line-height:1.5">{{ lawsSub }}</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ leyes }}" as="law" hint-placeholder-count="7">
+            <div style="border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;background:linear-gradient(160deg,#101a13,#0b130e)">
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:5px">
+                <span style="font-family:Newsreader,serif;font-weight:600;font-size:14px;color:#42c07e">{{ law.num }}</span>
+                <span style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#F2ECDD">{{ law.title }}</span>
+              </div>
+              <div style="font-size:12.5px;color:#9fe6b8;font-style:italic;margin-bottom:7px">{{ law.tagline }}</div>
+              <div style="font-size:12.5px;line-height:1.55;color:#bcd3c2;margin-bottom:10px">{{ law.desc }}</div>
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <sc-for list="{{ law.actions }}" as="ac" hint-placeholder-count="3">
+                  <div style="display:flex;gap:8px;font-size:11.5px;line-height:1.45;color:#829987"><span style="color:#42c07e;flex:0 0 auto">→</span><span>{{ ac }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ DIAGNÓSTICO IA ============ -->
+      <sc-if value="{{ isIA }}" hint-placeholder-val="{{ false }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#42c07e;margin-bottom:4px">{{ iaKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:26px;color:#F2ECDD;margin:0 0 6px">{{ iaTitle }}</h2>
+        <p style="font-size:13px;color:#829987;margin:0 0 16px;line-height:1.5">{{ iaSub }}</p>
+        <textarea value="{{ iaInput }}" onChange="{{ onIaInput }}" placeholder="{{ iaPlaceholder }}" style="width:100%;min-height:120px;resize:vertical;box-sizing:border-box;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;color:#F2ECDD;font:400 13.5px Inter;line-height:1.5;outline:none"></textarea>
+        <button onClick="{{ runDiagnosis }}" style="width:100%;margin-top:12px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#0b130e;background:linear-gradient(135deg,#9fe6b8,#42c07e)">{{ iaBtnLabel }}</button>
+        <sc-if value="{{ iaResult }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:18px;border:1px solid rgba(80,210,140,.3);border-radius:16px;padding:16px;background:rgba(34,90,50,.25)">
+          <div style="font-family:Newsreader,serif;font-weight:400;font-size:14.5px;line-height:1.6;color:#e8f3ec;white-space:pre-wrap">{{ iaResult }}</div>
+        </div>
+        </sc-if>
       </div>
       </sc-if>
 
@@ -333,12 +389,12 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:900}}">
 class Component extends DCLogic {
   state = { aboutOpen:false, locked:true, lockOpening:false, celebrate:false, view:'home', playerOpen:false, playing:false, elapsed:0, duration:420, pTitle:'', pTag:'',
-            streak:4, totalSessions:11, baseMin:96, affirmed:false, showToast:false, breathStep:0 };
+            streak:4, totalSessions:11, baseMin:96, affirmed:false, showToast:false, breathStep:0, doneP:{}, iaInput:'', iaResult:'', iaLoading:false };
 
   componentDidMount(){
     try{ this.muted = localStorage.getItem('jiMute')==='1'; }catch(e){ this.muted=false; }
     let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
-    let locked=true; try{ if(localStorage.getItem('jiUnlocked_pasley')==='1') locked=false; }catch(e){} this.setState({ muted: this.muted, lang, locked });
+    let locked=true; try{ if(localStorage.getItem('jiUnlocked_pasley')==='1') locked=false; }catch(e){} let doneP={}; try{ doneP=JSON.parse(localStorage.getItem('jiPractices_pasley')||'{}')||{}; }catch(e){} this.setState({ muted: this.muted, lang, locked, doneP });
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
       this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.pasley) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
@@ -346,9 +402,11 @@ class Component extends DCLogic {
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
 
-  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); }catch(e){} }
+  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
   toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} this.setState({ muted:this.muted }); }
   toggleLang(){ this.play('tap'); this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
+  togglePractice(i){ this.setState(st => { const d = Object.assign({}, st.doneP); const was = !!d[i]; d[i] = !was; const total = Object.keys(d).filter(k=>d[k]).length; try{ localStorage.setItem('jiPractices_pasley', JSON.stringify(d)); }catch(e){} if(!was){ this.play('boom'); if(total>=3){ this._toast = setTimeout(()=>this.setState({celebrate:false}),3400); return { doneP:d, celebrate:true }; } } else { this.play('tap'); } return { doneP:d }; }); }
+  diagnose(){ const q=(this.state.iaInput||'').trim(); if(!q||this.state.iaLoading) return; this.play('tap'); this.setState({ iaLoading:true, iaResult:'' }); const L=this.state.lang||'es'; const prompt=(L==='es'?'Eres un coach del Método del Éxito (Pasley). Basándote en las 7 leyes (Control, Causa y Efecto, Creencia, Expectativas, Atracción, Correspondencia, Accidente) y en pasos prácticos, analiza esta situación y responde en español, breve y accionable (máx 110 palabras): nombra la LEY clave, el PASO clave y 2 acciones concretas para hoy.\n\nSituación: ':'You are a Success-Method coach (Pasley). Based on the 7 laws (Control, Cause & Effect, Belief, Expectations, Attraction, Correspondence, Accident) and practical steps, analyze this situation and answer in English, brief and actionable (max 110 words): name the key LAW, the key STEP, and 2 concrete actions for today.\n\nSituation: ')+q; if(window.claude && window.claude.complete){ window.claude.complete(prompt).then(r=>this.setState({ iaResult:String(r||'').trim(), iaLoading:false })).catch(()=>this.setState({ iaResult:(L==='es'?'No se pudo completar el análisis. Intenta de nuevo.':'Could not complete the analysis. Try again.'), iaLoading:false })); } else { this.setState({ iaResult:(L==='es'?'El diagnóstico con IA se activa cuando la app está publicada con la conexión de IA encendida. Mientras tanto, revisa la ley y el paso que más resuenen con tu situación.':'AI diagnosis activates when the app is published with the AI connection on. Meanwhile, review the law and step that resonate most with your situation.'), iaLoading:false }); } }
   armLaunchBoom(){ const boom = this._sfx && this._sfx.boom; if(!boom) return; const tryPlay = () => { if(this.muted) return Promise.resolve(); try{ boom.currentTime=0; boom.volume=.5; return boom.play(); }catch(e){ return Promise.reject(e); } }; const p = tryPlay(); if(p && p.catch){ p.catch(() => { const once = () => { tryPlay(); window.removeEventListener('pointerdown', once); }; window.addEventListener('pointerdown', once, { once:true }); }); } }
 
   go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
@@ -401,7 +459,13 @@ class Component extends DCLogic {
         quote:'"Un paso ordenado vale más que mil saltos sin rumbo."', comeback:'Vuelve mañana para dar tu siguiente paso.',
         toast:'Paso completado · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', aboutTitle:"Sobre este poder", aboutBody:"El método del éxito, paso a paso. Alinea cada movimiento con las leyes que de verdad funcionan, no con la suerte. La reina no improvisa: avanza con estrategia.", aboutClose:"Entendido", unlockTag:"Domina el método", unlockCta:"Entrar", cday:"Días 16–20", cdef:"El método del éxito, paso a paso. Avanza con estrategia, no con suerte.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Prepara…','Da el paso…','Afianza…'],
-        nav:['Hoy','Pasos','Progreso'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
+        nav:['Hoy','Pasos','Leyes','IA'], lawsKicker:'Las 7 Leyes', lawsTitle:'Las 7 Leyes', lawsSub:'Los principios que rigen tu éxito — úsalos a tu favor.', iaKicker:'Diagnóstico IA', iaTitle:'¿En qué te ayudo?', iaSub:'Cuéntame tu situación y te digo qué ley y qué paso activar.', iaPlaceholder:'Escribe tu situación…', iaBtn:'Analizar mi situación', iaThinking:'Analizando…', days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
+        pKicker:'Tu camino', pTitle:'Tus 3 prácticas', pSub:'Complétalas para despertar tu poder.', pProgress:'Progreso', pMark:'Marcar como completada ✓', pDone:'Completada ✓',
+        practices:[
+          {icon:'🧭', title:'La estrella del año', desc:'Escribe en una sola frase quién quieres ser al final del año — no qué quieres lograr, sino en quién te quieres convertir.', extra:'Ejemplo: «Quiero ser una persona en paz, con un negocio que me sostiene sin agotarme.»'},
+          {icon:'🪜', title:'El paso siguiente', desc:'Identifica un solo paso pequeño que puedas dar esta semana hacia tu estrella. No el plan completo: solo el siguiente paso visible.', extra:'Regla: que sea tan pequeño que sea imposible no hacerlo. Si parece grande, divídelo más.'},
+          {icon:'🔎', title:'El examen del rumbo', desc:'Cada domingo, responde 2 preguntas: ¿lo que hice esta semana me acercó a mi estrella, o solo me mantuvo ocupado?', extra:'Hay diferencia entre estar ocupado y avanzar. Esta práctica te obliga a verla.'},
+        ],
         sessions:[{title:'Claridad',tag:'Define tu meta'},{title:'Plan',tag:'Traza el camino'},{title:'Acción',tag:'Da el primer paso'},{title:'Ajuste',tag:'Corrige el rumbo'},{title:'Cima',tag:'Celebra el logro'}],
       },
       en:{
@@ -413,7 +477,13 @@ class Component extends DCLogic {
         quote:'"One ordered step beats a thousand aimless leaps."', comeback:'Come back tomorrow to take your next step.',
         toast:'Step complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', aboutTitle:"About this power", aboutBody:"The method of success, step by step. Align every move with the laws that truly work, not with luck. The queen doesn’t improvise: she advances with strategy.", aboutClose:"Got it", unlockTag:"Master the method", unlockCta:"Enter", cday:"Days 16–20", cdef:"The method of success, step by step. Advance with strategy, not luck.", crule:"Never two days in a row without doing it.",
         breath:['Prepare…','Take the step…','Lock it in…'],
-        nav:['Today','Steps','Progress'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
+        nav:['Today','Steps','Laws','AI'], lawsKicker:'The 7 Laws', lawsTitle:'The 7 Laws', lawsSub:'The principles that govern your success — use them in your favor.', iaKicker:'AI Diagnosis', iaTitle:'How can I help?', iaSub:'Tell me your situation and I’ll tell you which law and step to activate.', iaPlaceholder:'Write your situation…', iaBtn:'Analyze my situation', iaThinking:'Analyzing…', days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
+        pKicker:'Your path', pTitle:'Your 3 practices', pSub:'Complete them to awaken your power.', pProgress:'Progress', pMark:'Mark as completed ✓', pDone:'Completed ✓',
+        practices:[
+          {icon:'🧭', title:'The star of the year', desc:'Write in a single sentence who you want to be by the end of the year — not what you want to achieve, but who you want to become.', extra:'Example: “I want to be someone at peace, with a business that supports me without burning me out.”'},
+          {icon:'🪜', title:'The next step', desc:'Identify one small step you can take this week toward your star. Not the whole plan: just the next visible step.', extra:'Rule: make it so small it’s impossible not to do. If it looks big, break it down more.'},
+          {icon:'🔎', title:'The course check', desc:'Every Sunday, answer 2 questions: did what I did this week bring me closer to my star, or did it just keep me busy?', extra:'There’s a difference between being busy and moving forward. This practice forces you to see it.'},
+        ],
         sessions:[{title:'Clarity',tag:'Define your goal'},{title:'Plan',tag:'Map the path'},{title:'Action',tag:'First step'},{title:'Adjust',tag:'Correct course'},{title:'Summit',tag:'Celebrate the win'}],
       },
     };
@@ -473,7 +543,8 @@ class Component extends DCLogic {
     const navDef = [
       { key:'home', icon:'◈', label:t.nav[0] },
       { key:'library', icon:'☰', label:t.nav[1] },
-      { key:'progress', icon:'✦', label:t.nav[2] },
+      { key:'laws', icon:'❖', label:t.nav[2] },
+      { key:'ia', icon:'✶', label:t.nav[3] },
     ];
     const nav = navDef.map(n => {
       const active = st.view === n.key;
@@ -485,6 +556,25 @@ class Component extends DCLogic {
     const pct = st.duration ? Math.min(100, (st.elapsed/st.duration)*100) : 0;
     const breathWords = t.breath;
     const orbDur = ['6s','7s','8s'][st.breathStep];
+
+    const LEYES = { es:[
+      {num:'01',title:'Ley del Control',tagline:'Te sientes bien cuando llevas las riendas de tu vida.',desc:'Te sientes bien contigo mismo cuando sientes que llevas las riendas de tu vida, y mal cuando sientes que no. Todo arranca en tus pensamientos: ellos marcan lo que sientes, y eso marca lo que haces.',actions:['Toma una decisión consciente sobre algo que sentías fuera de control.','Enófocate solo en lo que sí puedes influir hoy.','Reemplaza un pensamiento negativo por uno útil.']},
+      {num:'02',title:'Ley de Causa y Efecto',tagline:'Todo efecto tiene una causa; nada es azar.',desc:'La llaman «la ley de hierro del universo»: nada pasa por casualidad. Tus pensamientos son las causas y tu realidad es el efecto. ¿Quieres cierto resultado? Repite lo que lo provoca.',actions:['Identifica un resultado que deseas y rastrea su causa.','Repite hoy una «causa» que ya te dio buenos efectos.','Elimina una causa que produce un efecto no deseado.']},
+      {num:'03',title:'Ley de la Creencia',tagline:'Lo que crees con fuerza se vuelve tu realidad.',desc:'Lo que crees sobre ti te empuja al éxito o al fracaso. Muchos límites solo viven en tu cabeza; si actúas como si no existieran, se caen.',actions:['Escribe una creencia limitante y reescríbela en positivo.','Actúa hoy como si tu meta ya fuera posible.','Afirma con convicción aquello que quieres alcanzar.']},
+      {num:'04',title:'Ley de las Expectativas',tagline:'No consigues lo que quieres, sino lo que esperas.',desc:'Sueles recibir no lo que quieres, sino lo que esperas con confianza: tus expectativas se cumplen solas. Rara vez llegas más alto de lo que esperas de ti; espera siempre lo mejor.',actions:['Empieza el día: «Algo maravilloso me va a pasar hoy».','Eleva la expectativa que tienes de ti mismo.','Espera lo mejor de una situación incierta.']},
+      {num:'05',title:'Ley de la Atracción',tagline:'Eres un imán viviente: atraes lo que piensas.',desc:'Atraes a tu vida personas y situaciones en sintonía con tus pensamientos más frecuentes. Lo que más piensas, eso atraes; cuida bien en qué enfocas tu mente.',actions:['Define el pensamiento dominante que quieres irradiar.','Rodéate de aquello con lo que quieres sintonizar.','Mantén una vibración positiva ante un reto de hoy.']},
+      {num:'06',title:'Ley de la Correspondencia',tagline:'Tu mundo exterior refleja tu mundo interior.',desc:'«Como es adentro, es afuera.» Lo que vives por fuera refleja tus pensamientos, creencias y expectativas. Para cambiar lo de afuera, empieza por cambiar lo de adentro.',actions:['Pregúntate: ¿qué refleja mi exterior sobre mi interior?','Cambia una actitud interna antes de exigir un cambio externo.','Cuida hoy tus pensamientos y tu autoimagen.']},
+      {num:'07',title:'Ley del Accidente',tagline:'Quien no planea su vida queda a merced del azar.',desc:'Es la ley «por descuido»: no planear es planear fallar. Quien no decide su vida a propósito termina a merced de la suerte. La salida es elegir tú mismo tus causas.',actions:['Escribe un plan concreto para algo que dejabas al azar.','Sustituye un «ya veremos» por una decisión.','Define el siguiente paso para no vivir «por accidente».']}
+    ], en:[
+      {num:'01',title:'The Law of Control',tagline:'You feel good to the degree you control your life.',desc:'You feel positive about yourself to the degree you feel in control of your own life. It all starts in your thoughts: they determine your feelings, and those, your actions.',actions:['Make a conscious decision about something that felt out of control.','Focus only on what you can actually influence today.','Replace a negative thought with a useful one.']},
+      {num:'02',title:'The Law of Cause and Effect',tagline:'Every effect has a cause; nothing is chance.',desc:'Called the iron law of the universe: everything happens for a reason. Your thoughts are causes and your conditions are effects. Want a result? Repeat its causes.',actions:['Identify a result you want and trace its cause.','Repeat a cause that already gave you good effects today.','Remove a cause that produces an unwanted effect.']},
+      {num:'03',title:'The Law of Belief',tagline:'What you believe strongly becomes your reality.',desc:'Your beliefs propel you toward success or failure. Many limitations exist only in your mind; act as if they didn’t exist and they disappear.',actions:['Write a limiting belief and rewrite it in the positive.','Act today as if your goal were already possible.','Affirm with conviction what you want to achieve.']},
+      {num:'04',title:'The Law of Expectations',tagline:'You don’t get what you want, but what you expect.',desc:'What you expect with confidence tends to become a self-fulfilling prophecy. You never rise above your own expectations, so always expect the best of yourself.',actions:['Start the day: “Something wonderful is going to happen today”.','Raise the expectation you hold of yourself.','Expect the best from an uncertain situation.']},
+      {num:'05',title:'The Law of Attraction',tagline:'You’re a living magnet: you attract what you think.',desc:'You attract people and circumstances in harmony with your dominant thoughts. Your thoughts are energy; cultivate those that resonate with what you want.',actions:['Define the dominant thought you want to radiate.','Surround yourself with what you want to tune into.','Keep a positive vibration facing a challenge today.']},
+      {num:'06',title:'The Law of Correspondence',tagline:'Your outer world reflects your inner world.',desc:'As within, so without. Your outer life corresponds to your inner thoughts, beliefs, and expectations. To change the outside, transform the inside first.',actions:['Ask: what does my outer world reflect about my inner one?','Change an inner attitude before demanding an outer change.','Tend to your thoughts and self-image today.']},
+      {num:'07',title:'The Law of Accident',tagline:'Those who don’t plan their life are left to chance.',desc:'The default, negative law: failing to plan is planning to fail. Those who don’t design their life are subject to chance. The alternative is to choose your own causes.',actions:['Write a concrete plan for something you left to chance.','Replace a “we’ll see” with a decision.','Define the next step so you don’t live by accident.']}
+    ] };
+    const leyesList = (LEYES[L]||LEYES.es);
 
     return {
       muteIcon: st.muted ? '🔇' : '🔊',
@@ -511,7 +601,7 @@ class Component extends DCLogic {
           border: mode===c.key ? '1px solid #52cd86' : '1px solid rgba(255,255,255,.14)',
           background: mode===c.key ? 'rgba(60,200,120,.22)' : 'transparent',
           color: mode===c.key ? '#9fe6b8' : '#7f9785' } })),
-      isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress',
+      isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress', isLaws: st.view==='laws', isIA: st.view==='ia',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
       affirmation: t.aff, aboutOpen: st.aboutOpen, enterApp: () => { if(st.lockOpening) return; this.play('unlock'); this.setState({ lockOpening:true }); setTimeout(()=>{ try{ localStorage.setItem('jiUnlocked_pasley','1'); }catch(e){} this.setState({ locked:false, lockOpening:false }); }, 850); }, locked: st.locked, lockOpening: st.lockOpening, lockGlyph: st.lockOpening ? '\uD83D\uDD13' : '\uD83D\uDD12', lockStyle: { fontSize:'62px', lineHeight:1, animation: st.lockOpening ? 'jiLockBurst .85s ease-in forwards' : 'jiLockPop .6s ease-out both' }, ringStyle: { position:'absolute', width:'120px', height:'120px', borderRadius:'50%', border:'2px solid rgba(255,255,255,.35)', animation: st.lockOpening ? 'jiRingPulse .85s ease-out forwards' : 'none', opacity: st.lockOpening ? 1 : 0 }, unlockTag: t.unlockTag, unlockCta: t.unlockCta, aboutTitle: t.aboutTitle, aboutBody: t.aboutBody, aboutClose: t.aboutClose, openAbout: () => { this.play('tap'); this.setState({ aboutOpen:true }); }, closeAbout: () => this.setState({ aboutOpen:false }), challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
       affirmLabel: st.affirmed ? t.owned : t.own,
@@ -521,6 +611,24 @@ class Component extends DCLogic {
       goLibrary: this.go('library'),
       exploreList: sessions.slice(1).map(withPlay),
       library: sessions.map(withPlay),
+      practicesKicker: t.pKicker, practicesTitle: t.pTitle, practicesSub: t.pSub, progressLabel: t.pProgress,
+      practiceCount: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length) + ' / 3',
+      practiceBarStyle: { width: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length/3*100)+'%', height:'100%', borderRadius:'7px', background:'linear-gradient(90deg,#34b06f,#9fe6b8)', transition:'width .5s ease' },
+      practices: t.practices.map((p,i) => {
+        const done = !!st.doneP[i];
+        return { icon:p.icon, title:p.title, desc:p.desc, extra:p.extra,
+          chipBg: done ? 'rgba(60,200,120,.3)' : 'rgba(60,200,120,.14)',
+          cardStyle: { border:'1px solid '+(done?'rgba(80,210,140,.5)':'rgba(255,255,255,.08)'), borderRadius:'18px', padding:'16px', background: done?'linear-gradient(160deg,rgba(34,90,50,.4),rgba(11,19,14,.6))':'linear-gradient(160deg,#101a13,#0b130e)', transition:'all .3s ease' },
+          btnLabel: done ? t.pDone : t.pMark,
+          btnStyle: { width:'100%', marginTop:'14px', appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'11px', font:'600 12.5px Inter', border:'0', color: done?'#0b130e':'#9fe6b8', background: done?'#9fe6b8':'rgba(60,200,120,.12)', transition:'all .3s ease' },
+          toggle: () => this.togglePractice(i) };
+      }),
+      lawsKicker: t.lawsKicker, lawsTitle: t.lawsTitle, lawsSub: t.lawsSub, leyes: leyesList,
+      iaKicker: t.iaKicker, iaTitle: t.iaTitle, iaSub: t.iaSub, iaPlaceholder: t.iaPlaceholder,
+      iaBtnLabel: st.iaLoading ? t.iaThinking : t.iaBtn,
+      iaInput: st.iaInput, iaResult: st.iaResult, iaLoading: st.iaLoading,
+      onIaInput: (e) => this.setState({ iaInput: e.target.value }),
+      runDiagnosis: () => this.diagnose(),
       week, nav,
       // player
       playerOpen: st.playerOpen,
