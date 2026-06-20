@@ -73,6 +73,17 @@
           </div>
         </div>
 
+
+        <!-- challenge strip -->
+        <div style="display:flex;align-items:center;gap:13px;background:rgba(231,196,106,.07);border:1px solid rgba(231,196,106,.22);border-radius:18px;padding:14px 16px;margin-bottom:18px">
+          <div style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(231,196,106,.13);font-size:18px">⛓️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#E7C46A;margin-bottom:3px">{{ challengeDays }}</div>
+            <div style="font-size:11.5px;line-height:1.45;color:#cfc6b4">{{ challengeDef }}</div>
+            <div style="font-size:10.5px;color:#8a8276;margin-top:5px;font-style:italic">⛓ {{ chainRule }}</div>
+          </div>
+        </div>
+
         <!-- affirmation hero -->
         <div style="position:relative;border-radius:26px;overflow:hidden;padding:30px 24px 26px;margin-bottom:22px;background:linear-gradient(165deg,rgba(180,158,60,.34),rgba(40,36,14,.5));border:1px solid rgba(205,188,90,.32);box-shadow:0 24px 50px -28px rgba(150,128,40,.6)">
           <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#e6d792;margin-bottom:14px">{{ intentionLabel }}</div>
@@ -269,7 +280,7 @@ class Component extends DCLogic {
     this.setState({ muted: this.muted, lang });
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
-      this._sfx = { tap:mk(m.SFX.tap), boom:mk(m.SFX.boom) }; this.armLaunchBoom();
+      this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.monexium) || m.SFX.boom) }; this.armLaunchBoom();
     }).catch(()=>{});
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
@@ -321,24 +332,24 @@ class Component extends DCLogic {
     const D = {
       es:{
         g:{day:'Buenos días',afternoon:'Buenas tardes',night:'Buenas noches'},
-        intention:'Tu movimiento de hoy', aff:'El dinero fluye hacia donde pongo mi atención.', own:'Hecho', owned:'✓ Registrado',
+        intention:'Tu movimiento de hoy', aff:'Dirijo mi prosperidad con cabeza y calma.', own:'Hecho', owned:'✓ Registrado',
         focusLabel:'Tu práctica de hoy', ritualT:'Revisa tus números · 3 min', ritualS:'Registra cada movimiento del día',
         explore:'Explora', seeAll:'Ver todo', focusModes:'Prácticas', consistency:'Tu constancia',
         currentStreak:'Racha actual', streakUnit:'días cuidando tu dinero', minLabel:'movimientos registrados', blocksLabel:'metas alcanzadas',
         quote:'"La riqueza nace de muchas pequeñas decisiones bien tomadas."', comeback:'Vuelve mañana para cuidar tu dinero.',
-        toast:'Registrado · racha', paused:'En pausa', glowNote:'El glow cambia con la hora',
+        toast:'Registrado · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', cday:"Días 21–25", cdef:"Tu dinero, dirigido con cabeza fría. Control, no suerte.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Observa…','Decide…','Registra…'],
         nav:['Hoy','Prácticas','Progreso'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
         sessions:[{title:'Presupuesto',tag:'Ordena tu mes'},{title:'Ahorro',tag:'Págate primero'},{title:'Gasto consciente',tag:'Antes de comprar'},{title:'Deuda',tag:'Recorta el lastre'},{title:'Inversión',tag:'Haz crecer'}],
       },
       en:{
         g:{day:'Good morning',afternoon:'Good afternoon',night:'Good evening'},
-        intention:'Your move today', aff:'Money flows toward where I place my attention.', own:'Done', owned:'✓ Logged',
+        intention:'Your move today', aff:'I steer my prosperity with a clear, calm head.', own:'Done', owned:'✓ Logged',
         focusLabel:'Your practice today', ritualT:'Review your numbers · 3 min', ritualS:'Log every move of the day',
         explore:'Explore', seeAll:'See all', focusModes:'Practices', consistency:'Your consistency',
         currentStreak:'Current streak', streakUnit:'days minding your money', minLabel:'moves logged', blocksLabel:'goals reached',
         quote:'"Wealth is born of many small, well-made decisions."', comeback:'Come back tomorrow to mind your money.',
-        toast:'Logged · streak', paused:'Paused', glowNote:'The glow shifts with the time',
+        toast:'Logged · streak', paused:'Paused', glowNote:'The glow shifts with the time', cday:"Days 21–25", cdef:"Your money, steered with a cool head. Control, not luck.", crule:"Never two days in a row without doing it.",
         breath:['Observe…','Decide…','Log it…'],
         nav:['Today','Practices','Progress'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
         sessions:[{title:'Budget',tag:'Order your month'},{title:'Saving',tag:'Pay yourself first'},{title:'Mindful spending',tag:'Before you buy'},{title:'Debt',tag:'Cut the weight'},{title:'Investing',tag:'Make it grow'}],
@@ -440,7 +451,7 @@ class Component extends DCLogic {
           color: mode===c.key ? '#e3d488' : '#979079' } })),
       isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
-      affirmation: t.aff,
+      affirmation: t.aff, challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
       affirmLabel: st.affirmed ? t.owned : t.own,
       affirm: () => this.affirm(),
       featured: sessions[0],

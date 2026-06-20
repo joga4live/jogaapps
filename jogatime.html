@@ -73,6 +73,17 @@
           </div>
         </div>
 
+
+        <!-- challenge strip -->
+        <div style="display:flex;align-items:center;gap:13px;background:rgba(231,196,106,.07);border:1px solid rgba(231,196,106,.22);border-radius:18px;padding:14px 16px;margin-bottom:18px">
+          <div style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(231,196,106,.13);font-size:18px">⛓️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#E7C46A;margin-bottom:3px">{{ challengeDays }}</div>
+            <div style="font-size:11.5px;line-height:1.45;color:#cfc6b4">{{ challengeDef }}</div>
+            <div style="font-size:10.5px;color:#8a8276;margin-top:5px;font-style:italic">⛓ {{ chainRule }}</div>
+          </div>
+        </div>
+
         <!-- affirmation hero -->
         <div style="position:relative;border-radius:26px;overflow:hidden;padding:30px 24px 26px;margin-bottom:22px;background:linear-gradient(165deg,rgba(220,150,50,.34),rgba(54,40,16,.5));border:1px solid rgba(231,170,80,.32);box-shadow:0 24px 50px -28px rgba(200,130,40,.6)">
           <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#f0c88e;margin-bottom:14px">{{ intentionLabel }}</div>
@@ -269,7 +280,7 @@ class Component extends DCLogic {
     this.setState({ muted: this.muted, lang });
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
-      this._sfx = { tap:mk(m.SFX.tap), boom:mk(m.SFX.boom) }; this.armLaunchBoom();
+      this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.jogatime) || m.SFX.boom) }; this.armLaunchBoom();
     }).catch(()=>{});
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
@@ -321,27 +332,27 @@ class Component extends DCLogic {
     const D = {
       es:{
         g:{day:'Buenos días',afternoon:'Buenas tardes',night:'Buenas noches'},
-        intention:'Tu intención de hoy', aff:'Hoy dirijo mis horas, no las persigo.', own:'Lo asumo', owned:'✓ Lo asumí',
+        intention:'Tu intención de hoy', aff:'Soy dueño de mis horas y mi enfoque.', own:'Lo asumo', owned:'✓ Lo asumí',
         focusLabel:'Tu bloque de enfoque', ritualT:'Calienta · 2 min de respiración', ritualS:'Aclara la mente antes de enfocarte',
         explore:'Explora', seeAll:'Ver todo', focusModes:'Enfoques', consistency:'Tu constancia',
         currentStreak:'Racha actual', streakUnit:'días dueño de tu tiempo', minLabel:'minutos enfocado', blocksLabel:'bloques completados',
         quote:'"El tiempo que diriges es el único que de verdad vives."', comeback:'Vuelve mañana para no romper tu racha.',
-        toast:'Sesión completada · racha', paused:'En pausa', glowNote:'El glow cambia con la hora',
+        toast:'Sesión completada · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', cday:"Días 6–10", cdef:"Tu tiempo es tu reino. Bloquea tus horas y protege tu foco.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Concéntrate…','Sostén el foco…','Respira hondo…'],
         nav:['Hoy','Enfoques','Progreso'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
-        sessions:[{title:'Sprint',tag:'Enfoque corto'},{title:'Trabajo profundo',tag:'Deep work'},{title:'Flujo',tag:'Sesión larga'},{title:'Reinicio',tag:'Pausa activa'},{title:'Lectura',tag:'Concentración'}],
+        sessions:[{title:'Bloquea',tag:'Reserva tus horas'},{title:'Trabajo profundo',tag:'Protege tu foco'},{title:'Flujo',tag:'Una sola tarea'},{title:'Reinicio',tag:'Pausa que recarga'},{title:'Cierre del día',tag:'Revisa y planea'}],
       },
       en:{
         g:{day:'Good morning',afternoon:'Good afternoon',night:'Good evening'},
-        intention:'Your intention today', aff:'Today I lead my hours — I don\'t chase them.', own:'I own it', owned:'✓ Owned it',
+        intention:'Your intention today', aff:'I own my hours and my focus.', own:'I own it', owned:'✓ Owned it',
         focusLabel:'Your focus block', ritualT:'Warm up · 2 min breathing', ritualS:'Clear your mind before you focus',
         explore:'Explore', seeAll:'See all', focusModes:'Focus modes', consistency:'Your consistency',
         currentStreak:'Current streak', streakUnit:'days owning your time', minLabel:'minutes focused', blocksLabel:'blocks completed',
         quote:'"The time you steer is the only time you truly live."', comeback:'Come back tomorrow to keep your streak alive.',
-        toast:'Session complete · streak', paused:'Paused', glowNote:'The glow shifts with the time',
+        toast:'Session complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', cday:"Days 6–10", cdef:"Your time is your kingdom. Block your hours and guard your focus.", crule:"Never two days in a row without doing it.",
         breath:['Focus…','Hold the focus…','Breathe deep…'],
         nav:['Today','Focus','Progress'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
-        sessions:[{title:'Sprint',tag:'Short focus'},{title:'Deep work',tag:'Deep work'},{title:'Flow',tag:'Long session'},{title:'Reset',tag:'Active break'},{title:'Reading',tag:'Concentration'}],
+        sessions:[{title:'Block',tag:'Reserve your hours'},{title:'Deep work',tag:'Guard your focus'},{title:'Flow',tag:'One task only'},{title:'Reset',tag:'A break that recharges'},{title:'Day close',tag:'Review and plan'}],
       },
     };
     const t = D[L];
@@ -440,7 +451,7 @@ class Component extends DCLogic {
           color: mode===c.key ? '#f3cf86' : '#9a8d72' } })),
       isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
-      affirmation: t.aff,
+      affirmation: t.aff, challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
       affirmLabel: st.affirmed ? t.owned : t.own,
       affirm: () => this.affirm(),
       featured: sessions[0],

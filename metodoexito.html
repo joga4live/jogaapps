@@ -73,6 +73,17 @@
           </div>
         </div>
 
+
+        <!-- challenge strip -->
+        <div style="display:flex;align-items:center;gap:13px;background:rgba(231,196,106,.07);border:1px solid rgba(231,196,106,.22);border-radius:18px;padding:14px 16px;margin-bottom:18px">
+          <div style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(231,196,106,.13);font-size:18px">⛓️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#E7C46A;margin-bottom:3px">{{ challengeDays }}</div>
+            <div style="font-size:11.5px;line-height:1.45;color:#cfc6b4">{{ challengeDef }}</div>
+            <div style="font-size:10.5px;color:#8a8276;margin-top:5px;font-style:italic">⛓ {{ chainRule }}</div>
+          </div>
+        </div>
+
         <!-- affirmation hero -->
         <div style="position:relative;border-radius:26px;overflow:hidden;padding:30px 24px 26px;margin-bottom:22px;background:linear-gradient(165deg,rgba(55,180,110,.34),rgba(16,42,28,.5));border:1px solid rgba(80,210,140,.32);box-shadow:0 24px 50px -28px rgba(30,150,90,.6)">
           <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#a8e6c2;margin-bottom:14px">{{ intentionLabel }}</div>
@@ -269,7 +280,7 @@ class Component extends DCLogic {
     this.setState({ muted: this.muted, lang });
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
-      this._sfx = { tap:mk(m.SFX.tap), boom:mk(m.SFX.boom) }; this.armLaunchBoom();
+      this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.pasley) || m.SFX.boom) }; this.armLaunchBoom();
     }).catch(()=>{});
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
@@ -321,24 +332,24 @@ class Component extends DCLogic {
     const D = {
       es:{
         g:{day:'Buenos días',afternoon:'Buenas tardes',night:'Buenas noches'},
-        intention:'Tu paso de hoy', aff:'Cada paso, en orden, me acerca a la cima.', own:'Avanzo', owned:'✓ Paso dado',
+        intention:'Tu paso de hoy', aff:'Crezco un peldaño cada día.', own:'Avanzo', owned:'✓ Paso dado',
         focusLabel:'Tu práctica del método', ritualT:'Revisa tu plan · un paso a la vez', ritualS:'Marca el paso cuando lo completes',
         explore:'Explora', seeAll:'Ver todo', focusModes:'Pasos', consistency:'Tu constancia',
         currentStreak:'Racha actual', streakUnit:'días avanzando sin parar', minLabel:'pasos dados', blocksLabel:'etapas completadas',
         quote:'"Un paso ordenado vale más que mil saltos sin rumbo."', comeback:'Vuelve mañana para dar tu siguiente paso.',
-        toast:'Paso completado · racha', paused:'En pausa', glowNote:'El glow cambia con la hora',
+        toast:'Paso completado · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', cday:"Días 16–20", cdef:"El método del éxito, paso a paso. Avanza con estrategia, no con suerte.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Prepara…','Da el paso…','Afianza…'],
         nav:['Hoy','Pasos','Progreso'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
         sessions:[{title:'Claridad',tag:'Define tu meta'},{title:'Plan',tag:'Traza el camino'},{title:'Acción',tag:'Da el primer paso'},{title:'Ajuste',tag:'Corrige el rumbo'},{title:'Cima',tag:'Celebra el logro'}],
       },
       en:{
         g:{day:'Good morning',afternoon:'Good afternoon',night:'Good evening'},
-        intention:'Your step today', aff:'Each step, in order, brings me closer to the top.', own:'Advance', owned:'✓ Step taken',
+        intention:'Your step today', aff:'I grow one step every day.', own:'Advance', owned:'✓ Step taken',
         focusLabel:'Your method practice', ritualT:'Review your plan · one step at a time', ritualS:'Check the step when you complete it',
         explore:'Explore', seeAll:'See all', focusModes:'Steps', consistency:'Your consistency',
         currentStreak:'Current streak', streakUnit:'days advancing nonstop', minLabel:'steps taken', blocksLabel:'stages completed',
         quote:'"One ordered step beats a thousand aimless leaps."', comeback:'Come back tomorrow to take your next step.',
-        toast:'Step complete · streak', paused:'Paused', glowNote:'The glow shifts with the time',
+        toast:'Step complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', cday:"Days 16–20", cdef:"The method of success, step by step. Advance with strategy, not luck.", crule:"Never two days in a row without doing it.",
         breath:['Prepare…','Take the step…','Lock it in…'],
         nav:['Today','Steps','Progress'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
         sessions:[{title:'Clarity',tag:'Define your goal'},{title:'Plan',tag:'Map the path'},{title:'Action',tag:'First step'},{title:'Adjust',tag:'Correct course'},{title:'Summit',tag:'Celebrate the win'}],
@@ -440,7 +451,7 @@ class Component extends DCLogic {
           color: mode===c.key ? '#9fe6b8' : '#7f9785' } })),
       isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
-      affirmation: t.aff,
+      affirmation: t.aff, challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
       affirmLabel: st.affirmed ? t.owned : t.own,
       affirm: () => this.affirm(),
       featured: sessions[0],

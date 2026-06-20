@@ -73,6 +73,17 @@
           </div>
         </div>
 
+
+        <!-- challenge strip -->
+        <div style="display:flex;align-items:center;gap:13px;background:rgba(231,196,106,.07);border:1px solid rgba(231,196,106,.22);border-radius:18px;padding:14px 16px;margin-bottom:18px">
+          <div style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(231,196,106,.13);font-size:18px">⛓️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#E7C46A;margin-bottom:3px">{{ challengeDays }}</div>
+            <div style="font-size:11.5px;line-height:1.45;color:#cfc6b4">{{ challengeDef }}</div>
+            <div style="font-size:10.5px;color:#8a8276;margin-top:5px;font-style:italic">⛓ {{ chainRule }}</div>
+          </div>
+        </div>
+
         <!-- affirmation hero -->
         <div style="position:relative;border-radius:26px;overflow:hidden;padding:30px 24px 26px;margin-bottom:22px;background:linear-gradient(165deg,rgba(120,88,220,.34),rgba(40,30,66,.5));border:1px solid rgba(160,120,250,.32);box-shadow:0 24px 50px -28px rgba(120,80,230,.7)">
           <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c3aef9;margin-bottom:14px">{{ intentionLabel }}</div>
@@ -269,7 +280,7 @@ class Component extends DCLogic {
     this.setState({ muted: this.muted, lang });
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
-      this._sfx = { tap:mk(m.SFX.tap), boom:mk(m.SFX.boom) }; this.armLaunchBoom();
+      this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.subment) || m.SFX.boom) }; this.armLaunchBoom();
     }).catch(()=>{});
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
@@ -326,7 +337,7 @@ class Component extends DCLogic {
         explore:'Explora', seeAll:'Ver todo', focusModes:'Sesiones', consistency:'Tu constancia',
         currentStreak:'Racha actual', streakUnit:'días despertando tu poder', minLabel:'minutos en silencio', blocksLabel:'sesiones completadas',
         quote:'"Lo que repites en silencio se vuelve tu realidad."', comeback:'Vuelve mañana para no romper tu racha.',
-        toast:'Sesión completada · racha', paused:'En pausa', glowNote:'El glow cambia con la hora',
+        toast:'Sesión completada · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', cday:"Días 1–5 · Empieza aquí", cdef:"Reprograma tu subconsciente. Aquí construyes el músculo de aparecer.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Inhala…','Sostén…','Suelta…'],
         nav:['Hoy','Sesiones','Progreso'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
         sessions:[{title:'Raíz',tag:'Reprogramación'},{title:'Umbral del sueño',tag:'Antes de dormir'},{title:'Soltar el miedo',tag:'Liberación'},{title:'Yo soy',tag:'Identidad'},{title:'Aguas profundas',tag:'Inmersión'}],
@@ -338,7 +349,7 @@ class Component extends DCLogic {
         explore:'Explore', seeAll:'See all', focusModes:'Sessions', consistency:'Your consistency',
         currentStreak:'Current streak', streakUnit:'days awakening your power', minLabel:'minutes in silence', blocksLabel:'sessions completed',
         quote:'"What you repeat in silence becomes your reality."', comeback:'Come back tomorrow to keep your streak alive.',
-        toast:'Session complete · streak', paused:'Paused', glowNote:'The glow shifts with the time',
+        toast:'Session complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', cday:"Days 1–5 · Start here", cdef:"Reprogram your subconscious. Here you build the muscle of showing up.", crule:"Never two days in a row without doing it.",
         breath:['Inhale…','Hold…','Release…'],
         nav:['Today','Sessions','Progress'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
         sessions:[{title:'Root',tag:'Reprogramming'},{title:'Sleep threshold',tag:'Before sleep'},{title:'Release fear',tag:'Letting go'},{title:'I am',tag:'Identity'},{title:'Deep waters',tag:'Immersion'}],
@@ -440,7 +451,7 @@ class Component extends DCLogic {
           color: mode===c.key ? '#cdb6ff' : '#8a82a0' } })),
       isHome: st.view==='home', isLibrary: st.view==='library', isProgress: st.view==='progress',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
-      affirmation: t.aff,
+      affirmation: t.aff, challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
       affirmLabel: st.affirmed ? t.owned : t.own,
       affirm: () => this.affirm(),
       featured: sessions[0],
