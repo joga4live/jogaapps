@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{background:#0b0a0f;font-family:Inter,system-ui,sans-serif}
+    @keyframes jcGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+    .jc-scroll::-webkit-scrollbar{width:0}
+  </style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(130% 75% at 50% -8%,#1c1830,#0b0a0f 68%);color:#F2ECDD">
+
+  <!-- top bar -->
+  <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:linear-gradient(to bottom,rgba(11,10,15,.92),rgba(11,10,15,0));backdrop-filter:blur(8px)">
+    <div style="width:24px"></div>
+    <button onClick="{{ toggleLang }}" style="appearance:none;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);cursor:pointer;height:34px;padding:0 14px;border-radius:999px;font:600 11px Inter;letter-spacing:.05em;color:#E7C46A">{{ langLabel }}</button>
+  </div>
+
+  <div style="max-width:680px;margin:0 auto;padding:26px 22px 70px">
+
+    <!-- hero -->
+    <div style="text-align:center;margin-bottom:34px">
+      <img src="joga-challenge-logo.png" alt="Joga Intelligence Challenge" style="width:min(86%,420px);height:auto;margin:6px auto 20px;display:block;filter:drop-shadow(0 12px 34px rgba(231,196,106,.22))" />
+      <p style="font-size:15px;line-height:1.65;color:#a8a2b8;max-width:42ch;margin:0 auto 24px">{{ intro }}</p>
+      <!-- stat pills -->
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 20px;min-width:92px">
+            <div style="font-family:Newsreader,serif;font-weight:600;font-size:26px;color:#E7C46A">{{ s.n }}</div>
+            <div style="font:600 9px Inter;letter-spacing:.14em;text-transform:uppercase;color:#8a8276;margin-top:2px">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- chain rule banner -->
+    <div style="display:flex;align-items:center;gap:14px;background:linear-gradient(120deg,rgba(231,196,106,.1),rgba(231,196,106,.03));border:1px solid rgba(231,196,106,.26);border-radius:18px;padding:16px 18px;margin-bottom:34px">
+      <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:rgba(231,196,106,.14);font-size:20px">⛓️</div>
+      <div>
+        <div style="font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#F2ECDD">{{ ruleTitle }}</div>
+        <div style="font-size:12.5px;color:#a8a2b8;margin-top:1px">{{ ruleSub }}</div>
+      </div>
+    </div>
+
+    <!-- section label -->
+    <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#8a8276;margin:0 2px 16px">{{ deckLabel }}</div>
+
+    <!-- power cards -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ powers }}" as="p" hint-placeholder-count="6">
+        <a href="{{ p.href }}" style="{{ p.cardStyle }}">
+          <!-- glow -->
+          <div style="{{ p.glowStyle }}"></div>
+          <!-- card glyph -->
+          <div style="{{ p.glyphStyle }}">{{ p.glyph }}</div>
+          <!-- body -->
+          <div style="position:relative;z-index:2;flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:3px">
+              <span style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:{{ p.accent }};white-space:nowrap">{{ p.days }}</span>
+              <span style="{{ p.statusStyle }}">{{ p.statusLabel }}</span>
+            </div>
+            <div style="font-family:Newsreader,serif;font-weight:600;font-size:21px;color:#F2ECDD;line-height:1.1">{{ p.name }}</div>
+            <div style="font-size:12.5px;line-height:1.5;color:#a8a2b8;margin-top:4px">{{ p.def }}</div>
+          </div>
+          <!-- arrow -->
+          <div style="position:relative;z-index:2;flex:0 0 auto;color:{{ p.accent }};font-size:20px;align-self:center">›</div>
+        </a>
+      </sc-for>
+    </div>
+
+    <!-- closing -->
+    <div style="text-align:center;margin-top:42px;padding-top:30px;border-top:1px solid rgba(255,255,255,.08)">
+      <div style="font-family:Newsreader,serif;font-style:italic;font-size:18px;color:#cfc6e6;line-height:1.45;max-width:34ch;margin:0 auto 22px">{{ closing }}</div>
+      <a href="{{ firstHref }}" style="display:inline-flex;align-items:center;gap:9px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:15px 34px;font:600 14px Inter;letter-spacing:.02em;color:#1a1226;text-decoration:none;background:linear-gradient(135deg,#cdb6ff,#a98cf2);box-shadow:0 14px 36px -12px rgba(150,110,245,.8)">{{ cta }}</a>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:680,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  state = { lang:'es' };
+  componentDidMount(){
+    let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
+    this.setState({ lang });
+  }
+  toggleLang(){ this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
+  renderVals(){
+    const L = this.state.lang || 'es';
+    const hue = h => `oklch(0.72 0.155 ${h})`;
+    const T = {
+      es:{
+        kicker:'El reto de 30 días', title:'Joga Challenge',
+        intro:'Seis poderes, uno por etapa. Cinco días con cada uno para entrenar tu mente, tu tiempo y tu dinero — sin romper la cadena.',
+        stats:[{n:'30',label:'días'},{n:'6',label:'poderes'},{n:'1',label:'cadena'}],
+        ruleTitle:'La regla de oro', ruleSub:'Nunca dos días seguidos sin hacerlo.',
+        deckLabel:'La baraja de tus poderes',
+        closing:'Una cadena que no se rompe. Empieza por el primer poder y avanza un día a la vez.',
+        cta:'Empezar el reto', open:'Empieza aquí', locked:'Se abre en su etapa',
+        powers:[
+          {days:'Días 1–5', name:'Subment', def:'Reprograma tu subconsciente. El músculo de aparecer.'},
+          {days:'Días 6–10', name:'Joga Time', def:'Tu tiempo es tu reino. Bloquea tus horas y protege tu foco.'},
+          {days:'Días 11–15', name:'Protoneutrón', def:'El laboratorio de tus hábitos. Reemplaza uno que te frena.'},
+          {days:'Días 16–20', name:'Pasley', def:'El método del éxito, paso a paso. Estrategia, no suerte.'},
+          {days:'Días 21–25', name:'Monexium', def:'Tu dinero, con cabeza fría. Control, no suerte.'},
+          {days:'Días 26–30', name:'Ventemex', def:'El cierre donde se unen los seis poderes. Vender es servir.'},
+        ],
+      },
+      en:{
+        kicker:'The 30-day challenge', title:'Joga Challenge',
+        intro:'Six powers, one per stage. Five days with each to train your mind, your time and your money — without breaking the chain.',
+        stats:[{n:'30',label:'days'},{n:'6',label:'powers'},{n:'1',label:'chain'}],
+        ruleTitle:'The golden rule', ruleSub:'Never two days in a row without doing it.',
+        deckLabel:'The deck of your powers',
+        closing:'A chain that doesn\u2019t break. Start with the first power and advance one day at a time.',
+        cta:'Start the challenge', open:'Start here', locked:'Opens at its stage',
+        powers:[
+          {days:'Days 1–5', name:'Subment', def:'Reprogram your subconscious. The muscle of showing up.'},
+          {days:'Days 6–10', name:'Joga Time', def:'Your time is your kingdom. Block your hours, guard your focus.'},
+          {days:'Days 11–15', name:'Protoneutrón', def:'The lab of your habits. Replace one that holds you back.'},
+          {days:'Days 16–20', name:'Pasley', def:'The method of success, step by step. Strategy, not luck.'},
+          {days:'Days 21–25', name:'Monexium', def:'Your money, with a cool head. Control, not luck.'},
+          {days:'Days 26–30', name:'Ventemex', def:'The close where all six powers meet. Selling is serving.'},
+        ],
+      },
+    };
+    const t = T[L];
+    const META = [
+      { h:300, glyph:'A♠', href:'subment.html' },
+      { h:70,  glyph:'A♥', href:'jogatime.html' },
+      { h:195, glyph:'A♦', href:'protoneutron.html' },
+      { h:145, glyph:'A♣', href:'metodoexito.html' },
+      { h:95,  glyph:'K♠', href:'monexium.html' },
+      { h:32,  glyph:'K♥', href:'ventmex.html' },
+    ];
+    const powers = t.powers.map((p,i) => {
+      const m = META[i];
+      const accent = hue(m.h);
+      const isFirst = i === 0;
+      return {
+        days:p.days, name:p.name, def:p.def, glyph:m.glyph, href:m.href, accent,
+        cardStyle:{ position:'relative', display:'flex', gap:'15px', alignItems:'flex-start', overflow:'hidden',
+          border:'1px solid rgba(255,255,255,.09)', borderRadius:'20px', padding:'18px', textDecoration:'none',
+          background:`linear-gradient(155deg, oklch(0.2 0.05 ${m.h} / .6), #14121b)` },
+        glowStyle:{ position:'absolute', width:'160px', height:'160px', right:'-50px', top:'-40px', borderRadius:'50%',
+          background:`radial-gradient(circle, ${accent.replace('0.72','0.62')}, transparent 66%)`, opacity:.4, filter:'blur(10px)', zIndex:1, animation:'jcGlow 7s ease-in-out infinite' },
+        glyphStyle:{ position:'relative', zIndex:2, flex:'0 0 auto', width:'48px', height:'62px', borderRadius:'7px',
+          display:'grid', placeItems:'center', fontFamily:'Newsreader, serif', fontWeight:700, fontSize:'16px', color:'#0b0b0c',
+          background:accent, boxShadow:`0 10px 24px -10px ${accent}` },
+        statusStyle:{ font:'600 8.5px Inter', letterSpacing:'.1em', textTransform:'uppercase', whiteSpace:'nowrap',
+          color: isFirst ? '#0b0b0c' : '#9a90b5',
+          background: isFirst ? accent : 'rgba(255,255,255,.06)',
+          border: isFirst ? '0' : '1px solid rgba(255,255,255,.12)',
+          padding:'3px 8px', borderRadius:'999px' },
+        statusLabel: isFirst ? t.open : t.locked,
+      };
+    });
+    return {
+      langLabel: L==='es' ? 'EN' : 'ES',
+      toggleLang: () => this.toggleLang(),
+      kicker:t.kicker, title:t.title, intro:t.intro, stats:t.stats,
+      ruleTitle:t.ruleTitle, ruleSub:t.ruleSub, deckLabel:t.deckLabel,
+      closing:t.closing, cta:t.cta, firstHref:'subment.html',
+      powers,
+    };
+  }
+}
+</script>
+</body>
+</html>
