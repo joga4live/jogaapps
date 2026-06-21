@@ -277,10 +277,7 @@
 
         <!-- breathing orb -->
         <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;position:relative">
-          <div style="position:absolute;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(231,150,60,.5),transparent 65%);filter:blur(8px);{{ orbAnim }}"></div>
-          <div style="position:relative;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#f6d79a,#dca23c 70%,#b97d1e);box-shadow:0 0 60px -8px rgba(231,150,60,.8),inset 0 -10px 30px rgba(120,70,20,.55);display:grid;place-items:center;{{ orbAnim }}">
-            <span style="font-family:Newsreader,serif;font-style:italic;font-size:15px;color:rgba(255,255,255,.92);text-align:center;padding:0 26px;line-height:1.4">{{ breathWord }}</span>
-          </div>
+          <dc-import name="Joga Orb" c1="#f6d79a" c2="#dca23c" c3="#b97d1e" glow="231,150,60" word="{{ breathWord }}" hint-size="230px,230px"></dc-import>
         </div>
 
         <!-- affirmation echo -->

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    @keyframes jorbSpin{to{transform:rotate(360deg)}}
+    @keyframes jorbSpinR{to{transform:rotate(-360deg)}}
+    @keyframes jorbPulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.05);filter:brightness(1.22)}}
+    @keyframes jorbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes jorbScan{0%{transform:translateY(-95px);opacity:0}8%{opacity:.85}92%{opacity:.85}100%{transform:translateY(95px);opacity:0}}
+    @keyframes jorbRise{0%{transform:translateY(34px) scale(.4);opacity:0}80%{opacity:.85}100%{transform:translateY(-110px) scale(1);opacity:0}}
+  </style>
+</helmet>
+<div style="{{ rootStyle }}">
+
+  <!-- outer glow halo -->
+  <div style="{{ haloStyle }}"></div>
+
+  <!-- orbiting rings -->
+  <div style="{{ ring1 }}"></div>
+  <div style="{{ ring2 }}"></div>
+  <div style="{{ ring3 }}"></div>
+  <div style="{{ ring4 }}"></div>
+
+  <!-- core sphere -->
+  <div style="{{ coreStyle }}">
+    <div style="{{ scanLinesStyle }}"></div>
+    <div style="{{ movingScanStyle }}"></div>
+    <div style="{{ glossStyle }}"></div>
+    <div style="{{ wordStyle }}">{{ word }}</div>
+  </div>
+
+  <!-- rising particles -->
+  <div style="{{ p1 }}"></div>
+  <div style="{{ p2 }}"></div>
+  <div style="{{ p3 }}"></div>
+  <div style="{{ p4 }}"></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:260,&quot;height&quot;:260},&quot;hue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:285,&quot;min&quot;:0,&quot;max&quot;:360,&quot;tsType&quot;:&quot;number&quot;},&quot;c1&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#cbb4ff&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;c2&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#7b5ce0&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;c3&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#5a3fc0&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;glow&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;150,108,246&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;size&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:230,&quot;min&quot;:80,&quot;max&quot;:400,&quot;tsType&quot;:&quot;number&quot;},&quot;word&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Inhala…&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;particles&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals(){
+    const p = this.props || {};
+    const size = Number(p.size) || 230;
+    const s = size / 230;
+    const px = (n) => (n * s) + 'px';
+
+    // color source: a single oklch hue, OR explicit hex stops + an rgb glow string
+    const hueRaw = (p.hue !== undefined && p.hue !== '' && p.hue !== null) ? Number(p.hue) : null;
+    let rg, c1, c2, c3;
+    if (hueRaw !== null && !isNaN(hueRaw)) {
+      rg = (o) => `oklch(0.72 0.15 ${hueRaw} / ${o})`;
+      c1 = `oklch(0.88 0.10 ${hueRaw})`;
+      c2 = `oklch(0.62 0.16 ${hueRaw})`;
+      c3 = `oklch(0.45 0.15 ${hueRaw})`;
+    } else {
+      const g = p.glow || '150,108,246';
+      rg = (o) => `rgba(${g},${o})`;
+      c1 = p.c1 || '#cbb4ff'; c2 = p.c2 || '#7b5ce0'; c3 = p.c3 || '#5a3fc0';
+    }
+
+    const playing = p.playing !== false;
+    const showParticles = p.particles !== false && p.particles !== 'false';
+    const particle = (left, top, base, delay, dur) => ({
+      position:'absolute', left, top, width:px(base), height:px(base), borderRadius:'50%',
+      background:rg(.95), boxShadow:`0 0 ${px(7)} ${rg(.9)}`,
+      animation:`jorbRise ${dur}s ease-in ${delay}s infinite`,
+      display: showParticles ? 'block' : 'none', pointerEvents:'none', zIndex:1
+    });
+
+    return {
+      word: p.word || '',
+      rootStyle:{ position:'relative', width:px(230), height:px(230), display:'grid', placeItems:'center',
+        animation:'jorbFloat 6s ease-in-out infinite' },
+      haloStyle:{ position:'absolute', width:px(226), height:px(226), borderRadius:'50%',
+        background:`radial-gradient(circle, ${rg(.34)}, transparent 62%)`, filter:`blur(${px(14)})`,
+        animation:'jorbPulse 3.4s ease-in-out infinite' },
+      ring1:{ position:'absolute', width:px(224), height:px(224), borderRadius:'50%',
+        border:`${Math.max(1, 1.5*s)}px solid ${rg(.3)}`, borderTopColor:rg(.9), borderRightColor:rg(.55),
+        animation:'jorbSpin 7s linear infinite' },
+      ring2:{ position:'absolute', width:px(188), height:px(188), borderRadius:'50%',
+        border:`1px solid ${rg(.24)}`, borderBottomColor:rg(.82), animation:'jorbSpinR 9s linear infinite' },
+      ring3:{ position:'absolute', width:px(248), height:px(100), borderRadius:'50%',
+        border:`1px solid ${rg(.22)}`, animation:'jorbSpin 12s linear infinite' },
+      ring4:{ position:'absolute', width:px(248), height:px(100), borderRadius:'50%',
+        border:'1px solid rgba(231,196,106,.2)', animation:'jorbSpinR 15s linear infinite' },
+      coreStyle:{ position:'relative', width:px(150), height:px(150), borderRadius:'50%',
+        background:`radial-gradient(circle at 38% 32%, ${c1}, ${c2} 70%, ${c3})`,
+        boxShadow:`0 0 ${px(58)} -6px ${rg(.85)}, inset 0 ${px(-12)} ${px(32)} rgba(20,18,55,.55), inset 0 ${px(8)} ${px(22)} rgba(255,255,255,.32)`,
+        display:'grid', placeItems:'center', overflow:'hidden',
+        animation: playing ? 'jorbPulse 3.6s ease-in-out infinite' : 'none' },
+      scanLinesStyle:{ position:'absolute', inset:0, background:'repeating-linear-gradient(transparent 0 5px, rgba(8,14,38,.32) 5px 6px)', zIndex:1 },
+      movingScanStyle:{ position:'absolute', left:0, right:0, height:px(52),
+        background:'linear-gradient(transparent, rgba(255,255,255,.5), transparent)',
+        animation: playing ? 'jorbScan 2.8s ease-in-out infinite' : 'none', zIndex:1 },
+      glossStyle:{ position:'absolute', left:'24%', top:'16%', width:px(46), height:px(30), borderRadius:'50%',
+        background:'radial-gradient(circle, rgba(255,255,255,.55), transparent 70%)', filter:`blur(${px(3)})`, zIndex:1 },
+      wordStyle:{ position:'relative', zIndex:2, fontFamily:'Newsreader, serif', fontStyle:'italic', fontWeight:400,
+        fontSize:px(15), color:'rgba(255,255,255,.95)', textAlign:'center', padding:`0 ${px(24)}`, lineHeight:1.4,
+        textShadow:'0 0 14px rgba(255,255,255,.35)' },
+      p1: particle('30%','64%',3,0,3.4),
+      p2: particle('64%','60%',2,0.7,4.2),
+      p3: particle('48%','67%',2.5,1.3,3.7),
+      p4: particle('40%','62%',2,2,4.6),
+    };
+  }
+}
+</script>
+</body>
+</html>
