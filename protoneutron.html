@@ -356,7 +356,7 @@ class Component extends DCLogic {
   componentDidMount(){
     try{ this.muted = localStorage.getItem('jiMute')==='1'; }catch(e){ this.muted=false; }
     let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
-    let locked=true; try{ if(localStorage.getItem('jiUnlocked_protoneutron')==='1') locked=false; }catch(e){} let doneP={}; try{ doneP=JSON.parse(localStorage.getItem('jiPractices_protoneutron')||'{}')||{}; }catch(e){} this.setState({ muted: this.muted, lang, locked, doneP });
+    let locked=true; try{ if(localStorage.getItem('jiUnlocked_protoneutron')==='1') locked=false; }catch(e){} let doneP={}; try{ doneP=JSON.parse(localStorage.getItem('jiPractices_protoneutron')||'{}')||{}; }catch(e){} this._key='protoneutron'; let _stats={}; try{ _stats=JSON.parse(localStorage.getItem('jiStats_protoneutron')||'{}')||{}; }catch(e){} const _today=new Date().toISOString().slice(0,10); let _affD=''; try{ _affD=localStorage.getItem('jiAffirmed_protoneutron')||''; }catch(e){} this.setState(Object.assign({ muted: this.muted, lang, locked, doneP, affirmed:_affD===_today }, typeof _stats.streak==='number'?{streak:_stats.streak}:{}, typeof _stats.totalSessions==='number'?{totalSessions:_stats.totalSessions}:{}, typeof _stats.baseMin==='number'?{baseMin:_stats.baseMin}:{}));
     import('./subment-sfx.js').then(m => {
       const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
       this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.protoneutron) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
@@ -408,13 +408,15 @@ class Component extends DCLogic {
   finishState(st){
     this.play('boom');
     this._toast = setTimeout(() => this.setState({ celebrate:false, showToast:false }), 3400);
-    return { playing:false, playerOpen:false, elapsed:0,
+    const next = { playing:false, playerOpen:false, elapsed:0,
              streak:st.streak+1, totalSessions:st.totalSessions+1,
              baseMin: st.baseMin + Math.round(st.duration/60), showToast:false, celebrate:true };
+    try{ localStorage.setItem('jiStats_'+(this._key||''), JSON.stringify({ streak:next.streak, totalSessions:next.totalSessions, baseMin:next.baseMin })); }catch(e){}
+    return next;
   }
   togglePlay(){ this.play('tap'); this.setState(st => { const p=!st.playing; if(p){ this.startTick(); this.startBreath(); } return { playing:p }; }); }
   closePlayer(){ this.play('tap'); clearInterval(this._t); clearInterval(this._b); this.setState({ playerOpen:false, playing:false }); }
-  affirm(){ this.play('tap'); this.setState({ affirmed:true }); }
+  affirm(){ this.play('tap'); const _today=new Date().toISOString().slice(0,10); try{ localStorage.setItem('jiAffirmed_'+(this._key||''), _today); }catch(e){} this.setState({ affirmed:true }); }
 
   fmt(s){ const m=Math.floor(s/60), r=s%60; return m+':'+String(r).padStart(2,'0'); }
 

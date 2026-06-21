@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{background:#05060a;font-family:Inter,system-ui,sans-serif}
+    .ob-scroll{scrollbar-width:none}
+    .ob-scroll::-webkit-scrollbar{display:none}
+    @keyframes obIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @keyframes obFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  </style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;background:radial-gradient(95% 70% at 50% 22%,#13112a,#08070e 72%,#05060a)">
+
+  <!-- phone -->
+  <div style="position:relative;width:392px;height:838px;background:#0B0B0C;border-radius:46px;padding:10px;box-shadow:0 50px 120px -40px rgba(0,0,0,.95),0 0 0 1.5px #2a2535">
+    <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0B0B0C;border-radius:0 0 16px 16px;z-index:20"></div>
+    <div class="ob-scroll" style="position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:{{ screenBg }};transition:background 1s ease">
+
+      <!-- ambient glow -->
+      <div style="{{ ambientStyle }}"></div>
+
+      <!-- ===================== WELCOME ===================== -->
+      <sc-if value="{{ isWelcome }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 34px;animation:obIn .6s ease both">
+        <div style="font:600 10px Inter;letter-spacing:.42em;text-transform:uppercase;color:#9aa6d8;margin-bottom:30px">Joga Intelligence</div>
+        <div style="animation:obFloat 6s ease-in-out infinite;margin-bottom:30px">
+          <dc-import name="Joga Orb" hue="276" size="186" word="" hint-size="186px,186px"></dc-import>
+        </div>
+        <h1 style="font-family:Newsreader,serif;font-weight:500;font-size:33px;line-height:1.18;letter-spacing:-.01em;color:#F4F0FF;margin:0 0 14px;text-wrap:balance">Despierta los seis poderes que ya viven en ti.</h1>
+        <p style="font-size:15px;line-height:1.6;color:#a59cc4;margin:0 0 40px;max-width:30ch">Un reto guiado de 30 días para transformar tu mente, tu tiempo y tu dinero — un poder a la vez.</p>
+        <button onClick="{{ start }}" style="appearance:none;border:0;cursor:pointer;border-radius:999px;padding:17px 0;width:100%;font:600 15px Inter;letter-spacing:.02em;color:#10101a;background:linear-gradient(120deg,#e9d8a6,#E7C46A 55%,#cdb6ff);box-shadow:0 18px 40px -16px rgba(231,196,106,.6)">Comenzar</button>
+        <div style="margin-top:18px;font:500 12px Inter;color:#6f6a86">Tardas menos de 1 minuto</div>
+      </div>
+      </sc-if>
+
+      <!-- ===================== STEP 1 · POWERS ===================== -->
+      <sc-if value="{{ isPowers }}" hint-placeholder-val="{{ false }}">
+      <div class="ob-scroll" style="position:absolute;inset:0;z-index:5;overflow-y:auto;padding:62px 24px 110px;animation:obIn .45s ease both">
+        <div style="{{ progressRow }}"></div>
+        <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#8a82a8;margin:22px 0 8px">Paso 1 de 3</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:27px;line-height:1.2;color:#F4F0FF;margin:0 0 8px">¿Qué querés transformar primero?</h2>
+        <p style="font-size:13.5px;line-height:1.6;color:#a59cc4;margin:0 0 22px">Elegí uno o varios. Tu reto empieza por ahí.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ powers }}" as="p" hint-placeholder-count="6">
+            <button onClick="{{ p.toggle }}" style="{{ p.cardStyle }}">
+              <div style="{{ p.checkStyle }}">✓</div>
+              <img src="{{ p.logo }}" alt="{{ p.name }}" style="width:84px;height:auto;margin:2px 0 8px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))" />
+              <div style="font:600 11.5px Inter;color:#F2ECDD">{{ p.name }}</div>
+              <div style="font-size:10.5px;color:#9a92b4;margin-top:1px">{{ p.tag }}</div>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===================== STEP 2 · TIME ===================== -->
+      <sc-if value="{{ isTime }}" hint-placeholder-val="{{ false }}">
+      <div class="ob-scroll" style="position:absolute;inset:0;z-index:5;overflow-y:auto;padding:62px 24px 110px;animation:obIn .45s ease both">
+        <div style="{{ progressRow }}"></div>
+        <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#8a82a8;margin:22px 0 8px">Paso 2 de 3</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:27px;line-height:1.2;color:#F4F0FF;margin:0 0 8px">¿Cuándo vas a entrenar?</h2>
+        <p style="font-size:13.5px;line-height:1.6;color:#a59cc4;margin:0 0 22px">Tu app se adapta: el aura cambia con la hora del día.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ times }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.select }}" style="{{ t.rowStyle }}">
+              <div style="font-size:26px;line-height:1">{{ t.icon }}</div>
+              <div style="flex:1;text-align:left">
+                <div style="font:600 15px Inter;color:#F2ECDD">{{ t.label }}</div>
+                <div style="font-size:12px;color:#9a92b4;margin-top:1px">{{ t.sub }}</div>
+              </div>
+              <div style="{{ t.dotStyle }}"></div>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===================== STEP 3 · GOAL ===================== -->
+      <sc-if value="{{ isGoal }}" hint-placeholder-val="{{ false }}">
+      <div class="ob-scroll" style="position:absolute;inset:0;z-index:5;overflow-y:auto;padding:62px 24px 110px;animation:obIn .45s ease both">
+        <div style="{{ progressRow }}"></div>
+        <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#8a82a8;margin:22px 0 8px">Paso 3 de 3</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:27px;line-height:1.2;color:#F4F0FF;margin:0 0 8px">¿Qué te prometés en 30 días?</h2>
+        <p style="font-size:13.5px;line-height:1.6;color:#a59cc4;margin:0 0 22px">Tu intención guía el reto. Elegí la que más resuene.</p>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ goals }}" as="g" hint-placeholder-count="4">
+            <button onClick="{{ g.select }}" style="{{ g.rowStyle }}">
+              <div style="{{ g.dotStyle }}"></div>
+              <div style="font:500 14.5px Inter;color:#F2ECDD;text-align:left">{{ g.label }}</div>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===================== PLAN REVEAL ===================== -->
+      <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+      <div class="ob-scroll" style="position:absolute;inset:0;z-index:5;overflow-y:auto;padding:58px 24px 120px;animation:obIn .5s ease both">
+        <div style="text-align:center">
+          <div style="font:600 10px Inter;letter-spacing:.34em;text-transform:uppercase;color:#E7C46A;margin-bottom:8px">Tu reto está listo</div>
+          <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.15;color:#F4F0FF;margin:0 0 6px">30 días. Una cadena que no se rompe.</h2>
+          <p style="font-size:13px;line-height:1.6;color:#a59cc4;margin:0 0 22px">{{ planIntro }}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ planSteps }}" as="s" hint-placeholder-count="6">
+            <div style="{{ s.rowStyle }}">
+              <img src="{{ s.logo }}" alt="{{ s.name }}" style="width:52px;height:auto;flex:0 0 auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))" />
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:7px">
+                  <span style="font:600 13px Inter;color:#F2ECDD">{{ s.name }}</span>
+                  <span style="{{ s.starStyle }}">★</span>
+                </div>
+                <div style="font-size:11px;color:#9a92b4;margin-top:1px">{{ s.days }} · {{ s.tag }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <a href="index.html" style="display:block;text-align:center;text-decoration:none;margin-top:24px;border-radius:999px;padding:17px 0;font:600 15px Inter;letter-spacing:.02em;color:#10101a;background:linear-gradient(120deg,#e9d8a6,#E7C46A 55%,#cdb6ff);box-shadow:0 18px 40px -16px rgba(231,196,106,.6)">Empezar el reto →</a>
+        <button onClick="{{ restart }}" style="display:block;width:100%;margin-top:12px;appearance:none;border:0;background:none;cursor:pointer;font:500 12.5px Inter;color:#6f6a86">Volver a empezar</button>
+      </div>
+      </sc-if>
+
+      <!-- ===================== BOTTOM NAV (steps 1-3) ===================== -->
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:10;padding:16px 24px 26px;display:flex;align-items:center;gap:12px;background:linear-gradient(transparent,{{ navFade }} 32%)">
+        <button onClick="{{ back }}" style="appearance:none;cursor:pointer;flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#cfc6e6;font-size:18px">‹</button>
+        <button onClick="{{ next }}" style="{{ nextStyle }}">{{ nextLabel }}</button>
+      </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { step:0, powers:[], time:'', goal:'' };
+
+  componentDidMount(){
+    try{
+      const raw = localStorage.getItem('jiOnboarding');
+      if(raw){ const s = JSON.parse(raw); if(s && typeof s==='object'){
+        this.setState({ step:s.step||0, powers:Array.isArray(s.powers)?s.powers:[], time:s.time||'', goal:s.goal||'' });
+      }}
+    }catch(e){}
+  }
+  save(patch){
+    this.setState(patch, () => {
+      try{ localStorage.setItem('jiOnboarding', JSON.stringify({ step:this.state.step, powers:this.state.powers, time:this.state.time, goal:this.state.goal })); }catch(e){}
+    });
+  }
+  go(step){ this.save({ step }); }
+  togglePower(key){
+    this.setState(st => {
+      const has = st.powers.includes(key);
+      const powers = has ? st.powers.filter(k=>k!==key) : [...st.powers, key];
+      try{ localStorage.setItem('jiOnboarding', JSON.stringify({ ...st, powers })); }catch(e){}
+      return { powers };
+    });
+  }
+
+  renderVals(){
+    const st = this.state;
+    const POWERS = [
+      { key:'mind',    name:'JogaMind',    tag:'Tu subconsciente', logo:'assets/logo-jogamind.png',    hue:276, glow:'150,108,246', days:'Días 1–5'  },
+      { key:'time',    name:'JogaTime',    tag:'Tu tiempo',        logo:'assets/logo-jogatime.png',    hue:70,  glow:'231,150,60',  days:'Días 6–10' },
+      { key:'bit',     name:'JogaBit',     tag:'Tus hábitos',      logo:'assets/logo-jogabit.png',     hue:195, glow:'50,196,205',  days:'Días 11–15'},
+      { key:'path',    name:'JogaPath',    tag:'Tu método',        logo:'assets/logo-jogapath.png',    hue:150, glow:'60,200,120',  days:'Días 16–20'},
+      { key:'capital', name:'JogaCapital', tag:'Tu dinero',        logo:'assets/logo-jogacapital.png', hue:95,  glow:'196,176,74',  days:'Días 21–25'},
+      { key:'ventix',  name:'JogaVentix',  tag:'Tus ventas',       logo:'assets/logo-jogaventix.png',  hue:35,  glow:'232,118,80',  days:'Días 26–30'},
+    ];
+    const TIMES = [
+      { key:'manana', icon:'☀', label:'Mañana', sub:'Para arrancar el día con foco' },
+      { key:'tarde',  icon:'⛅', label:'Tarde',  sub:'Un respiro a media jornada' },
+      { key:'noche',  icon:'☾', label:'Noche',  sub:'Para cerrar y reprogramar' },
+    ];
+    const GOALS = [
+      'Más enfoque y claridad',
+      'Más calma y equilibrio',
+      'Más disciplina y hábitos',
+      'Más prosperidad y dinero',
+    ];
+
+    const step = st.step;
+    const dot = (on, col) => ({ width:'9px', height:'9px', borderRadius:'50%', flex:'0 0 auto',
+      border: on ? '0' : '1.5px solid rgba(255,255,255,.22)',
+      background: on ? (col||'#E7C46A') : 'transparent', boxShadow: on ? `0 0 10px ${col||'#E7C46A'}` : 'none', transition:'all .25s' });
+
+    const powers = POWERS.map(p => {
+      const sel = st.powers.includes(p.key);
+      return { ...p,
+        toggle: () => this.togglePower(p.key),
+        cardStyle: { position:'relative', appearance:'none', cursor:'pointer', display:'flex', flexDirection:'column', alignItems:'center',
+          borderRadius:'18px', padding:'16px 10px 13px', transition:'all .2s',
+          border: `1px solid ${sel ? `rgba(${p.glow},.85)` : 'rgba(255,255,255,.09)'}`,
+          background: sel ? `linear-gradient(165deg, rgba(${p.glow},.20), rgba(${p.glow},.06))` : 'rgba(255,255,255,.03)',
+          boxShadow: sel ? `0 14px 30px -16px rgba(${p.glow},.8)` : 'none' },
+        checkStyle: { position:'absolute', top:'9px', right:'9px', width:'20px', height:'20px', borderRadius:'50%',
+          display:'grid', placeItems:'center', font:'700 11px Inter', color:'#10101a',
+          background:`rgba(${p.glow},1)`, opacity: sel?1:0, transform: sel?'scale(1)':'scale(.5)', transition:'all .2s' },
+      };
+    });
+
+    const times = TIMES.map(t => {
+      const sel = st.time===t.key;
+      return { ...t,
+        select: () => this.save({ time:t.key }),
+        rowStyle: { appearance:'none', cursor:'pointer', display:'flex', alignItems:'center', gap:'14px', width:'100%',
+          borderRadius:'16px', padding:'16px 16px', transition:'all .2s',
+          border: `1px solid ${sel ? 'rgba(231,196,106,.8)' : 'rgba(255,255,255,.1)'}`,
+          background: sel ? 'linear-gradient(120deg, rgba(231,196,106,.16), rgba(231,196,106,.04))' : 'rgba(255,255,255,.03)' },
+        dotStyle: dot(sel, '#E7C46A'),
+      };
+    });
+
+    const goals = GOALS.map(g => {
+      const sel = st.goal===g;
+      return { label:g,
+        select: () => this.save({ goal:g }),
+        rowStyle: { appearance:'none', cursor:'pointer', display:'flex', alignItems:'center', gap:'13px', width:'100%',
+          borderRadius:'14px', padding:'15px 16px', transition:'all .2s',
+          border: `1px solid ${sel ? 'rgba(205,182,255,.8)' : 'rgba(255,255,255,.1)'}`,
+          background: sel ? 'linear-gradient(120deg, rgba(205,182,255,.16), rgba(205,182,255,.04))' : 'rgba(255,255,255,.03)' },
+        dotStyle: dot(sel, '#cdb6ff'),
+      };
+    });
+
+    // progress bar (3 segments) for steps 1-3
+    const seg = (n) => `<span style="flex:1;height:3px;border-radius:2px;background:${step>=n?'#E7C46A':'rgba(255,255,255,.12)'};transition:background .3s"></span>`;
+    // (progressRow rendered as a styled flex container; we use a simple style object + children via dangerouslySet is not available in template) -> use style only, draw segments with box-shadow trick:
+    const progressRow = { display:'flex', gap:'6px', alignItems:'center',
+      // we render three pseudo segments via background gradient
+    };
+    // Build a real 3-seg bar using a linear-gradient sized by step
+    const pct = step<=1 ? 33 : step===2 ? 66 : 100;
+    const progressBar = { height:'3px', borderRadius:'2px', background:`linear-gradient(90deg,#E7C46A ${pct}%, rgba(255,255,255,.12) ${pct}%)` };
+
+    const timeBg = { manana:'radial-gradient(95% 60% at 50% 14%,#2a2740,#0c0a14 70%)',
+                     tarde:'radial-gradient(95% 60% at 50% 14%,#2e2438,#0c0a14 70%)',
+                     noche:'radial-gradient(95% 60% at 50% 14%,#15132e,#07060e 72%)' };
+    const screenBg = (st.time && timeBg[st.time]) ? timeBg[st.time] : 'radial-gradient(95% 60% at 50% 14%,#1a1730,#08070e 72%)';
+
+    const canNext = step===1 ? st.powers.length>0 : step===2 ? !!st.time : step===3 ? !!st.goal : true;
+    const nextLabel = step===3 ? 'Ver mi plan' : 'Continuar';
+    const nextStyle = { flex:'1', appearance:'none', border:'0', cursor: canNext?'pointer':'not-allowed',
+      borderRadius:'999px', padding:'17px 0', font:'600 15px Inter', letterSpacing:'.02em',
+      color: canNext?'#10101a':'#6f6a86',
+      background: canNext ? 'linear-gradient(120deg,#e9d8a6,#E7C46A 55%,#cdb6ff)' : 'rgba(255,255,255,.07)',
+      boxShadow: canNext ? '0 16px 36px -16px rgba(231,196,106,.6)' : 'none', transition:'all .25s' };
+
+    // plan
+    const startName = (POWERS.find(p=>p.key===st.powers[0])||POWERS[0]).name;
+    const timeLabel = (TIMES.find(t=>t.key===st.time)||{}).label || 'cada día';
+    const planIntro = `Empezás por ${startName}, practicás de ${timeLabel.toLowerCase()}${st.goal? ' — con una meta clara: '+st.goal.toLowerCase():''}.`;
+    const planSteps = POWERS.map(p => {
+      const sel = st.powers.includes(p.key);
+      return { ...p,
+        rowStyle: { display:'flex', alignItems:'center', gap:'13px', borderRadius:'16px', padding:'12px 14px',
+          border: `1px solid ${sel ? `rgba(${p.glow},.7)` : 'rgba(255,255,255,.08)'}`,
+          background: sel ? `linear-gradient(120deg, rgba(${p.glow},.16), rgba(${p.glow},.03))` : 'rgba(255,255,255,.025)' },
+        starStyle: { fontSize:'11px', color:'#E7C46A', opacity: sel?1:0 },
+      };
+    });
+
+    return {
+      isWelcome: step===0, isPowers: step===1, isTime: step===2, isGoal: step===3, isPlan: step===4,
+      showNav: step>=1 && step<=3, navFade: '#08070e',
+      screenBg,
+      ambientStyle: { position:'absolute', width:'320px', height:'320px', left:'50%', top:'-40px', transform:'translateX(-50%)',
+        borderRadius:'50%', background:'radial-gradient(circle, rgba(120,100,220,.18), transparent 66%)', filter:'blur(20px)', pointerEvents:'none', zIndex:1 },
+      progressRow: progressBar,
+      powers, times, goals,
+      start: () => this.go(1),
+      back: () => this.go(Math.max(0, step-1)),
+      next: () => { if(canNext) this.go(Math.min(4, step+1)); },
+      nextLabel, nextStyle,
+      restart: () => this.save({ step:0, powers:[], time:'', goal:'' }),
+      planIntro, planSteps,
+    };
+  }
+}
+</script>
+</body>
+</html>
