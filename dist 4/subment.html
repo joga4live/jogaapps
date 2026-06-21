@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{background:#1a1820;font-family:Inter,system-ui,sans-serif}
+    @keyframes subBreathe{0%,100%{transform:scale(.82);opacity:.65}50%{transform:scale(1.12);opacity:1}}
+    @keyframes subDrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3%,4%) scale(1.1)}}
+    @keyframes subTwinkle{0%,100%{opacity:.25}50%{opacity:.9}}
+    @keyframes subRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .sub-scroll::-webkit-scrollbar{display:none}
+    @keyframes jiLockPop{0%{transform:scale(.5);opacity:0}55%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+    @keyframes jiLockBurst{0%{transform:scale(1)}40%{transform:scale(1.25) rotate(-8deg)}100%{transform:scale(2.4) rotate(6deg);opacity:0}}
+    @keyframes jiRingPulse{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.2);opacity:0}}
+    @keyframes jiCelebPop{0%{transform:scale(.4);opacity:0}55%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+    @keyframes jiConfetti{0%{transform:translateY(-20px) rotate(0deg);opacity:0}12%{opacity:1}100%{transform:translateY(560px) rotate(540deg);opacity:0}}
+    @keyframes jiCelebRing{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+    .sub-scroll{scrollbar-width:none}
+    @media (max-width:600px){
+      .ji-phone{position:fixed!important;inset:0!important;width:100vw!important;width:100dvw!important;height:100dvh!important;border-radius:0!important;padding:0!important;box-shadow:none!important;z-index:5!important}
+      .ji-screen{border-radius:0!important}
+      .ji-notch{display:none!important}
+    }
+  </style>
+</helmet>
+<div style="min-height:100vh;background:radial-gradient(120% 80% at 50% 0%,#26213a,#15131c 70%);display:flex;align-items:center;justify-content:center;padding:40px 20px;gap:40px;flex-wrap:wrap">
+
+  <!-- PHONE -->
+  <div class="ji-phone" style="position:relative;width:392px;height:844px;background:#0B0B0C;border-radius:54px;padding:13px;box-shadow:0 50px 120px -40px rgba(0,0,0,.9),0 0 0 2px #2a2535,inset 0 0 0 2px #000;flex:0 0 auto">
+    <!-- notch -->
+    <div class="ji-notch" style="position:absolute;top:13px;left:50%;transform:translateX(-50%);width:130px;height:30px;background:#0B0B0C;border-radius:0 0 18px 18px;z-index:60"></div>
+
+    <!-- SCREEN -->
+    <div class="ji-screen" style="position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;background:#0e0b14">
+      <!-- ambient bg -->
+      <div style="{{ screenTintStyle }}"></div>
+      <div style="position:absolute;inset:0;z-index:0;pointer-events:none">
+        <div style="{{ glow1Style }}"></div>
+        <div style="{{ glow2Style }}"></div>
+        <div style="{{ glow3Style }}"></div>
+        <div style="position:absolute;top:120px;left:50px;width:3px;height:3px;border-radius:50%;background:#cdbcff;animation:subTwinkle 4s ease-in-out infinite"></div>
+        <div style="position:absolute;top:200px;right:60px;width:2px;height:2px;border-radius:50%;background:#fff;animation:subTwinkle 5.5s ease-in-out infinite"></div>
+        <div style="position:absolute;top:300px;left:120px;width:2px;height:2px;border-radius:50%;background:#e7c46a;animation:subTwinkle 6s ease-in-out infinite"></div>
+        <div style="position:absolute;top:90px;right:120px;width:2px;height:2px;border-radius:50%;background:#cdbcff;animation:subTwinkle 4.8s ease-in-out infinite"></div>
+      </div>
+
+      <!-- status bar -->
+      <div style="position:absolute;top:0;left:0;right:0;height:54px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 34px">
+        <span style="font:600 14px Inter;color:#F2ECDD;letter-spacing:.02em">9:41</span>
+        <span style="display:flex;gap:6px;align-items:center;color:#F2ECDD;font-size:12px">
+          <span style="font-weight:600">●●●</span>
+          <span style="font-weight:600;letter-spacing:.05em">5G</span>
+          <span style="display:inline-block;width:22px;height:11px;border:1.4px solid #F2ECDD;border-radius:3px;position:relative"><span style="position:absolute;inset:1.5px;width:70%;background:#F2ECDD;border-radius:1px"></span></span>
+        </span>
+      </div>
+
+      <!-- ============ HOME ============ -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <!-- header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:26px">
+          <div>
+            <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#a890f5">JogaMind</div>
+            <div style="font-family:Newsreader,serif;font-weight:500;font-size:23px;color:#F2ECDD;margin-top:3px">{{ greeting }}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button onClick="{{ toggleLang }}" style="appearance:none;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);cursor:pointer;height:34px;padding:0 12px;border-radius:999px;font:600 11px Inter;letter-spacing:.05em;color:#cdb6ff" aria-label="Idioma">{{ langLabel }}</button>
+            <button onClick="{{ toggleMute }}" style="appearance:none;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);cursor:pointer;width:34px;height:34px;border-radius:50%;font-size:13px;display:grid;place-items:center" aria-label="Silenciar">{{ muteIcon }}</button>
+            <div style="display:flex;align-items:center;gap:7px;background:rgba(231,196,106,.1);border:1px solid rgba(231,196,106,.3);padding:7px 13px;border-radius:999px">
+              <span style="font-size:14px">✦</span>
+              <span style="font:600 13px Inter;color:#E7C46A">{{ streak }}</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- challenge strip -->
+        <div onClick="{{ openAbout }}" style="cursor:pointer;display:flex;align-items:center;gap:13px;background:rgba(231,196,106,.07);border:1px solid rgba(231,196,106,.22);border-radius:18px;padding:14px 16px;margin-bottom:18px">
+          <div style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(231,196,106,.13);font-size:18px">⛓️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#E7C46A;margin-bottom:3px">{{ challengeDays }}</div>
+            <div style="font-size:11.5px;line-height:1.45;color:#cfc6b4">{{ challengeDef }}</div>
+            <div style="font-size:10.5px;color:#8a8276;margin-top:5px;font-style:italic">⛓ {{ chainRule }}</div>
+          </div>
+        </div>
+
+        <!-- affirmation hero -->
+        <div style="position:relative;border-radius:26px;overflow:hidden;padding:30px 24px 26px;margin-bottom:22px;background:linear-gradient(165deg,rgba(120,88,220,.34),rgba(40,30,66,.5));border:1px solid rgba(160,120,250,.32);box-shadow:0 24px 50px -28px rgba(120,80,230,.7)">
+          <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c3aef9;margin-bottom:14px">{{ intentionLabel }}</div>
+          <div style="font-family:Newsreader,serif;font-weight:500;font-size:27px;line-height:1.28;color:#F6F1FF;letter-spacing:-.01em">{{ affirmation }}</div>
+          <button onClick="{{ affirm }}" style="margin-top:22px;appearance:none;cursor:pointer;border:0;border-radius:999px;padding:13px 22px;font:600 13px Inter;letter-spacing:.02em;color:#1a1226;background:linear-gradient(135deg,#cdb6ff,#a98cf2);box-shadow:0 10px 24px -10px rgba(150,110,245,.9);display:inline-flex;align-items:center;gap:8px" style-hover="transform:translateY(-1px)">{{ affirmLabel }}</button><button onClick="{{ cycleAff }}" aria-label="otra frase" style="margin-top:22px;margin-left:9px;appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#F2ECDD;border-radius:999px;width:44px;height:44px;font-size:17px;vertical-align:top;line-height:1">↻</button>
+        </div>
+
+        <!-- session of the day -->
+        <div style="font:600 10px Inter;letter-spacing:.28em;text-transform:uppercase;color:#8a8276;margin:0 2px 12px">{{ focusLabel }}</div>
+        <button onClick="{{ playFeatured }}" style="width:100%;text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(160,120,250,.24);border-radius:22px;padding:20px;margin-bottom:22px;background:linear-gradient(160deg,#1d1830,#16121f);display:flex;align-items:center;gap:16px" style-hover="border-color:rgba(160,120,250,.5)">
+          <div style="flex:0 0 auto;width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#b79cf5,#6f4fd6);box-shadow:0 12px 26px -10px rgba(140,100,240,.9)">
+            <span style="font-size:22px;color:#fff;margin-left:3px">▶</span>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:Newsreader,serif;font-weight:600;font-size:19px;color:#F2ECDD">{{ featured.title }}</div>
+            <div style="font-size:12.5px;color:#9a90b5;margin-top:2px">{{ featured.tag }} · {{ featured.len }} min</div>
+          </div>
+        </button>
+
+        <!-- ritual -->
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(231,196,106,.06);border:1px solid rgba(231,196,106,.2);border-radius:18px;padding:15px 18px;margin-bottom:26px">
+          <div style="flex:0 0 auto;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(231,196,106,.14);font-size:18px">☾</div>
+          <div style="flex:1">
+            <div style="font-weight:600;font-size:13.5px;color:#F2ECDD">{{ ritualTitle }}</div>
+            <div style="font-size:11.5px;color:#9a9189;margin-top:1px">{{ ritualSub }}</div>
+          </div>
+          <span style="color:#E7C46A;font-size:18px">›</span>
+        </div>
+
+        <!-- explore -->
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 14px">
+          <div style="font:600 10px Inter;letter-spacing:.28em;text-transform:uppercase;color:#8a8276">{{ exploreLabel }}</div>
+          <button onClick="{{ goLibrary }}" style="appearance:none;border:0;background:none;cursor:pointer;font:500 12px Inter;color:#a890f5">{{ seeAllLabel }}</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <sc-for list="{{ exploreList }}" as="s" hint-placeholder-count="4">
+            <button onClick="{{ s.play }}" style="text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:16px 16px 18px;background:linear-gradient(160deg,#181421,#13101a);min-height:118px;display:flex;flex-direction:column;justify-content:space-between" style-hover="border-color:rgba(160,120,250,.4)">
+              <div style="width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:{{ s.chipBg }};font-size:15px">{{ s.icon }}</div>
+              <div>
+                <div style="font-family:Newsreader,serif;font-weight:600;font-size:15.5px;color:#F2ECDD;line-height:1.15">{{ s.title }}</div>
+                <div style="font-size:11px;color:#8f86aa;margin-top:3px">{{ s.len }} min</div>
+              </div>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ LIBRARY ============ -->
+      <!-- ============ PRÁCTICAS ============ -->
+      <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#a890f5;margin-bottom:4px">{{ practicesKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 6px">{{ practicesTitle }}</h2>
+        <p style="font-size:13px;color:#8f86aa;margin:0 0 18px;line-height:1.5">{{ practicesSub }}</p>
+        <div style="margin-bottom:22px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+            <span style="font:600 10px Inter;letter-spacing:.18em;text-transform:uppercase;color:#cdb6ff">{{ progressLabel }}</span>
+            <span style="font-family:Newsreader,serif;font-weight:600;font-size:15px;color:#F2ECDD">{{ practiceCount }}</span>
+          </div>
+          <div style="height:7px;border-radius:7px;background:rgba(255,255,255,.08);overflow:hidden">
+            <div style="{{ practiceBarStyle }}"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <sc-for list="{{ practices }}" as="p" hint-placeholder-count="3">
+            <div style="{{ p.cardStyle }}">
+              <div style="display:flex;align-items:flex-start;gap:13px">
+                <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:{{ p.chipBg }};font-size:20px">{{ p.icon }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#8f86aa">{{ p.num }}</div>
+                  <div style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#F2ECDD;line-height:1.2;margin-top:2px">{{ p.title }}</div>
+                  <div style="font-size:13px;line-height:1.55;color:#c8bfe0;margin-top:6px">{{ p.desc }}</div>
+                  <div style="font-size:12px;line-height:1.55;color:#9a90b5;font-style:italic;margin-top:8px;border-left:2px solid rgba(160,120,250,.4);padding-left:10px">{{ p.extra }}</div>
+                </div>
+              </div>
+              <button onClick="{{ p.toggle }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ IDEAS ============ -->
+      <sc-if value="{{ isIdeas }}" hint-placeholder-val="{{ false }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#a890f5;margin-bottom:4px">{{ ideasKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#F2ECDD;margin:0 0 6px">{{ ideasTitle }}</h2>
+        <p style="font-size:13px;color:#8f86aa;margin:0 0 18px;line-height:1.5">{{ ideasSub }}</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ ideas }}" as="b" hint-placeholder-count="6">
+            <div style="border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;background:linear-gradient(160deg,#181421,#13101a)">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <div style="flex:0 0 auto;width:34px;height:46px;border-radius:4px 6px 6px 4px;background:{{ b.color }};box-shadow:inset -5px 0 9px -5px rgba(0,0,0,.5)"></div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#F2ECDD;line-height:1.2">{{ b.title }}</div>
+                  <div style="font-size:11.5px;color:#8f86aa;margin-top:2px">{{ b.author }}</div>
+                </div>
+              </div>
+              <div style="font-size:13px;line-height:1.55;color:#c8bfe0">{{ b.idea }}</div>
+              <div style="font-size:12px;line-height:1.5;color:#9fe6b8;margin-top:10px;background:rgba(150,108,246,.08);border-radius:10px;padding:10px 12px"><b style="color:#cdb6ff">→ </b>{{ b.ej }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ DIAGNÓSTICO IA ============ -->
+      <sc-if value="{{ isIA }}" hint-placeholder-val="{{ false }}">
+      <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#a890f5;margin-bottom:4px">{{ iaKicker }}</div>
+        <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:26px;color:#F2ECDD;margin:0 0 6px">{{ iaTitle }}</h2>
+        <p style="font-size:13px;color:#8f86aa;margin:0 0 16px;line-height:1.5">{{ iaSub }}</p>
+        <div style="display:flex;gap:11px;align-items:flex-start;margin-bottom:16px">
+          <div style="flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,#E7C46A,#E2703A);font-family:Newsreader,serif;font-weight:700;color:#0b0b0c;font-size:16px">J</div>
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px 16px 16px 16px;padding:12px 15px;font-size:13px;line-height:1.55;color:#F2ECDD">{{ iaGreeting }}</div>
+        </div>
+        <textarea value="{{ iaInput }}" onChange="{{ onIaInput }}" placeholder="{{ iaPlaceholder }}" style="width:100%;min-height:120px;resize:vertical;box-sizing:border-box;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;color:#F2ECDD;font:400 13.5px Inter;line-height:1.5;outline:none"></textarea>
+        <button onClick="{{ runDiagnosis }}" style="width:100%;margin-top:12px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#13101a;background:linear-gradient(135deg,#cdb6ff,#7b5ce0)">{{ iaBtnLabel }}</button>
+        <sc-if value="{{ iaResult }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:18px;border:1px solid rgba(160,120,250,.3);border-radius:16px;padding:16px;background:rgba(70,50,130,.25)">
+          <div style="font-family:Newsreader,serif;font-weight:400;font-size:14.5px;line-height:1.6;color:#ece7f6;white-space:pre-wrap">{{ iaResult }}</div>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <!-- unlock-overlay -->
+      <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:100;background:radial-gradient(120% 75% at 50% 38%,#241d3a,#0b0810 78%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px;text-align:center">
+        <img src="joga-logo.png" alt="Joga Intelligence" style="height:26px;width:auto;margin-bottom:18px;opacity:.92" />
+        <div style="font:600 10px Inter;letter-spacing:.34em;text-transform:uppercase;color:#cdb6ff;margin-bottom:30px">JogaMind</div>
+        <div style="position:relative;width:150px;height:150px;display:grid;place-items:center;margin-bottom:34px">
+          <div style="{{ ringStyle }}"></div>
+          <div style="position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(150,108,246,.5),transparent 68%);filter:blur(6px)"></div>
+          <div style="{{ lockStyle }}">{{ lockGlyph }}</div>
+        </div>
+        <div style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.18;color:#F6F1FF;margin-bottom:12px;max-width:14ch">{{ unlockTag }}</div>
+        <div style="font:600 9px Inter;letter-spacing:.2em;text-transform:uppercase;color:#8a8276;margin-bottom:34px">{{ challengeDays }}</div>
+        <button onClick="{{ enterApp }}" style="appearance:none;border:0;cursor:pointer;border-radius:999px;padding:16px 52px;font:600 14px Inter;letter-spacing:.03em;color:#0b0b0c;background:#cdb6ff;box-shadow:0 16px 40px -12px rgba(150,108,246,.5)">{{ unlockCta }}</button>
+      </div>
+      </sc-if>
+
+      <!-- about-overlay -->
+      <sc-if value="{{ aboutOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeAbout }}" style="position:absolute;inset:0;z-index:85;background:rgba(8,6,12,.72);backdrop-filter:blur(6px);display:flex;align-items:flex-end">
+        <div style="width:100%;background:linear-gradient(180deg,#171320,#0e0b14);border-radius:28px 28px 0 0;border-top:1px solid rgba(255,255,255,.1);padding:26px 24px 34px;box-shadow:0 -20px 60px -20px rgba(0,0,0,.9)">
+          <div style="width:42px;height:4px;border-radius:4px;background:rgba(255,255,255,.18);margin:0 auto 20px"></div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#0b0b0c;background:#cdb6ff">A♠</div>
+            <div>
+              <div style="font:600 9px Inter;letter-spacing:.28em;text-transform:uppercase;color:#cdb6ff">{{ aboutTitle }}</div>
+              <div style="font-family:Newsreader,serif;font-weight:500;font-size:20px;color:#F2ECDD">{{ challengeDays }}</div>
+            </div>
+          </div>
+          <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;line-height:1.55;color:#d9d2ea">{{ aboutBody }}</div>
+          <div style="display:flex;align-items:center;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)">
+            <span style="font-size:15px">⛓</span>
+            <span style="font-size:12px;color:#9a9189;font-style:italic">{{ chainRule }}</span>
+          </div>
+          <button onClick="{{ closeAbout }}" style="width:100%;margin-top:20px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#0b0b0c;background:#cdb6ff">{{ aboutClose }}</button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ BOTTOM NAV ============ -->
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:30;padding:12px 30px 26px;background:linear-gradient(to top,#0e0b14 70%,transparent);display:flex;justify-content:space-between">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="3">
+          <button onClick="{{ n.go }}" style="appearance:none;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 18px">
+            <span style="font-size:19px;{{ n.iconStyle }}">{{ n.icon }}</span>
+            <span style="font:600 9.5px Inter;letter-spacing:.04em;{{ n.labelStyle }}">{{ n.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <!-- ============ PLAYER OVERLAY ============ -->
+      <sc-if value="{{ playerOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:80;background:radial-gradient(120% 70% at 50% 35%,#2a2148,#0d0a13 75%);display:flex;flex-direction:column;align-items:center;padding:60px 28px 40px">
+        <!-- close -->
+        <button onClick="{{ closePlayer }}" style="position:absolute;top:58px;left:24px;appearance:none;border:0;background:rgba(255,255,255,.08);color:#F2ECDD;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+        <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c3aef9;margin-top:6px">{{ player.tag }}</div>
+        <div style="font-family:Newsreader,serif;font-weight:500;font-size:25px;color:#F6F1FF;margin-top:8px;text-align:center">{{ player.title }}</div>
+
+        <!-- breathing orb -->
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;position:relative">
+          <div style="position:absolute;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(150,108,246,.5),transparent 65%);filter:blur(8px);{{ orbAnim }}"></div>
+          <div style="position:relative;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#cbb4ff,#7b5ce0 70%,#5a3fc0);box-shadow:0 0 60px -8px rgba(150,108,246,.8),inset 0 -10px 30px rgba(60,30,120,.6);display:grid;place-items:center;{{ orbAnim }}">
+            <span style="font-family:Newsreader,serif;font-style:italic;font-size:15px;color:rgba(255,255,255,.92);text-align:center;padding:0 26px;line-height:1.4">{{ breathWord }}</span>
+          </div>
+        </div>
+
+        <!-- affirmation echo -->
+        <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;color:#d9cffb;text-align:center;line-height:1.4;max-width:26ch;margin-bottom:24px;min-height:48px">{{ affirmation }}</div>
+
+        <!-- progress -->
+        <div style="width:100%;max-width:300px">
+          <div style="height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden">
+            <div style="{{ progressStyle }}"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;font:500 11px Inter;color:#9a90b5">
+            <span>{{ elapsedLabel }}</span><span>{{ remainLabel }}</span>
+          </div>
+        </div>
+
+        <!-- controls -->
+        <div style="display:flex;align-items:center;gap:30px;margin-top:24px">
+          <span style="color:#7d7596;font-size:22px">⟲</span>
+          <button onClick="{{ togglePlay }}" style="appearance:none;border:0;cursor:pointer;width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#cdb6ff,#9b7af0);color:#1a1226;font-size:26px;display:grid;place-items:center;box-shadow:0 16px 40px -12px rgba(150,110,245,.9)">{{ playIcon }}</button>
+          <span style="color:#7d7596;font-size:22px">✦</span>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- celebrate-overlay -->
+      <sc-if value="{{ celebrate }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:95;background:radial-gradient(120% 75% at 50% 40%,rgba(20,14,30,.92),rgba(8,6,12,.96));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px;text-align:center;overflow:hidden">
+        <div style="position:absolute;inset:0;pointer-events:none">
+          <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="16"><div style="{{ c.pieceStyle }}"></div></sc-for>
+        </div>
+        <img src="joga-logo.png" alt="Joga" style="height:22px;width:auto;opacity:.9;margin-bottom:26px;position:relative;z-index:2" />
+        <div style="position:relative;width:140px;height:140px;display:grid;place-items:center;margin-bottom:26px">
+          <div style="position:absolute;width:110px;height:110px;border-radius:50%;border:2px solid #cdb6ff;animation:jiCelebRing 1.1s ease-out forwards"></div>
+          <div style="position:absolute;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#cdb6ff55,transparent 68%);filter:blur(6px)"></div>
+          <div style="position:relative;font-family:Newsreader,serif;font-weight:600;font-size:58px;color:#F6F1FF;animation:jiCelebPop .6s ease-out both;line-height:1">{{ streak }}</div>
+        </div>
+        <div style="font-family:Newsreader,serif;font-weight:500;font-size:24px;color:#F6F1FF;margin-bottom:8px;position:relative;z-index:2">✨ {{ toastLabel }}</div>
+        <div style="font-size:12px;color:#9a9189;font-style:italic;position:relative;z-index:2">⛓ {{ chainRule }}</div>
+      </div>
+      </sc-if>
+
+      <!-- completion toast -->
+      <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;bottom:120px;left:50%;transform:translateX(-50%);z-index:90;background:linear-gradient(135deg,#2a2148,#1a1430);border:1px solid rgba(160,120,250,.5);color:#F2ECDD;padding:14px 22px;border-radius:16px;font-family:Newsreader,serif;font-size:14px;box-shadow:0 20px 50px -16px rgba(0,0,0,.8);white-space:nowrap">✦ {{ toastLabel }} <span style="color:#E7C46A;font-weight:600">{{ streak }}</span></div>
+      </sc-if>
+
+    </div>
+  </div>
+
+  <!-- side caption -->
+  <div style="flex:0 0 auto;max-width:300px;color:#cfc6e6">
+    <div style="font:600 11px Inter;letter-spacing:.3em;text-transform:uppercase;color:#a890f5;margin-bottom:14px">App 01 · JogaMind</div>
+    <div style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.15;color:#F2ECDD;margin-bottom:16px">Entrena tu subconsciente</div>
+    <p style="font-size:13.5px;line-height:1.7;color:#a59cc4;margin:0 0 18px">Prototipo funcional. Toca <b style="color:#cdb6ff">▶ una sesión</b> para abrir el reproductor con respiración guiada, prueba la <b style="color:#cdb6ff">afirmación</b>, y navega entre Hoy · Sesiones · Progreso.</p>
+    <div style="font:600 9.5px Inter;letter-spacing:.26em;text-transform:uppercase;color:#8a82a0;margin-bottom:9px">{{ glowNote }}</div>
+    <div style="display:flex;gap:8px;margin-bottom:24px">
+      <sc-for list="{{ modeChips }}" as="c" hint-placeholder-count="3">
+        <button onClick="{{ c.set }}" style="{{ c.style }}">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ caption }}" as="c" hint-placeholder-count="3">
+        <div style="display:flex;gap:11px;align-items:flex-start">
+          <span style="flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:#9b7af0;margin-top:6px"></span>
+          <span style="font-size:12.5px;line-height:1.55;color:#bcb2d6">{{ c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { aboutOpen:false, locked:true, lockOpening:false, celebrate:false, view:'home', playerOpen:false, playing:false, elapsed:0, duration:420, pTitle:'', pTag:'',
+            streak:4, totalSessions:11, baseMin:96, affirmed:false, showToast:false, breathStep:0, doneP:{}, affIdx:0, iaInput:'', iaResult:'', iaLoading:false };
+
+  componentDidMount(){
+    try{ this.muted = localStorage.getItem('jiMute')==='1'; }catch(e){ this.muted=false; }
+    let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
+    let locked=true; try{ if(localStorage.getItem('jiUnlocked_subment')==='1') locked=false; }catch(e){} let doneP={}; try{ doneP=JSON.parse(localStorage.getItem('jiPractices_subment')||'{}')||{}; }catch(e){} this.setState({ muted: this.muted, lang, locked, doneP });
+    import('./subment-sfx.js').then(m => {
+      const mk = src => { try{ const a=new Audio(src); a.preload='auto'; return a; }catch(e){ return null; } };
+      this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.subment) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
+    }).catch(()=>{});
+  }
+  componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
+
+  play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
+  toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} this.setState({ muted:this.muted }); }
+  toggleLang(){ this.play('tap'); this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
+  togglePractice(i){ this.setState(st => { const d = Object.assign({}, st.doneP); const was = !!d[i]; d[i] = !was; const total = Object.keys(d).filter(k=>d[k]).length; try{ localStorage.setItem('jiPractices_subment', JSON.stringify(d)); }catch(e){} if(!was){ this.play('boom'); if(total>=3){ this._toast = setTimeout(()=>this.setState({celebrate:false}),3400); return { doneP:d, celebrate:true }; } } else { this.play('tap'); } return { doneP:d }; }); }
+
+  localDiag(q, L){
+    const THEMES = [{"k":["miedo","ansiedad","insegur","duda","nervios","panico","verguenza"],"es":{"n":"Una creencia limitante está operando","w":"Lo que sientes no es la realidad: es una creencia grabada que tu subconsciente repite como verdad.","a1":"Escribe el miedo en una frase y reescríbelo en positivo y presente.","a2":"Repite la nueva frase 5 veces hoy, en voz alta, sintiéndola."},"en":{"n":"A limiting belief is running","w":"What you feel isn’t reality: it’s a recorded belief your subconscious repeats as truth.","a1":"Write the fear in one sentence and rewrite it positive and present-tense.","a2":"Repeat the new line 5 times today, out loud, feeling it."}},{"k":["dinero","deuda","escasez","pobre","falta","gasto","ahorr"],"es":{"n":"Creencia de escasez","w":"Tu mente puede estar programada para esperar falta, y atrae justo eso.","a1":"Afirma en presente: «El dinero fluye hacia mí con facilidad.»","a2":"Cada vez que pienses «no me alcanza», cámbialo por «estoy construyendo abundancia»."},"en":{"n":"A scarcity belief","w":"Your mind may be programmed to expect lack, and it attracts exactly that.","a1":"Affirm in present: “Money flows to me with ease.”","a2":"Each time you think “I can’t afford it,” switch to “I’m building abundance.”"}},{"k":["amor","pareja","relacion","soledad","rechazo","amig"],"es":{"n":"Tu autoimagen se proyecta afuera","w":"Cómo te tratan suele reflejar cómo te tratas por dentro.","a1":"Anota 3 cualidades tuyas reales y léelas frente al espejo.","a2":"Visualiza 5 min una relación sana, sintiéndote ya merecedor de ella."},"en":{"n":"Your self-image projects outward","w":"How others treat you often mirrors how you treat yourself within.","a1":"Write 3 real qualities of yours and read them in the mirror.","a2":"Visualize a healthy relationship for 5 min, already feeling worthy of it."}},{"k":["meta","sueno","lograr","exito","quiero","futuro","propos"],"es":{"n":"Falta visualización con emoción","w":"Tu subconsciente actúa hacia lo que ve con claridad y siente como real.","a1":"Cierra los ojos 5 min y vive la escena de tu meta ya cumplida.","a2":"Define UNA acción de hoy que esa versión de ti haría."},"en":{"n":"You’re missing emotional visualization","w":"Your subconscious moves toward what it sees clearly and feels as real.","a1":"Close your eyes 5 min and live the scene of your goal already achieved.","a2":"Define ONE action today that that version of you would take."}},{"k":[],"es":{"n":"Reprograma con repetición","w":"Lo que repites en silencio se vuelve tu realidad. Empieza por cambiar el guion.","a1":"Elige una afirmación de JogaMind y repítela hoy con emoción.","a2":"Antes de dormir, imagina el día de mañana saliendo perfecto."},"en":{"n":"Reprogram through repetition","w":"What you repeat in silence becomes your reality. Start by changing the script.","a1":"Pick a JogaMind affirmation and repeat it today with emotion.","a2":"Before sleep, imagine tomorrow going perfectly."}}];
+    const s = (q||'').toLowerCase();
+    let best=THEMES[THEMES.length-1], bestScore=0;
+    for(const th of THEMES){ if(!th.k.length) continue; let sc=0; for(const w of th.k){ if(s.indexOf(w)>=0) sc++; } if(sc>bestScore){ bestScore=sc; best=th; } }
+    const d = best[L] || best.es;
+    if(L==='en'){ return 'Here\u2019s what I see in your situation:\n\n'+d.w+'\n\nKey principle \u2014 '+d.n+'\n\nDo this:\n\u2192 '+d.a1+'\n\u2192 '+d.a2; }
+    return 'Esto es lo que veo en tu situaci\u00f3n:\n\n'+d.w+'\n\nPrincipio clave \u2014 '+d.n+'\n\nHaz esto:\n\u2192 '+d.a1+'\n\u2192 '+d.a2;
+  }
+  diagnose(){ const q=(this.state.iaInput||'').trim(); if(!q||this.state.iaLoading) return; this.play('tap'); this.setState({ iaLoading:true, iaResult:'' }); const L=this.state.lang||'es'; const prompt=(L==='es'?'Eres un coach de JOGAMIND, app para entrenar el subconsciente (inspirada en Joseph Murphy, Napoleon Hill, Maxwell Maltz, Wayne Dyer). Analiza esta situación y responde en español, breve y accionable (máx 110 palabras): nombra la CREENCIA subconsciente que puede estar operando, una AFIRMACIóN en presente para reprogramarla, y 2 acciones concretas para hoy.\n\nSituación: ':'You are a JOGAMIND coach, an app to train the subconscious (inspired by Joseph Murphy, Napoleon Hill, Maxwell Maltz, Wayne Dyer). Analyze this situation and answer in English, brief and actionable (max 110 words): name the subconscious BELIEF that may be operating, a present-tense AFFIRMATION to reprogram it, and 2 concrete actions for today.\n\nSituation: ')+q; const _set=(txt)=>this.setState({iaResult:txt,iaLoading:false}); const _fail=()=>_set(this.localDiag(q,L)); let _ep=''; try{ _ep=localStorage.getItem('jiAiEndpoint')||(window.JOGA_AI_ENDPOINT||''); }catch(e){} if(!(window.claude&&window.claude.complete)&&!_ep){ _set(this.localDiag(q,L)); return; } if(window.claude && window.claude.complete){ window.claude.complete(prompt).then(r=>_set(String(r||'').trim())).catch(_fail); } else if(_ep){ fetch(_ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})}).then(r=>r.json()).then(d=>{ const tx=(d&&(d.text||d.completion||d.result))||''; if(tx)_set(String(tx).trim()); else _fail(); }).catch(_fail); } else { this.setState({ iaResult:(L==='es'?'El diagnóstico con IA se activa cuando la app está publicada con la conexión de IA encendida. Mientras tanto, elige la afirmación que más resuene y repítela hoy con emoción.':'AI diagnosis activates when the app is published with the AI connection on. Meanwhile, pick the affirmation that resonates most and repeat it today with emotion.'), iaLoading:false }); } }
+  armLaunchBoom(){ const boom = this._sfx && this._sfx.boom; if(!boom) return; const tryPlay = () => { if(this.muted) return Promise.resolve(); try{ boom.currentTime=0; boom.volume=.5; return boom.play(); }catch(e){ return Promise.reject(e); } }; const p = tryPlay(); if(p && p.catch){ p.catch(() => { const once = () => { tryPlay(); window.removeEventListener('pointerdown', once); }; window.addEventListener('pointerdown', once, { once:true }); }); } }
+
+  go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
+
+  open(s){
+    return () => {
+      this.play('boom');
+      this.setState({ playerOpen:true, playing:true, elapsed:0, duration:s.len*60, pTitle:s.title, pTag:s.tag, breathStep:0 });
+      this.startTick(); this.startBreath();
+    };
+  }
+  startTick(){
+    clearInterval(this._t);
+    this._t = setInterval(() => {
+      this.setState(st => {
+        if(!st.playing) return st;
+        const e = st.elapsed + 1;
+        if(e >= st.duration){ clearInterval(this._t); clearInterval(this._b); return this.finishState(st); }
+        return { elapsed:e };
+      });
+    }, 1000);
+  }
+  startBreath(){
+    clearInterval(this._b);
+    this._b = setInterval(() => this.setState(st => st.playing ? { breathStep:(st.breathStep+1)%3 } : st), 4000);
+  }
+  finishState(st){
+    this.play('boom');
+    this._toast = setTimeout(() => this.setState({ celebrate:false, showToast:false }), 3400);
+    return { playing:false, playerOpen:false, elapsed:0,
+             streak:st.streak+1, totalSessions:st.totalSessions+1,
+             baseMin: st.baseMin + Math.round(st.duration/60), showToast:false, celebrate:true };
+  }
+  togglePlay(){ this.play('tap'); this.setState(st => { const p=!st.playing; if(p){ this.startTick(); this.startBreath(); } return { playing:p }; }); }
+  closePlayer(){ this.play('tap'); clearInterval(this._t); clearInterval(this._b); this.setState({ playerOpen:false, playing:false }); }
+  affirm(){ this.play('tap'); this.setState({ affirmed:true }); }
+
+  fmt(s){ const m=Math.floor(s/60), r=s%60; return m+':'+String(r).padStart(2,'0'); }
+
+  renderVals(){
+    const st = this.state;
+    const L = st.lang || 'es';
+    const D = {
+      es:{
+        g:{day:'Buenos días',afternoon:'Buenas tardes',night:'Buenas noches'},
+        intention:'Tu afirmación de hoy', aff:'Despierto la fuerza que ya vive en mí.', own:'Lo afirmo', owned:'✓ Lo afirmé',
+        focusLabel:'Tu sesión de esta noche', ritualT:'Ritual de la noche · respira 4·7·8', ritualS:'Tres rondas antes de tu sesión',
+        explore:'Explora', seeAll:'Ver todo', focusModes:'Sesiones', consistency:'Tu constancia',
+        currentStreak:'Racha actual', streakUnit:'días despertando tu poder', minLabel:'minutos en silencio', blocksLabel:'sesiones completadas',
+        quote:'"Lo que repites en silencio se vuelve tu realidad."', comeback:'Vuelve mañana para no romper tu racha.',
+        toast:'Sesión completada · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', aboutTitle:"Sobre este poder", aboutBody:"Reprograma tu subconsciente. La meta no es sentirte transformado: es sentarte. Cada mañana, tres prácticas, sin falta. Aquí construyes el músculo de aparecer — el que sostiene todo lo demás.", aboutClose:"Entendido", unlockTag:"Despierta tu poder", unlockCta:"Entrar", cday:"Días 1–5 · Empieza aquí", cdef:"Reprograma tu subconsciente. Aquí construyes el músculo de aparecer.", crule:"Nunca dos días seguidos sin hacerlo.",
+        breath:['Inhala…','Sostén…','Suelta…'],
+        nav:['Hoy','Prácticas','Ideas','IA'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
+        pKicker:'Tu práctica diaria', pTitle:'Tus 3 prácticas', pSub:'Complétalas para entrenar tu subconsciente.', pProgress:'Progreso', pMark:'Marcar como completada ✓', pDone:'Completada ✓',
+        ideasKicker:'Ideas de los grandes', ideasTitle:'Lo esencial, sin rodeos', ideasSub:'La idea central de cada libro, con un ejemplo que puedes usar hoy.',
+        iaKicker:'Diagnóstico IA', iaTitle:'¿Qué te está frenando?', iaSub:'Cuéntame tu situación y te digo qué creencia reprogramar.', iaPlaceholder:'Escribe tu situación…', iaBtn:'Analizar mi mente', iaThinking:'Analizando…', iaGreeting:"Hola, soy Joga 👋 Tu coach de mente. Cuéntame qué te pasa y te digo qué creencia reprogramar y qué hacer hoy.",
+        practices:[
+          {icon:'🌅', num:'Práctica 01', title:'La afirmación del día', desc:'Repite hoy una afirmación 5 veces, en voz alta, sintiendo cada palabra.', extra:'Tu afirmación de hoy: «Mi mente trabaja a mi favor. Lo que pienso hoy, lo vivo mañana.»'},
+          {icon:'👁️', num:'Práctica 02', title:'La visualización guiada', desc:'Cierra los ojos 5 minutos y vive con detalle la versión de ti que ya logró su sueño.', extra:'Respira hondo 3 veces · imagina una escena específica (dónde, qué vistes, con quién) · siente la emoción de ya haberlo logrado · quédate ahí 5 minutos.'},
+          {icon:'📓', num:'Práctica 03', title:'El diario de pensamientos', desc:'Al final del día, escribe 3 pensamientos que tuviste y clasíficalos.', extra:'Pensamiento 1, 2 y 3 → ¿me empujó o me frenó? Lo que repites sin notarlo se vuelve tu realidad.'},
+        ],
+        sessions:[{title:'Raíz',tag:'Reprogramación'},{title:'Umbral del sueño',tag:'Antes de dormir'},{title:'Soltar el miedo',tag:'Liberación'},{title:'Yo soy',tag:'Identidad'},{title:'Aguas profundas',tag:'Inmersión'}],
+      },
+      en:{
+        g:{day:'Good morning',afternoon:'Good afternoon',night:'Good evening'},
+        intention:'Your affirmation today', aff:'I awaken the power already alive in me.', own:'I affirm it', owned:'✓ Affirmed',
+        focusLabel:'Your session tonight', ritualT:'Night ritual · breathe 4·7·8', ritualS:'Three rounds before your session',
+        explore:'Explore', seeAll:'See all', focusModes:'Sessions', consistency:'Your consistency',
+        currentStreak:'Current streak', streakUnit:'days awakening your power', minLabel:'minutes in silence', blocksLabel:'sessions completed',
+        quote:'"What you repeat in silence becomes your reality."', comeback:'Come back tomorrow to keep your streak alive.',
+        toast:'Session complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', aboutTitle:"About this power", aboutBody:"Reprogram your subconscious. The goal isn’t to feel transformed: it’s to sit down. Every morning, three practices, no misses. Here you build the muscle of showing up — the one that holds up everything else.", aboutClose:"Got it", unlockTag:"Awaken your power", unlockCta:"Enter", cday:"Days 1–5 · Start here", cdef:"Reprogram your subconscious. Here you build the muscle of showing up.", crule:"Never two days in a row without doing it.",
+        breath:['Inhale…','Hold…','Release…'],
+        nav:['Today','Practices','Ideas','AI'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
+        pKicker:'Your daily practice', pTitle:'Your 3 practices', pSub:'Complete them to train your subconscious.', pProgress:'Progress', pMark:'Mark as completed ✓', pDone:'Completed ✓',
+        ideasKicker:'Ideas from the greats', ideasTitle:'The essence, no fluff', ideasSub:'The core idea of each book, with an example you can use today.',
+        iaKicker:'AI Diagnosis', iaTitle:'What’s holding you back?', iaSub:'Tell me your situation and I’ll tell you which belief to reprogram.', iaPlaceholder:'Write your situation…', iaBtn:'Analyze my mind', iaThinking:'Analyzing…', iaGreeting:"Hi, I'm Joga 👋 Your mind coach. Tell me what's going on and I'll tell you which belief to reprogram and what to do today.",
+        practices:[
+          {icon:'🌅', num:'Practice 01', title:'The affirmation of the day', desc:'Repeat an affirmation 5 times today, out loud, feeling every word.', extra:'Your affirmation today: “My mind works in my favor. What I think today, I live tomorrow.”'},
+          {icon:'👁️', num:'Practice 02', title:'Guided visualization', desc:'Close your eyes for 5 minutes and vividly live the version of you that already achieved the dream.', extra:'Breathe deep 3 times · picture a specific scene (where, what you wear, who’s with you) · feel the emotion of having achieved it · stay there 5 minutes.'},
+          {icon:'📓', num:'Practice 03', title:'The thought journal', desc:'At the end of the day, write down 3 thoughts you had and classify them.', extra:'Thought 1, 2 and 3 → did it push me or hold me back? What you repeat unnoticed becomes your reality.'},
+        ],
+        sessions:[{title:'Root',tag:'Reprogramming'},{title:'Sleep threshold',tag:'Before sleep'},{title:'Release fear',tag:'Letting go'},{title:'I am',tag:'Identity'},{title:'Deep waters',tag:'Immersion'}],
+      },
+    };
+    const t = D[L];
+    const AFFP = { es:["Despierto la fuerza que ya vive en mí.","Mi mente trabaja a mi favor mientras descanso.","Lo que repito en silencio se vuelve mi realidad.","Suelto lo que me pesa y abro espacio a lo nuevo.","Soy quien decido ser, empezando hoy.","Mi subconsciente acepta mis palabras como verdad."], en:["I awaken the power already alive in me.","My mind works in my favor while I rest.","What I repeat in silence becomes my reality.","I release what weighs me down and make space for the new.","I am who I choose to be, starting today.","My subconscious accepts my words as truth."] }; const affList = (AFFP[L]||AFFP.es);
+    const meta = [
+      { len:7, icon:'❂', chipBg:'rgba(150,108,246,.18)' },
+      { len:12, icon:'☾', chipBg:'rgba(231,196,106,.16)' },
+      { len:9, icon:'❍', chipBg:'rgba(150,108,246,.18)' },
+      { len:5, icon:'✦', chipBg:'rgba(120,200,180,.16)' },
+      { len:15, icon:'≈', chipBg:'rgba(110,86,210,.22)' },
+    ];
+    const sessions = meta.map((m,i) => ({ ...m, title:t.sessions[i].title, tag:t.sessions[i].tag }));
+    const withPlay = s => ({ ...s, play:this.open(s) });
+
+    const hr = new Date().getHours();
+    const autoMode = hr<12 ? 'day' : hr<19 ? 'afternoon' : 'night';
+    const mode = st.timeMode || autoMode;
+    const greeting = t.g[mode];
+
+    // ambient palette por momento del día — la identidad violeta se mantiene, cambia el aura
+    const blob = (extra) => ({ position:'absolute', borderRadius:'50%', filter:'blur(13px)', ...extra });
+    const PAL = {
+      day: {
+        tint:'radial-gradient(120% 75% at 50% -5%,rgba(140,120,210,.22),transparent 60%)',
+        g1:'radial-gradient(circle,rgba(186,160,255,.42),transparent 66%)',
+        g2:'radial-gradient(circle,rgba(150,196,255,.30),transparent 66%)',
+        g3:'radial-gradient(circle,rgba(255,224,150,.28),transparent 68%)' },
+      afternoon: {
+        tint:'radial-gradient(120% 75% at 50% -5%,rgba(180,110,90,.20),transparent 60%)',
+        g1:'radial-gradient(circle,rgba(231,150,90,.36),transparent 66%)',
+        g2:'radial-gradient(circle,rgba(150,108,246,.34),transparent 66%)',
+        g3:'radial-gradient(circle,rgba(255,196,120,.24),transparent 68%)' },
+      night: {
+        tint:'radial-gradient(120% 75% at 50% -5%,rgba(70,52,130,.22),transparent 60%)',
+        g1:'radial-gradient(circle,rgba(150,108,246,.42),transparent 65%)',
+        g2:'radial-gradient(circle,rgba(110,86,210,.34),transparent 66%)',
+        g3:'radial-gradient(circle,rgba(231,196,106,.12),transparent 68%)' },
+    }[mode];
+
+    const dayLabels = t.days;
+    const todayIdx = 4; // viernes-ish for demo
+    const week = dayLabels.map((label,i) => {
+      const done = i <= todayIdx && (todayIdx - i) < st.streak;
+      const isToday = i === todayIdx;
+      return { label,
+        mark: done ? '✦' : '',
+        dotStyle: {
+          width:'30px', height:'30px', borderRadius:'50%', display:'grid', placeItems:'center',
+          margin:'0 auto', fontSize:'13px',
+          background: done ? 'linear-gradient(135deg,#cdb6ff,#8a66ee)' : 'rgba(255,255,255,.06)',
+          color: done ? '#1a1226' : '#5a5470',
+          border: isToday ? '1.5px solid #E7C46A' : '1px solid rgba(255,255,255,.08)',
+          boxShadow: done ? '0 6px 16px -6px rgba(150,110,245,.8)' : 'none'
+        }};
+    });
+
+    const navDef = [
+      { key:'home', icon:'◈', label:t.nav[0] },
+      { key:'library', icon:'☰', label:t.nav[1] },
+      { key:'ideas', icon:'❖', label:t.nav[2] },
+      { key:'ia', icon:'✶', label:t.nav[3] },
+    ];
+    const nav = navDef.map(n => {
+      const active = st.view === n.key;
+      return { icon:n.icon, label:n.label, go:this.go(n.key),
+        iconStyle:{ color: active ? '#cdb6ff' : '#6a6280' },
+        labelStyle:{ color: active ? '#cdb6ff' : '#6a6280' } };
+    });
+
+    const pct = st.duration ? Math.min(100, (st.elapsed/st.duration)*100) : 0;
+    const breathWords = t.breath;
+    const orbDur = ['6s','7s','8s'][st.breathStep];
+
+    const BOOKS = [
+      {color:'#7b5ce0', es:{title:'El poder de tu mente subconsciente', author:'Joseph Murphy', idea:'Tu subconsciente trabaja siempre y acepta como verdad lo que tu mente consciente le repite con fe y emoción.', ej:'Antes de dormir, repite en presente y con calma: «Cada día me siento más tranquilo y capaz.»'}, en:{title:'The Power of Your Subconscious Mind', author:'Joseph Murphy', idea:'Your subconscious works at all times and accepts as true whatever your conscious mind repeats with faith and emotion.', ej:'Before sleeping, calmly repeat in the present: “Each day I feel calmer and more capable.”'}},
+      {color:'#9b7af0', es:{title:'Piense y hágase rico', author:'Napoleon Hill', idea:'Un deseo definido, sostenido con fe y repetido a diario, programa tu mente para encontrar los caminos hacia tu meta.', ej:'Escribe tu meta concreta y léela en voz alta al despertar y antes de dormir.'}, en:{title:'Think and Grow Rich', author:'Napoleon Hill', idea:'A definite desire, held with faith and repeated daily, programs your mind to find the paths toward your goal.', ej:'Write your specific goal and read it aloud when you wake and before you sleep.'}},
+      {color:'#6f4fd6', es:{title:'Psico-cibernética', author:'Maxwell Maltz', idea:'Tu autoimagen gobierna tu conducta. Si cambias cómo te ves por dentro, cambias cómo actúas por fuera.', ej:'Visualízate 5 minutos al día actuando ya como la persona que quieres llegar a ser.'}, en:{title:'Psycho-Cybernetics', author:'Maxwell Maltz', idea:'Your self-image governs your behavior. Change how you see yourself within, and you change how you act without.', ej:'Visualize yourself for 5 minutes a day already acting as the person you want to become.'}},
+      {color:'#5a3fc0', es:{title:'Tus zonas erróneas', author:'Wayne Dyer', idea:'Muchos sentimientos que te frenan son hábitos mentales aprendidos. Puedes elegir soltarlos y vivir en el presente.', ej:'Cuando llegue la culpa por el pasado, nómbrala y vuelve a una acción útil del ahora.'}, en:{title:'Your Erroneous Zones', author:'Wayne Dyer', idea:'Many feelings that hold you back are learned mental habits. You can choose to let them go and live in the present.', ej:'When guilt about the past arrives, name it and return to a useful action in the now.'}},
+      {color:'#b79cf5', es:{title:'El poder de los hábitos', author:'Charles Duhigg', idea:'Los hábitos son bucles de señal, rutina y recompensa que tu subconsciente ejecuta solo. Si identificas la señal, puedes cambiar la rutina.', ej:'Detecta qué dispara un hábito que no quieres y reemplaza la rutina manteniendo la recompensa.'}, en:{title:'The Power of Habit', author:'Charles Duhigg', idea:'Habits are loops of cue, routine and reward that your subconscious runs on its own. If you spot the cue, you can change the routine.', ej:'Spot what triggers a habit you do not want and replace the routine while keeping the reward.'}},
+      {color:'#8a66ee', es:{title:'Despertando al gigante interior', author:'Tony Robbins', idea:'Tus decisiones y el lenguaje que usas contigo moldean tu estado y tu identidad. Cambiar tus preguntas cambia tu enfoque.', ej:'Sustituye «¿por qué a mí?» por «¿qué puedo aprender de esto?» y observa el cambio.'}, en:{title:'Awaken the Giant Within', author:'Tony Robbins', idea:'Your decisions and the language you use with yourself shape your state and identity. Changing your questions changes your focus.', ej:'Replace “why me?” with “what can I learn from this?” and watch the change.'}},
+    ];
+    const ideasList = BOOKS.map(b => ({ color:b.color, title:b[L].title, author:b[L].author, idea:b[L].idea, ej:b[L].ej }));
+
+    return {
+      muteIcon: st.muted ? '🔇' : '🔊',
+      toggleMute: () => this.toggleMute(),
+      langLabel: L==='es' ? 'EN' : 'ES',
+      toggleLang: () => this.toggleLang(),
+      intentionLabel: t.intention, focusLabel: t.focusLabel, ritualTitle: t.ritualT, ritualSub: t.ritualS,
+      exploreLabel: t.explore, seeAllLabel: t.seeAll, focusModesLabel: t.focusModes,
+      consistencyLabel: t.consistency, currentStreakLabel: t.currentStreak, streakUnitLabel: t.streakUnit,
+      minUnitLabel: t.minLabel, blocksUnitLabel: t.blocksLabel, quoteText: t.quote, comebackText: t.comeback,
+      toastLabel: t.toast, glowNote: t.glowNote,
+      screenTintStyle: { position:'absolute', inset:'0', zIndex:0, pointerEvents:'none', background:PAL.tint, transition:'background 1.2s ease' },
+      glow1Style: blob({ width:'340px', height:'340px', left:'-90px', top:'-60px', background:PAL.g1, animation:'subDrift 18s ease-in-out infinite', transition:'background 1.2s ease' }),
+      glow2Style: blob({ width:'300px', height:'300px', right:'-110px', top:'120px', background:PAL.g2, animation:'subDrift 24s ease-in-out infinite reverse', transition:'background 1.2s ease' }),
+      glow3Style: blob({ width:'240px', height:'240px', left:'90px', bottom:'-40px', background:PAL.g3, transition:'background 1.2s ease' }),
+      timeMode: mode,
+      setMode: (m) => () => { this.play('tap'); this.setState({ timeMode:m }); },
+      modeChips: [
+        { key:'day', label:t.modes[0] },
+        { key:'afternoon', label:t.modes[1] },
+        { key:'night', label:t.modes[2] },
+      ].map(c => ({ label:c.label, set:() => { this.play('tap'); this.setState({ timeMode:c.key }); },
+        style:{ appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'7px 14px', font:'600 12px Inter',
+          border: mode===c.key ? '1px solid #b79cf5' : '1px solid rgba(255,255,255,.14)',
+          background: mode===c.key ? 'rgba(150,108,246,.22)' : 'transparent',
+          color: mode===c.key ? '#cdb6ff' : '#8a82a0' } })),
+      isHome: st.view==='home', isLibrary: st.view==='library', isIdeas: st.view==='ideas', isIA: st.view==='ia',
+      greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
+      affirmation: (affList[st.affIdx % affList.length] || t.aff), aboutOpen: st.aboutOpen, enterApp: () => { if(st.lockOpening) return; this.play('unlock'); this.setState({ lockOpening:true }); setTimeout(()=>{ try{ localStorage.setItem('jiUnlocked_subment','1'); }catch(e){} this.setState({ locked:false, lockOpening:false }); }, 850); }, locked: st.locked, lockOpening: st.lockOpening, lockGlyph: st.lockOpening ? '\uD83D\uDD13' : '\uD83D\uDD12', lockStyle: { fontSize:'62px', lineHeight:1, animation: st.lockOpening ? 'jiLockBurst .85s ease-in forwards' : 'jiLockPop .6s ease-out both' }, ringStyle: { position:'absolute', width:'120px', height:'120px', borderRadius:'50%', border:'2px solid rgba(255,255,255,.35)', animation: st.lockOpening ? 'jiRingPulse .85s ease-out forwards' : 'none', opacity: st.lockOpening ? 1 : 0 }, unlockTag: t.unlockTag, unlockCta: t.unlockCta, aboutTitle: t.aboutTitle, aboutBody: t.aboutBody, aboutClose: t.aboutClose, openAbout: () => { this.play('tap'); this.setState({ aboutOpen:true }); }, closeAbout: () => this.setState({ aboutOpen:false }), challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
+      affirmLabel: st.affirmed ? t.owned : t.own,
+      affirm: () => this.affirm(), cycleAff: () => { this.play('tap'); this.setState(s2=>({ affIdx:s2.affIdx+1, affirmed:false })); },
+      featured: sessions[0],
+      playFeatured: this.open(sessions[0]),
+      goLibrary: this.go('library'),
+      exploreList: sessions.slice(1).map(withPlay),
+      library: sessions.map(withPlay),
+      practicesKicker: t.pKicker, practicesTitle: t.pTitle, practicesSub: t.pSub, progressLabel: t.pProgress,
+      practiceCount: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length) + ' / 3',
+      practiceBarStyle: { width: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length/3*100)+'%', height:'100%', borderRadius:'7px', background:'linear-gradient(90deg,#7b5ce0,#cdb6ff)', transition:'width .5s ease' },
+      practices: t.practices.map((p,i) => {
+        const done = !!st.doneP[i];
+        return { icon:p.icon, num:p.num, title:p.title, desc:p.desc, extra:p.extra,
+          chipBg: done ? 'rgba(150,108,246,.3)' : 'rgba(150,108,246,.14)',
+          cardStyle: { border:'1px solid '+(done?'rgba(160,120,250,.5)':'rgba(255,255,255,.08)'), borderRadius:'18px', padding:'16px', background: done?'linear-gradient(160deg,rgba(70,50,130,.4),rgba(14,11,20,.6))':'linear-gradient(160deg,#181421,#13101a)', transition:'all .3s ease' },
+          btnLabel: done ? t.pDone : t.pMark,
+          btnStyle: { width:'100%', marginTop:'14px', appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'11px', font:'600 12.5px Inter', border:'0', color: done?'#13101a':'#cdb6ff', background: done?'#cdb6ff':'rgba(150,108,246,.12)', transition:'all .3s ease' },
+          toggle: () => this.togglePractice(i) };
+      }),
+      ideasKicker: t.ideasKicker, ideasTitle: t.ideasTitle, ideasSub: t.ideasSub, ideas: ideasList,
+      iaKicker: t.iaKicker, iaTitle: t.iaTitle, iaSub: t.iaSub, iaPlaceholder: t.iaPlaceholder,
+      iaBtnLabel: st.iaLoading ? t.iaThinking : t.iaBtn, iaGreeting: t.iaGreeting,
+      iaInput: st.iaInput, iaResult: st.iaResult, iaLoading: st.iaLoading,
+      onIaInput: (e) => this.setState({ iaInput: e.target.value }),
+      runDiagnosis: () => this.diagnose(),
+      week, nav,
+      // player
+      playerOpen: st.playerOpen,
+      player: { title: st.pTitle, tag: st.pTag },
+      playIcon: st.playing ? '❚❚' : '▶',
+      togglePlay: () => this.togglePlay(),
+      closePlayer: () => this.closePlayer(),
+      elapsedLabel: this.fmt(st.elapsed),
+      remainLabel: '-' + this.fmt(Math.max(0, st.duration - st.elapsed)),
+      progressStyle: { width: pct+'%', height:'100%', borderRadius:'4px', background:'linear-gradient(90deg,#9b7af0,#cdb6ff)', transition:'width 1s linear' },
+      breathWord: st.playing ? breathWords[st.breathStep] : t.paused,
+      orbAnim: { animation: st.playing ? `subBreathe ${orbDur} ease-in-out infinite` : 'none' },
+      showToast: st.showToast, celebrate: st.celebrate, confetti: Array.from({length:16}).map((_,i)=>{ const cols=['#cdb6ff','#E7C46A','#F2ECDD']; const seed=(i*73)%100; return { pieceStyle:{ position:'absolute', top:'-12px', left:(4+seed*0.92)+'%', width:(i%3===0?'9px':'6px'), height:(i%3===0?'9px':'6px'), borderRadius:i%2?'50%':'1px', background:cols[i%3], animation:`jiConfetti ${1.6+(seed%5)*0.18}s ease-in ${ (seed%7)*0.12 }s forwards` } }; }),
+      caption: [
+        'Tus efectos reales (boom + tap) conectados desde el hub, con botón de silencio.',
+        'El aura se adapta sola a la hora del día — aquí puedes previsualizar las tres.',
+        'Cada app del suite usa su propio color de la misma familia — JogaMind es violeta.',
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
