@@ -223,11 +223,9 @@
       <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;inset:0;z-index:100;background:radial-gradient(120% 75% at 50% 38%,#241d3a,#0b0810 78%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px;text-align:center">
         <img src="joga-logo.png" alt="Joga Intelligence" style="height:26px;width:auto;margin-bottom:18px;opacity:.92" />
-        <div style="font:600 10px Inter;letter-spacing:.34em;text-transform:uppercase;color:#f3cf86;margin-bottom:30px">JogaTime</div>
-        <div style="position:relative;width:150px;height:150px;display:grid;place-items:center;margin-bottom:34px">
-          <div style="{{ ringStyle }}"></div>
-          <div style="position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(231,150,60,.5),transparent 68%);filter:blur(6px)"></div>
-          <div style="{{ lockStyle }}">{{ lockGlyph }}</div>
+        <div style="position:relative;margin-bottom:30px;display:grid;place-items:center">
+          <div style="position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(231,150,60,.28),transparent 66%);filter:blur(16px)"></div>
+          <img src="assets/logo-jogatime.png" alt="JogaTime" style="position:relative;width:212px;height:auto;filter:drop-shadow(0 16px 38px rgba(0,0,0,.55))" />
         </div>
         <div style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.18;color:#F6F1FF;margin-bottom:12px;max-width:14ch">{{ unlockTag }}</div>
         <div style="font:600 9px Inter;letter-spacing:.2em;text-transform:uppercase;color:#8a8276;margin-bottom:34px">{{ challengeDays }}</div>
