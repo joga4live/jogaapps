@@ -71,7 +71,7 @@
         <!-- header -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:26px">
           <div>
-            <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c4a93a">Monexium</div>
+            <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c4a93a">JogaCapital</div>
             <div style="font-family:Newsreader,serif;font-weight:500;font-size:23px;color:#F2ECDD;margin-top:3px">{{ greeting }}</div>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
@@ -223,7 +223,7 @@
       <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;inset:0;z-index:100;background:radial-gradient(120% 75% at 50% 38%,#241d3a,#0b0810 78%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px;text-align:center">
         <img src="joga-logo.png" alt="Joga Intelligence" style="height:26px;width:auto;margin-bottom:18px;opacity:.92" />
-        <div style="font:600 10px Inter;letter-spacing:.34em;text-transform:uppercase;color:#e3d488;margin-bottom:30px">Monexium</div>
+        <div style="font:600 10px Inter;letter-spacing:.34em;text-transform:uppercase;color:#e3d488;margin-bottom:30px">JogaCapital</div>
         <div style="position:relative;width:150px;height:150px;display:grid;place-items:center;margin-bottom:34px">
           <div style="{{ ringStyle }}"></div>
           <div style="position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(196,176,74,.5),transparent 68%);filter:blur(6px)"></div>
@@ -332,7 +332,7 @@
 
   <!-- side caption -->
   <div style="flex:0 0 auto;max-width:300px;color:#d3cda4">
-    <div style="font:600 11px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c4a93a;margin-bottom:14px">App 05 · Monexium</div>
+    <div style="font:600 11px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c4a93a;margin-bottom:14px">App 05 · JogaCapital</div>
     <div style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.15;color:#F2ECDD;margin-bottom:16px">Cultiva tu prosperidad</div>
     <p style="font-size:13.5px;line-height:1.7;color:#b6b08e;margin:0 0 18px">Prototipo funcional. Toca <b style="color:#e3d488">▶ una sesión</b> para abrir el reproductor con respiración guiada, da tu <b style="color:#e3d488">movimiento</b>, y navega entre Hoy · Prácticas · Progreso.</p>
     <div style="font:600 9.5px Inter;letter-spacing:.26em;text-transform:uppercase;color:#979079;margin-bottom:9px">{{ glowNote }}</div>
@@ -383,7 +383,7 @@ class Component extends DCLogic {
     if(L==='en'){ return 'Here\u2019s what I see in your situation:\n\n'+d.w+'\n\nKey principle \u2014 '+d.n+'\n\nDo this:\n\u2192 '+d.a1+'\n\u2192 '+d.a2; }
     return 'Esto es lo que veo en tu situaci\u00f3n:\n\n'+d.w+'\n\nPrincipio clave \u2014 '+d.n+'\n\nHaz esto:\n\u2192 '+d.a1+'\n\u2192 '+d.a2;
   }
-  diagnose(){ const q=(this.state.iaInput||'').trim(); if(!q||this.state.iaLoading) return; this.play('tap'); this.setState({ iaLoading:true, iaResult:'' }); const L=this.state.lang||'es'; const prompt=(L==='es'?'Eres un coach de MONEXIUM, app de finanzas personales (presupuesto, págate primero, fondo de emergencia, interés compuesto). Analiza esta situación y responde en español, breve y accionable (máx 110 palabras): nombra el PRINCIPIO financiero clave, la FUGA de dinero probable, y 2 acciones concretas para esta semana.\n\nSituación: ':'You are a MONEXIUM coach, a personal finance app (budgeting, pay yourself first, emergency fund, compound interest). Analyze this situation and answer in English, brief and actionable (max 110 words): name the key financial PRINCIPLE, the likely money LEAK, and 2 concrete actions for this week.\n\nSituation: ')+q; const _set=(txt)=>this.setState({iaResult:txt,iaLoading:false}); const _fail=()=>_set(this.localDiag(q,L)); let _ep=''; try{ _ep=localStorage.getItem('jiAiEndpoint')||(window.JOGA_AI_ENDPOINT||''); }catch(e){} if(!(window.claude&&window.claude.complete)&&!_ep){ _set(this.localDiag(q,L)); return; } if(window.claude && window.claude.complete){ window.claude.complete(prompt).then(r=>_set(String(r||'').trim())).catch(_fail); } else if(_ep){ fetch(_ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})}).then(r=>r.json()).then(d=>{ const tx=(d&&(d.text||d.completion||d.result))||''; if(tx)_set(String(tx).trim()); else _fail(); }).catch(_fail); } else { this.setState({ iaResult:(L==='es'?'El diagnóstico con IA se activa cuando la app está publicada con la conexión de IA encendida. Mientras tanto, dale un destino a cada peso de esta semana antes de gastarlo.':'AI diagnosis activates when the app is published with the AI connection on. Meanwhile, give every dollar of this week a destination before you spend it.'), iaLoading:false }); } }
+  diagnose(){ const q=(this.state.iaInput||'').trim(); if(!q||this.state.iaLoading) return; this.play('tap'); this.setState({ iaLoading:true, iaResult:'' }); const L=this.state.lang||'es'; const prompt=(L==='es'?'Eres un coach de JOGACAPITAL, app de finanzas personales (presupuesto, págate primero, fondo de emergencia, interés compuesto). Analiza esta situación y responde en español, breve y accionable (máx 110 palabras): nombra el PRINCIPIO financiero clave, la FUGA de dinero probable, y 2 acciones concretas para esta semana.\n\nSituación: ':'You are a JOGACAPITAL coach, a personal finance app (budgeting, pay yourself first, emergency fund, compound interest). Analyze this situation and answer in English, brief and actionable (max 110 words): name the key financial PRINCIPLE, the likely money LEAK, and 2 concrete actions for this week.\n\nSituation: ')+q; const _set=(txt)=>this.setState({iaResult:txt,iaLoading:false}); const _fail=()=>_set(this.localDiag(q,L)); let _ep=''; try{ _ep=localStorage.getItem('jiAiEndpoint')||(window.JOGA_AI_ENDPOINT||''); }catch(e){} if(!(window.claude&&window.claude.complete)&&!_ep){ _set(this.localDiag(q,L)); return; } if(window.claude && window.claude.complete){ window.claude.complete(prompt).then(r=>_set(String(r||'').trim())).catch(_fail); } else if(_ep){ fetch(_ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})}).then(r=>r.json()).then(d=>{ const tx=(d&&(d.text||d.completion||d.result))||''; if(tx)_set(String(tx).trim()); else _fail(); }).catch(_fail); } else { this.setState({ iaResult:(L==='es'?'El diagnóstico con IA se activa cuando la app está publicada con la conexión de IA encendida. Mientras tanto, dale un destino a cada peso de esta semana antes de gastarlo.':'AI diagnosis activates when the app is published with the AI connection on. Meanwhile, give every dollar of this week a destination before you spend it.'), iaLoading:false }); } }
   armLaunchBoom(){ const boom = this._sfx && this._sfx.boom; if(!boom) return; const tryPlay = () => { if(this.muted) return Promise.resolve(); try{ boom.currentTime=0; boom.volume=.5; return boom.play(); }catch(e){ return Promise.reject(e); } }; const p = tryPlay(); if(p && p.catch){ p.catch(() => { const once = () => { tryPlay(); window.removeEventListener('pointerdown', once); }; window.addEventListener('pointerdown', once, { once:true }); }); } }
 
   go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
@@ -618,7 +618,7 @@ class Component extends DCLogic {
       caption: [
         'Tus efectos reales (boom + tap) conectados desde el hub, con botón de silencio.',
         'El aura se adapta sola a la hora del día — aquí puedes previsualizar las tres.',
-        'Cada app del suite usa su propio color de la misma familia — Monexium es dorado-oliva.',
+        'Cada app del suite usa su propio color de la misma familia — JogaCapital es dorado-oliva.',
       ],
     };
   }
