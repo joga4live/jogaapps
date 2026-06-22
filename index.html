@@ -1297,6 +1297,7 @@
     setTimeout(()=>vframe.removeAttribute("src"),440);
   }
   document.getElementById("vback").addEventListener("click",()=>{ playTapSfx(); closeApp(); });
+  window.addEventListener("message",e=>{ if(e&&e.data&&e.data.type==="jogaExit"&&viewer.classList.contains("open")) closeApp(); });
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&viewer.classList.contains("open"))closeApp();});
 
   // "ver apps" buttons → scroll to launcher
