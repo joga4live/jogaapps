@@ -55,16 +55,6 @@
         <div style="position:absolute;top:90px;right:120px;width:2px;height:2px;border-radius:50%;background:#1f8f5c;animation:subTwinkle 4.8s ease-in-out infinite"></div>
       </div>
 
-      <!-- status bar -->
-      <div style="position:absolute;top:0;left:0;right:0;height:54px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 34px">
-        <span style="font:600 14px Inter;color:#242029;letter-spacing:.02em">9:41</span>
-        <span style="display:flex;gap:6px;align-items:center;color:#242029;font-size:12px">
-          <span style="font-weight:600">●●●</span>
-          <span style="font-weight:600;letter-spacing:.05em">5G</span>
-          <span style="display:inline-block;width:22px;height:11px;border:1.4px solid #242029;border-radius:3px;position:relative"><span style="position:absolute;inset:1.5px;width:70%;background:#242029;border-radius:1px"></span></span>
-        </span>
-      </div>
-
       <!-- ============ HOME ============ -->
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:64px 22px 110px">
@@ -633,7 +623,7 @@ class Component extends DCLogic {
     return {
       muteIcon: st.muted ? '🔇' : '🔊',
       toggleMute: () => this.toggleMute(),
-      langLabel: L==='es' ? 'EN' : 'ES',
+      langLabel: L==='es' ? 'ES' : 'EN',
       toggleLang: () => this.toggleLang(),
       intentionLabel: t.intention, focusLabel: t.focusLabel, ritualTitle: t.ritualT, ritualSub: t.ritualS,
       exploreLabel: t.explore, seeAllLabel: t.seeAll, focusModesLabel: t.focusModes,
