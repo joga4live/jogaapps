@@ -281,8 +281,8 @@
           <dc-import name="Joga Orb" c1="#cbb4ff" c2="#7b5ce0" c3="#5a3fc0" glow="150,108,246" word="{{ breathWord }}" hint-size="230px,230px"></dc-import>
         </div>
 
-        <!-- session affirmation (calm, static) -->
-        <div style="font-family:Newsreader,serif;font-style:italic;font-weight:400;font-size:16px;color:#b9aee0;text-align:center;line-height:1.5;max-width:28ch;margin-bottom:24px;min-height:48px;opacity:.85">{{ affirmation }}</div>
+        <!-- no subtitle: voice carries the words -->
+        <div style="min-height:18px"></div>
 
         <!-- progress -->
         <div style="width:100%;max-width:300px">
@@ -365,8 +365,11 @@ class Component extends DCLogic {
       this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.subment) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
       // session audio: voice + looping background music
       try{
-        this._voice = new Audio(); this._voice.preload='auto';
+        this._voice = new Audio('voz-jogamind.mp3'); this._voice.preload='auto'; this._voiceLang='es';
         this._music = new Audio('musica-fondo.mp3'); this._music.preload='auto'; this._music.loop=true;
+        // iOS audio unlock: prime both elements on first user gesture
+        const _prime = () => { try{ [this._voice,this._music].forEach(a=>{ if(!a) return; const pv=a.volume; a.volume=0; const p=a.play(); if(p&&p.then) p.then(()=>{ a.pause(); a.currentTime=0; a.volume=pv; }).catch(()=>{ a.volume=pv; }); else { a.pause(); a.volume=pv; } }); }catch(e){} window.removeEventListener('pointerdown',_prime); window.removeEventListener('touchstart',_prime); };
+        window.addEventListener('pointerdown',_prime,{once:true}); window.addEventListener('touchstart',_prime,{once:true});
         this._voice.addEventListener('loadedmetadata', ()=>{ if(this._voice.duration && isFinite(this._voice.duration)){ this.setState(st=> st.playerOpen ? { duration: Math.round(this._voice.duration) } : {}); } });
         this._voice.addEventListener('ended', ()=>{ this.setState(st=> st.playerOpen ? this.finishState(st) : {}); });
       }catch(e){}
@@ -400,7 +403,7 @@ class Component extends DCLogic {
 
   go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
 
-  startSession(){ try{ const v=this._voice, mu=this._music; if(v){ const src='voz-jogamind'+((this.state.lang==='en')?'-en':'')+'.mp3'; if((v.getAttribute('src')||'')!==src){ v.setAttribute('src',src); } v.currentTime=0; v.volume=this.muted?0:1; const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } if(mu){ mu.currentTime=0; mu.volume=this.muted?0:0.3; const pm=mu.play(); if(pm&&pm.catch) pm.catch(()=>{}); } }catch(e){} }
+  startSession(){ try{ const v=this._voice, mu=this._music; if(v){ const lang=(this.state.lang==='en')?'en':'es'; if(this._voiceLang!==lang){ this._voiceLang=lang; v.setAttribute('src','voz-jogamind'+(lang==='en'?'-en':'')+'.mp3'); } v.currentTime=0; v.volume=this.muted?0:1; const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } if(mu){ mu.currentTime=0; mu.volume=this.muted?0:0.3; const pm=mu.play(); if(pm&&pm.catch) pm.catch(()=>{}); } }catch(e){} }
   pauseSession(){ try{ if(this._voice) this._voice.pause(); if(this._music) this._music.pause(); }catch(e){} }
   resumeSession(){ try{ if(this._voice){ this._voice.volume=this.muted?0:1; this._voice.play().catch(()=>{}); } if(this._music){ this._music.volume=this.muted?0:0.3; this._music.play().catch(()=>{}); } }catch(e){} }
   stopSession(){ try{ if(this._voice){ this._voice.pause(); this._voice.currentTime=0; } if(this._music){ this._music.pause(); this._music.currentTime=0; } }catch(e){} }
