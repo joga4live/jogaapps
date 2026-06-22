@@ -19,14 +19,20 @@
     .ob-scroll::-webkit-scrollbar{display:none}
     @keyframes obIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
     @keyframes obFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+    @media (max-width:600px){
+      .ob-wrap{padding:0!important;min-height:100dvh!important}
+      .ob-phone{width:100vw!important;width:100dvw!important;height:100dvh!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
+      .ob-notch{display:none!important}
+      .ob-screen{border-radius:0!important}
+    }
   </style>
 </helmet>
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;background:radial-gradient(95% 70% at 50% 22%,#13112a,#08070e 72%,#05060a)">
+<div class="ob-wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;background:radial-gradient(95% 70% at 50% 22%,#13112a,#08070e 72%,#05060a)">
 
   <!-- phone -->
-  <div style="position:relative;width:392px;height:838px;background:#0B0B0C;border-radius:46px;padding:10px;box-shadow:0 50px 120px -40px rgba(0,0,0,.95),0 0 0 1.5px #2a2535">
-    <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0B0B0C;border-radius:0 0 16px 16px;z-index:20"></div>
-    <div class="ob-scroll" style="position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:{{ screenBg }};transition:background 1s ease">
+  <div class="ob-phone" style="position:relative;width:392px;height:838px;background:#0B0B0C;border-radius:46px;padding:10px;box-shadow:0 50px 120px -40px rgba(0,0,0,.95),0 0 0 1.5px #2a2535">
+    <div class="ob-notch" style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0B0B0C;border-radius:0 0 16px 16px;z-index:20"></div>
+    <div class="ob-scroll ob-screen" style="position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:{{ screenBg }};transition:background 1s ease">
 
       <!-- ambient glow -->
       <div style="{{ ambientStyle }}"></div>
@@ -127,7 +133,7 @@
             </div>
           </sc-for>
         </div>
-        <a href="index.html" style="display:block;text-align:center;text-decoration:none;margin-top:24px;border-radius:999px;padding:17px 0;font:600 15px Inter;letter-spacing:.02em;color:#10101a;background:linear-gradient(120deg,#e9d8a6,#E7C46A 55%,#cdb6ff);box-shadow:0 18px 40px -16px rgba(231,196,106,.6)">Empezar el reto →</a>
+        <a href="{{ startHref }}" style="display:block;text-align:center;text-decoration:none;margin-top:24px;border-radius:999px;padding:17px 0;font:600 15px Inter;letter-spacing:.02em;color:#10101a;background:linear-gradient(120deg,#e9d8a6,#E7C46A 55%,#cdb6ff);box-shadow:0 18px 40px -16px rgba(231,196,106,.6)">Empezar el reto →</a>
         <button onClick="{{ restart }}" style="display:block;width:100%;margin-top:12px;appearance:none;border:0;background:none;cursor:pointer;font:500 12.5px Inter;color:#6f6a86">Volver a empezar</button>
       </div>
       </sc-if>
@@ -288,6 +294,7 @@ class Component extends DCLogic {
       nextLabel, nextStyle,
       restart: () => this.save({ step:0, powers:[], time:'', goal:'' }),
       planIntro, planSteps,
+      startHref: ({mind:'subment.html',time:'jogatime.html',bit:'protoneutron.html',path:'metodoexito.html',capital:'monexium.html',ventix:'ventmex.html'}[st.powers[0]] || 'subment.html'),
     };
   }
 }
