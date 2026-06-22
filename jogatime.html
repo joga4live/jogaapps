@@ -115,21 +115,10 @@
           <span style="color:#b8923a;font-size:18px">›</span>
         </div>
 
-        <!-- explore -->
-        <div style="display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 14px">
-          <div style="font:600 10px Inter;letter-spacing:.28em;text-transform:uppercase;color:#7c7488">{{ exploreLabel }}</div>
-          <button onClick="{{ goLibrary }}" style="appearance:none;border:0;background:none;cursor:pointer;font:500 12px Inter;color:#b8801f">{{ seeAllLabel }}</button>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <sc-for list="{{ exploreList }}" as="s" hint-placeholder-count="4">
-            <button onClick="{{ s.play }}" style="text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(45,38,58,.08);border-radius:18px;padding:16px 16px 18px;background:linear-gradient(160deg,#ffffff,#ffffff);min-height:118px;display:flex;flex-direction:column;justify-content:space-between" style-hover="border-color:rgba(231,170,80,.4)">
-              <div style="width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:{{ s.chipBg }};font-size:15px">{{ s.icon }}</div>
-              <div>
-                <div style="font-family:Newsreader,serif;font-weight:600;font-size:15.5px;color:#242029;line-height:1.15">{{ s.title }}</div>
-                <div style="font-size:11px;color:#7c7468;margin-top:3px">{{ s.len }} min</div>
-              </div>
-            </button>
-          </sc-for>
+        <!-- principle of the day -->
+        <div style="font:600 10px Inter;letter-spacing:.28em;text-transform:uppercase;color:#7c7488;margin:0 2px 12px">{{ principleLabel }}</div>
+        <div style="border:1px solid rgba(45,38,58,.1);border-radius:20px;padding:22px 20px;background:rgba(255,255,255,.55)">
+          <div style="font-family:Newsreader,serif;font-style:italic;font-weight:500;font-size:18px;line-height:1.5;color:#242029">{{ quoteText }}</div>
         </div>
       </div>
       </sc-if>
@@ -582,7 +571,7 @@ class Component extends DCLogic {
       intentionLabel: t.intention, focusLabel: t.focusLabel, ritualTitle: t.ritualT, ritualSub: t.ritualS,
       exploreLabel: t.explore, seeAllLabel: t.seeAll, focusModesLabel: t.focusModes,
       consistencyLabel: t.consistency, currentStreakLabel: t.currentStreak, streakUnitLabel: t.streakUnit,
-      minUnitLabel: t.minLabel, blocksUnitLabel: t.blocksLabel, quoteText: t.quote, comebackText: t.comeback,
+      minUnitLabel: t.minLabel, blocksUnitLabel: t.blocksLabel, quoteText: t.quote, principleLabel: (L==='es'?'Principio de hoy':'Principle of the day'), comebackText: t.comeback,
       toastLabel: t.toast, glowNote: t.glowNote,
       screenTintStyle: { position:'absolute', inset:'0', zIndex:0, pointerEvents:'none', background:PAL.tint, transition:'background 1.2s ease' },
       glow1Style: blob({ width:'340px', height:'340px', left:'-90px', top:'-60px', background:PAL.g1, animation:'subDrift 18s ease-in-out infinite', transition:'background 1.2s ease' }),
