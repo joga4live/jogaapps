@@ -357,6 +357,7 @@ class Component extends DCLogic {
             streak:4, totalSessions:11, baseMin:96, affirmed:false, showToast:false, breathStep:0, doneP:{}, affIdx:0, iaInput:'', iaResult:'', iaLoading:false };
 
   componentDidMount(){
+    try{ if(!window.__jogaAudioGuard){ window.__jogaAudioGuard=1; window.addEventListener('unhandledrejection', e=>{ try{ const m=String((e.reason&&e.reason.message)||e.reason||''); if(/play\(\)/i.test(m)||/NotAllowed/i.test(m)) e.preventDefault(); }catch(_){} }); } }catch(e){}
     try{ this.muted = localStorage.getItem('jiMute')==='1'; }catch(e){ this.muted=false; }
     let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
     let locked=true; try{ if(localStorage.getItem('jiUnlocked_subment')==='1') locked=false; }catch(e){} let doneP={}; try{ doneP=JSON.parse(localStorage.getItem('jiPractices_subment')||'{}')||{}; }catch(e){} this._key='subment'; let _stats={}; try{ _stats=JSON.parse(localStorage.getItem('jiStats_subment')||'{}')||{}; }catch(e){} const _today=new Date().toISOString().slice(0,10); let _affD=''; try{ _affD=localStorage.getItem('jiAffirmed_subment')||''; }catch(e){} this.setState(Object.assign({ muted: this.muted, lang, locked, doneP, affirmed:_affD===_today }, typeof _stats.streak==='number'?{streak:_stats.streak}:{}, typeof _stats.totalSessions==='number'?{totalSessions:_stats.totalSessions}:{}, typeof _stats.baseMin==='number'?{baseMin:_stats.baseMin}:{}));
@@ -367,19 +368,25 @@ class Component extends DCLogic {
       try{
         this._voice = new Audio('voz-jogamind.mp3'); this._voice.preload='auto'; this._voiceLang='es';
         this._music = new Audio('musica-fondo.mp3'); this._music.preload='auto'; this._music.loop=true;
+        this._durKnown = {};
         // iOS audio unlock: prime both elements on first user gesture
         const _prime = () => { try{ [this._voice,this._music].forEach(a=>{ if(!a) return; const pv=a.volume; a.volume=0; const p=a.play(); if(p&&p.then) p.then(()=>{ a.pause(); a.currentTime=0; a.volume=pv; }).catch(()=>{ a.volume=pv; }); else { a.pause(); a.volume=pv; } }); }catch(e){} window.removeEventListener('pointerdown',_prime); window.removeEventListener('touchstart',_prime); };
         window.addEventListener('pointerdown',_prime,{once:true}); window.addEventListener('touchstart',_prime,{once:true});
-        this._voice.addEventListener('loadedmetadata', ()=>{ if(this._voice.duration && isFinite(this._voice.duration)){ this.setState(st=> st.playerOpen ? { duration: Math.round(this._voice.duration) } : {}); } });
+        // these MP3s report Infinity duration; resolve it OFF the playback element (decode a copy) so playback is never disturbed
+        const _resolveDur = (lang, file) => { try{ fetch(file).then(r=>r.arrayBuffer()).then(b=>{ const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return; const ctx=new Ctx(); ctx.decodeAudioData(b.slice(0)).then(ab=>{ this._durKnown[lang]=Math.round(ab.duration); try{ctx.close();}catch(e){} if(this._voiceLang===lang){ this._curDur=this._durKnown[lang]; this.setState(st=> st.playerOpen ? { duration:this._durKnown[lang] } : {}); } }).catch(()=>{ try{ctx.close();}catch(e){} }); }).catch(()=>{}); }catch(e){} };
+        _resolveDur('es','voz-jogamind.mp3'); _resolveDur('en','voz-jogamind-en.mp3');
+        const _syncDur=()=>{ const v=this._voice; if(v && isFinite(v.duration) && v.duration>0){ this._curDur=Math.round(v.duration); this.setState(st=> st.playerOpen ? { duration:this._curDur } : {}); } };
+        this._voice.addEventListener('loadedmetadata', _syncDur);
+        this._voice.addEventListener('durationchange', _syncDur);
         this._voice.addEventListener('ended', ()=>{ this.setState(st=> st.playerOpen ? this.finishState(st) : {}); });
-        this._voice.addEventListener('timeupdate', ()=>{ try{ const v=this._voice, mu=this._music; if(this.muted||!mu||!v.duration||!isFinite(v.duration)) return; const rem=v.duration - v.currentTime; mu.volume = rem<6 ? Math.max(0,(rem/6)*0.18) : 0.18; }catch(e){} });
+        this._voice.addEventListener('timeupdate', ()=>{ try{ const v=this._voice, mu=this._music; if(this.muted||!mu) return; const D=this._curDur||(isFinite(v.duration)?v.duration:0); if(!D) return; const rem=D - v.currentTime; mu.volume = rem<6 ? Math.max(0,(rem/6)*0.26) : 0.26; }catch(e){} });
       }catch(e){}
     }).catch(()=>{});
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); this.stopSession(); }
 
   play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
-  toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} try{ if(this._voice) this._voice.volume=this.muted?0:1; if(this._music) this._music.volume=this.muted?0:0.18; }catch(e){} this.setState({ muted:this.muted }); }
+  toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} try{ if(this._voice) this._voice.volume=this.muted?0:1; if(this._music) this._music.volume=this.muted?0:0.26; }catch(e){} this.setState({ muted:this.muted }); }
   toggleLang(){ this.play('tap'); this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
   togglePractice(i){ this.setState(st => { const d = Object.assign({}, st.doneP); const was = !!d[i]; d[i] = !was; const total = Object.keys(d).filter(k=>d[k]).length; try{ localStorage.setItem('jiPractices_subment', JSON.stringify(d)); }catch(e){} if(!was){ this.play('boom'); if(total>=3){ this._toast = setTimeout(()=>this.setState({celebrate:false}),3400); return { doneP:d, celebrate:true }; } } else { this.play('tap'); } return { doneP:d }; }); }
 
@@ -397,14 +404,16 @@ class Component extends DCLogic {
 
   go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
 
-  startSession(){ try{ const v=this._voice, mu=this._music; if(v){ const lang=(this.state.lang==='en')?'en':'es'; if(this._voiceLang!==lang){ this._voiceLang=lang; v.setAttribute('src','voz-jogamind'+(lang==='en'?'-en':'')+'.mp3'); } v.currentTime=0; v.volume=this.muted?0:1; const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } if(mu){ mu.currentTime=0; mu.volume=this.muted?0:0.18; const pm=mu.play(); if(pm&&pm.catch) pm.catch(()=>{}); } }catch(e){} }
+  startSession(){ try{ const v=this._voice, mu=this._music; if(v){ const lang=(this.state.lang==='en')?'en':'es'; const want='voz-jogamind'+(lang==='en'?'-en':'')+'.mp3'; const cur=(v.getAttribute('src')||''); if(this._voiceLang!==lang || cur.indexOf(want)<0){ this._voiceLang=lang; v.src=want; try{ v.load(); }catch(e){} } this._curDur=(this._durKnown&&this._durKnown[lang])||this._curDur||null; if(this._curDur){ this.setState({ duration:this._curDur }); } v.volume=this.muted?0:1; let _started=false; const startPlay=()=>{ if(_started) return; _started=true; try{ v.currentTime=0; }catch(e){} const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }; if(v.readyState>=1){ startPlay(); } else { v.addEventListener('loadedmetadata', startPlay, {once:true}); v.addEventListener('canplay', startPlay, {once:true}); } } if(mu){ try{ mu.currentTime=0; }catch(e){} mu.volume=this.muted?0:0.26; const pm=mu.play(); if(pm&&pm.catch) pm.catch(()=>{}); } }catch(e){} }
   pauseSession(){ try{ if(this._voice) this._voice.pause(); if(this._music) this._music.pause(); }catch(e){} }
-  resumeSession(){ try{ if(this._voice){ this._voice.volume=this.muted?0:1; this._voice.play().catch(()=>{}); } if(this._music){ this._music.volume=this.muted?0:0.18; this._music.play().catch(()=>{}); } }catch(e){} }
+  resumeSession(){ try{ if(this._voice){ this._voice.volume=this.muted?0:1; this._voice.play().catch(()=>{}); } if(this._music){ this._music.volume=this.muted?0:0.26; this._music.play().catch(()=>{}); } }catch(e){} }
   stopSession(){ try{ if(this._voice){ this._voice.pause(); this._voice.currentTime=0; } if(this._music){ this._music.pause(); this._music.currentTime=0; } }catch(e){} }
   open(s){
     return () => {
       this.play('boom');
-      this.setState({ playerOpen:true, playing:true, elapsed:0, duration:s.len*60, pTitle:s.title, pTag:s.tag, breathStep:0 });
+      const lang=(this.state.lang==='en')?'en':'es';
+      const vd = (this._durKnown&&this._durKnown[lang]) || ((this._voice && isFinite(this._voice.duration) && this._voice.duration>0) ? Math.round(this._voice.duration) : s.len*60);
+      this.setState({ playerOpen:true, playing:true, elapsed:0, duration:vd, pTitle:s.title, pTag:s.tag, breathStep:0 });
       this.startTick(); this.startBreath(); this.startSession();
     };
   }
@@ -564,7 +573,7 @@ class Component extends DCLogic {
       let _acc=0;
       for(let i=0;i<_scr.length;i++){ _acc+=_lens[i]; _ni=i; if(_target <= _acc) break; }
     }
-    const narration = st.playing ? (_scr[_ni] || t.aff) : (affList[st.affIdx % affList.length] || t.aff);
+    const narration = st.playerOpen ? (_scr[_ni] || t.aff) : (affList[st.affIdx % affList.length] || t.aff);
     const orbDur = ['6s','7s','8s'][st.breathStep];
 
     const BOOKS = [
