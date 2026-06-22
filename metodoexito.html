@@ -321,7 +321,7 @@
         </div>
 
         <!-- affirmation echo -->
-        <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;color:#cbf0d8;text-align:center;line-height:1.4;max-width:26ch;margin-bottom:24px;min-height:48px">{{ affirmation }}</div>
+        <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;color:#cbf0d8;text-align:center;line-height:1.4;max-width:26ch;margin-bottom:24px;min-height:84px;transition:opacity .4s ease">{{ narration }}</div>
 
         <!-- progress -->
         <div style="width:100%;max-width:300px">
@@ -404,7 +404,14 @@ class Component extends DCLogic {
       this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.pasley) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
     }).catch(()=>{});
   }
-  componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
+  componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); try{ if(this._track) this._track.pause(); }catch(e){} }
+  componentDidUpdate(pp, ps){
+    const st=this.state, AUDIO='audio/jogapath.mp3';
+    if(st.playerOpen && !ps.playerOpen){ try{ if(this._track){ this._track.pause(); } this._track=new Audio(AUDIO); this._track.loop=true; this._track.volume=st.muted?0:0.55; const _p=this._track.play(); if(_p&&_p.catch)_p.catch(()=>{}); }catch(e){} }
+    if(!st.playerOpen && ps.playerOpen){ try{ if(this._track){ this._track.pause(); this._track.currentTime=0; } }catch(e){} }
+    if(st.playerOpen && st.playing!==ps.playing){ try{ if(this._track){ if(st.playing){ const _p=this._track.play(); if(_p&&_p.catch)_p.catch(()=>{}); } else { this._track.pause(); } } }catch(e){} }
+    if(st.muted!==ps.muted && this._track){ try{ this._track.volume=st.muted?0:0.55; }catch(e){} }
+  }
 
   play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
   toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} this.setState({ muted:this.muted }); }
@@ -473,7 +480,7 @@ class Component extends DCLogic {
         explore:'Explora', seeAll:'Ver todo', focusModes:'Pasos', consistency:'Tu constancia',
         currentStreak:'Racha actual', streakUnit:'días avanzando sin parar', minLabel:'pasos dados', blocksLabel:'etapas completadas',
         quote:'"Un paso ordenado vale más que mil saltos sin rumbo."', comeback:'Vuelve mañana para dar tu siguiente paso.',
-        toast:'Paso completado · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', aboutTitle:"Sobre este poder", aboutBody:"El método del éxito, paso a paso. Alinea cada movimiento con las leyes que de verdad funcionan, no con la suerte. La reina no improvisa: avanza con estrategia.", aboutClose:"Entendido", unlockTag:"Domina el método", unlockCta:"Entrar", cday:"Días 16–20", cdef:"El método del éxito, paso a paso. Avanza con estrategia, no con suerte.", crule:"Nunca dos días seguidos sin hacerlo.",
+        toast:'Paso completado · racha', paused:'En pausa', script:["Respirá profundo.","No necesitás saltar; necesitás el siguiente paso.","Repetí:","Crezco un peldaño cada día.","Avanzo con estrategia, no con suerte.","Mi mundo exterior refleja mi orden interior.","Sé hacia dónde voy, y eso me da calma.","Inhala claridad… exhala la prisa.","No comparo mi camino con el de nadie.","Cada paso ordenado me acerca. Hoy doy uno, con intención.","El método me sostiene."], glowNote:'El glow cambia con la hora', aboutTitle:"Sobre este poder", aboutBody:"El método del éxito, paso a paso. Alinea cada movimiento con las leyes que de verdad funcionan, no con la suerte. La reina no improvisa: avanza con estrategia.", aboutClose:"Entendido", unlockTag:"Domina el método", unlockCta:"Entrar", cday:"Días 16–20", cdef:"El método del éxito, paso a paso. Avanza con estrategia, no con suerte.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Prepara…','Da el paso…','Afianza…'],
         nav:['Hoy','Pasos','Leyes','IA'], lawsKicker:'Las 7 Leyes', lawsTitle:'Las 7 Leyes', lawsSub:'Los principios que rigen tu éxito — úsalos a tu favor.', iaKicker:'Diagnóstico IA', iaTitle:'¿En qué te ayudo?', iaSub:'Cuéntame tu situación y te digo qué ley y qué paso activar.', iaPlaceholder:'Escribe tu situación…', iaBtn:'Analizar mi situación', iaThinking:'Analizando…', iaGreeting:"Hola, soy Joga 👋 Tu coach del método. Cuéntame dónde estás atorado y te digo qué ley y qué paso activar.", days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
         pKicker:'Tu camino', pTitle:'Tus 3 prácticas', pSub:'Complétalas para despertar tu poder.', pProgress:'Progreso', pMark:'Marcar como completada ✓', pDone:'Completada ✓',
@@ -491,7 +498,7 @@ class Component extends DCLogic {
         explore:'Explore', seeAll:'See all', focusModes:'Steps', consistency:'Your consistency',
         currentStreak:'Current streak', streakUnit:'days advancing nonstop', minLabel:'steps taken', blocksLabel:'stages completed',
         quote:'"One ordered step beats a thousand aimless leaps."', comeback:'Come back tomorrow to take your next step.',
-        toast:'Step complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', aboutTitle:"About this power", aboutBody:"The method of success, step by step. Align every move with the laws that truly work, not with luck. The queen doesn’t improvise: she advances with strategy.", aboutClose:"Got it", unlockTag:"Master the method", unlockCta:"Enter", cday:"Days 16–20", cdef:"The method of success, step by step. Advance with strategy, not luck.", crule:"Never two days in a row without doing it.",
+        toast:'Step complete · streak', paused:'Paused', script:["Breathe deep.","You don't need to leap; you need the next step.","Repeat:","I grow one step every day.","I advance with strategy, not luck.","My outer world reflects my inner order.","I know where I'm going, and that gives me calm.","Inhale clarity… exhale the rush.","I don't compare my path to anyone's.","Every ordered step brings me closer. Today I take one, with intention.","The method holds me."], glowNote:'The glow shifts with the time', aboutTitle:"About this power", aboutBody:"The method of success, step by step. Align every move with the laws that truly work, not with luck. The queen doesn’t improvise: she advances with strategy.", aboutClose:"Got it", unlockTag:"Master the method", unlockCta:"Enter", cday:"Days 16–20", cdef:"The method of success, step by step. Advance with strategy, not luck.", crule:"Never two days in a row without doing it.",
         breath:['Prepare…','Take the step…','Lock it in…'],
         nav:['Today','Steps','Laws','AI'], lawsKicker:'The 7 Laws', lawsTitle:'The 7 Laws', lawsSub:'The principles that govern your success — use them in your favor.', iaKicker:'AI Diagnosis', iaTitle:'How can I help?', iaSub:'Tell me your situation and I’ll tell you which law and step to activate.', iaPlaceholder:'Write your situation…', iaBtn:'Analyze my situation', iaThinking:'Analyzing…', iaGreeting:"Hi, I'm Joga 👋 Your method coach. Tell me where you're stuck and I'll tell you which law and step to activate.", days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
         pKicker:'Your path', pTitle:'Your 3 practices', pSub:'Complete them to awaken your power.', pProgress:'Progress', pMark:'Mark as completed ✓', pDone:'Completed ✓',
@@ -572,6 +579,8 @@ class Component extends DCLogic {
 
     const pct = st.duration ? Math.min(100, (st.elapsed/st.duration)*100) : 0;
     const breathWords = t.breath;
+    const _scr = t.script || [];
+    const narration = st.playing ? (_scr[Math.floor(st.elapsed/7) % (_scr.length||1)] || t.aff) : (affList[st.affIdx % affList.length] || t.aff);
     const orbDur = ['6s','7s','8s'][st.breathStep];
 
     const LEYES = { es:[
@@ -657,6 +666,7 @@ class Component extends DCLogic {
       remainLabel: '-' + this.fmt(Math.max(0, st.duration - st.elapsed)),
       progressStyle: { width: pct+'%', height:'100%', borderRadius:'4px', background:'linear-gradient(90deg,#34b06f,#9fe6b8)', transition:'width 1s linear' },
       breathWord: st.playing ? breathWords[st.breathStep] : t.paused,
+      narration,
       orbAnim: { animation: st.playing ? `subBreathe ${orbDur} ease-in-out infinite` : 'none' },
       showToast: st.showToast, celebrate: st.celebrate, confetti: Array.from({length:16}).map((_,i)=>{ const cols=['#9fe6b8','#E7C46A','#F2ECDD']; const seed=(i*73)%100; return { pieceStyle:{ position:'absolute', top:'-12px', left:(4+seed*0.92)+'%', width:(i%3===0?'9px':'6px'), height:(i%3===0?'9px':'6px'), borderRadius:i%2?'50%':'1px', background:cols[i%3], animation:`jiConfetti ${1.6+(seed%5)*0.18}s ease-in ${ (seed%7)*0.12 }s forwards` } }; }),
       caption: [

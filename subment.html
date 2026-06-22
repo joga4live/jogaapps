@@ -281,8 +281,8 @@
           <dc-import name="Joga Orb" c1="#cbb4ff" c2="#7b5ce0" c3="#5a3fc0" glow="150,108,246" word="{{ breathWord }}" hint-size="230px,230px"></dc-import>
         </div>
 
-        <!-- affirmation echo -->
-        <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;color:#d9cffb;text-align:center;line-height:1.4;max-width:26ch;margin-bottom:24px;min-height:48px">{{ affirmation }}</div>
+        <!-- guided narration -->
+        <div style="font-family:Newsreader,serif;font-weight:400;font-size:18px;color:#e7dfff;text-align:center;line-height:1.5;max-width:30ch;margin-bottom:24px;min-height:84px;transition:opacity .4s ease">{{ narration }}</div>
 
         <!-- progress -->
         <div style="width:100%;max-width:300px">
@@ -365,7 +365,14 @@ class Component extends DCLogic {
       this._sfx = { tap:mk(m.SFX.tap), boom:mk((m.SFX.appBooms && m.SFX.appBooms.subment) || m.SFX.boom), unlock:mk('unlock.mp3') }; this.armLaunchBoom();
     }).catch(()=>{});
   }
-  componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); }
+  componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); try{ if(this._track) this._track.pause(); }catch(e){} }
+  componentDidUpdate(pp, ps){
+    const st=this.state, AUDIO='audio/jogamind.mp3';
+    if(st.playerOpen && !ps.playerOpen){ try{ if(this._track){ this._track.pause(); } this._track=new Audio(AUDIO); this._track.loop=true; this._track.volume=st.muted?0:0.55; const _p=this._track.play(); if(_p&&_p.catch)_p.catch(()=>{}); }catch(e){} }
+    if(!st.playerOpen && ps.playerOpen){ try{ if(this._track){ this._track.pause(); this._track.currentTime=0; } }catch(e){} }
+    if(st.playerOpen && st.playing!==ps.playing){ try{ if(this._track){ if(st.playing){ const _p=this._track.play(); if(_p&&_p.catch)_p.catch(()=>{}); } else { this._track.pause(); } } }catch(e){} }
+    if(st.muted!==ps.muted && this._track){ try{ this._track.volume=st.muted?0:0.55; }catch(e){} }
+  }
 
   play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
   toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} this.setState({ muted:this.muted }); }
@@ -436,6 +443,7 @@ class Component extends DCLogic {
         quote:'"Lo que repites en silencio se vuelve tu realidad."', comeback:'Vuelve mañana para no romper tu racha.',
         toast:'Sesión completada · racha', paused:'En pausa', glowNote:'El glow cambia con la hora', aboutTitle:"Sobre este poder", aboutBody:"Reprograma tu subconsciente. La meta no es sentirte transformado: es sentarte. Cada mañana, tres prácticas, sin falta. Aquí construyes el músculo de aparecer — el que sostiene todo lo demás.", aboutClose:"Entendido", unlockTag:"Despierta tu poder", unlockCta:"Entrar", cday:"Días 1–5 · Empieza aquí", cdef:"Reprograma tu subconsciente. Aquí construyes el músculo de aparecer.", crule:"Nunca dos días seguidos sin hacerlo.",
         breath:['Inhala…','Sostén…','Suelta…'],
+        script:['Respira hondo… y suelta. Estás a salvo.','Aquí, ahora, solo existe tu mente y esta calma.','Repetí conmigo, en silencio:','Despierto la fuerza que ya vive en mí.','Lo que repito en silencio se vuelve mi realidad.','No tengo que esforzarme; solo permito.','Cada palabra que elijo hoy construye al que seré mañana.','Soy dueño de mis pensamientos.','Inhala paz… sostén… y al exhalar, deja ir todo lo que ya no sirve.','Mi mente trabaja para mí mientras descanso.','Volvé cuando quieras. Ya sos distinto.'],
         nav:['Hoy','Prácticas','Ideas','IA'], days:['L','M','M','J','V','S','D'], modes:['☀ Día','⛅ Tarde','☾ Noche'],
         pKicker:'Tu práctica diaria', pTitle:'Tus 3 prácticas', pSub:'Complétalas para entrenar tu subconsciente.', pProgress:'Progreso', pMark:'Marcar como completada ✓', pDone:'Completada ✓',
         ideasKicker:'Ideas de los grandes', ideasTitle:'Lo esencial, sin rodeos', ideasSub:'La idea central de cada libro, con un ejemplo que puedes usar hoy.',
@@ -456,6 +464,7 @@ class Component extends DCLogic {
         quote:'"What you repeat in silence becomes your reality."', comeback:'Come back tomorrow to keep your streak alive.',
         toast:'Session complete · streak', paused:'Paused', glowNote:'The glow shifts with the time', aboutTitle:"About this power", aboutBody:"Reprogram your subconscious. The goal isn’t to feel transformed: it’s to sit down. Every morning, three practices, no misses. Here you build the muscle of showing up — the one that holds up everything else.", aboutClose:"Got it", unlockTag:"Awaken your power", unlockCta:"Enter", cday:"Days 1–5 · Start here", cdef:"Reprogram your subconscious. Here you build the muscle of showing up.", crule:"Never two days in a row without doing it.",
         breath:['Inhale…','Hold…','Release…'],
+        script:['Breathe deep… and let go. You are safe.','Here, now, only your mind and this calm exist.','Repeat with me, in silence:','I awaken the power already alive in me.','What I repeat in silence becomes my reality.','I don\'t have to strive; I simply allow.','Every word I choose today builds who I\'ll be tomorrow.','I am the owner of my thoughts.','Inhale peace… hold… and as you exhale, let go of all that no longer serves.','My mind works for me while I rest.','Come back whenever you want. You are already different.'],
         nav:['Today','Practices','Ideas','AI'], days:['M','T','W','T','F','S','S'], modes:['☀ Day','⛅ Afternoon','☾ Night'],
         pKicker:'Your daily practice', pTitle:'Your 3 practices', pSub:'Complete them to train your subconscious.', pProgress:'Progress', pMark:'Mark as completed ✓', pDone:'Completed ✓',
         ideasKicker:'Ideas from the greats', ideasTitle:'The essence, no fluff', ideasSub:'The core idea of each book, with an example you can use today.',
@@ -537,6 +546,8 @@ class Component extends DCLogic {
 
     const pct = st.duration ? Math.min(100, (st.elapsed/st.duration)*100) : 0;
     const breathWords = t.breath;
+    const _scr = t.script || [];
+    const narration = st.playing ? (_scr[Math.floor(st.elapsed/7) % (_scr.length||1)] || t.aff) : (affList[st.affIdx % affList.length] || t.aff);
     const orbDur = ['6s','7s','8s'][st.breathStep];
 
     const BOOKS = [
@@ -613,6 +624,7 @@ class Component extends DCLogic {
       remainLabel: '-' + this.fmt(Math.max(0, st.duration - st.elapsed)),
       progressStyle: { width: pct+'%', height:'100%', borderRadius:'4px', background:'linear-gradient(90deg,#9b7af0,#cdb6ff)', transition:'width 1s linear' },
       breathWord: st.playing ? breathWords[st.breathStep] : t.paused,
+      narration,
       orbAnim: { animation: st.playing ? `subBreathe ${orbDur} ease-in-out infinite` : 'none' },
       showToast: st.showToast, celebrate: st.celebrate, confetti: Array.from({length:16}).map((_,i)=>{ const cols=['#cdb6ff','#E7C46A','#F2ECDD']; const seed=(i*73)%100; return { pieceStyle:{ position:'absolute', top:'-12px', left:(4+seed*0.92)+'%', width:(i%3===0?'9px':'6px'), height:(i%3===0?'9px':'6px'), borderRadius:i%2?'50%':'1px', background:cols[i%3], animation:`jiConfetti ${1.6+(seed%5)*0.18}s ease-in ${ (seed%7)*0.12 }s forwards` } }; }),
       caption: [
