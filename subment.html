@@ -359,14 +359,14 @@ class Component extends DCLogic {
         this._voice.addEventListener('loadedmetadata', _syncDur);
         this._voice.addEventListener('durationchange', _syncDur);
         this._voice.addEventListener('ended', ()=>{ this.setState(st=> st.playerOpen ? this.finishState(st) : {}); });
-        this._voice.addEventListener('timeupdate', ()=>{ try{ const v=this._voice, mu=this._music; if(this.muted||!mu) return; const D=this._curDur||(isFinite(v.duration)?v.duration:0); if(!D) return; const rem=D - v.currentTime; mu.volume = rem<6 ? Math.max(0,(rem/6)*0.26) : 0.26; }catch(e){} });
+        this._voice.addEventListener('timeupdate', ()=>{ try{ const v=this._voice, mu=this._music; if(this.muted||!mu) return; const D=this._curDur||(isFinite(v.duration)?v.duration:0); if(!D) return; const rem=D - v.currentTime; mu.volume = rem<6 ? Math.max(0,(rem/6)*0.12) : 0.12; }catch(e){} });
       }catch(e){}
     }).catch(()=>{});
   }
   componentWillUnmount(){ clearInterval(this._t); clearInterval(this._b); clearTimeout(this._toast); this.stopSession(); }
 
   play(name){ if(this.muted || !this._sfx || !this._sfx[name]) return; try{ const a=this._sfx[name]; a.currentTime=0; a.volume = name==='unlock'?.9:(name==='boom'?.5:.7); a.play().catch(()=>{}); if(name==='unlock'){ clearTimeout(this._unlockCut); clearInterval(this._unlockFade); this._unlockCut=setTimeout(()=>{ try{ this._unlockFade=setInterval(()=>{ if(a.volume>0.08){ a.volume=Math.max(0,a.volume-0.12); } else { a.pause(); a.currentTime=0; clearInterval(this._unlockFade); } },45); }catch(e){} },1900); } }catch(e){} }
-  toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} try{ if(this._voice) this._voice.volume=this.muted?0:1; if(this._music) this._music.volume=this.muted?0:0.26; }catch(e){} this.setState({ muted:this.muted }); }
+  toggleMute(){ this.muted=!this.muted; try{ localStorage.setItem('jiMute', this.muted?'1':'0'); }catch(e){} try{ if(this._voice) this._voice.volume=this.muted?0:1; if(this._music) this._music.volume=this.muted?0:0.12; }catch(e){} this.setState({ muted:this.muted }); }
   toggleLang(){ this.play('tap'); this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
   togglePractice(i){ this.setState(st => { const d = Object.assign({}, st.doneP); const was = !!d[i]; d[i] = !was; const total = Object.keys(d).filter(k=>d[k]).length; try{ localStorage.setItem('jiPractices_subment', JSON.stringify(d)); }catch(e){} if(!was){ this.play('boom'); if(total>=3){ this._toast = setTimeout(()=>this.setState({celebrate:false}),3400); return { doneP:d, celebrate:true }; } } else { this.play('tap'); } return { doneP:d }; }); }
 
@@ -384,9 +384,9 @@ class Component extends DCLogic {
 
   go(v){ return () => { this.play('tap'); this.setState({ view:v }); }; }
 
-  startSession(){ try{ const v=this._voice, mu=this._music; if(v){ const lang=(this.state.lang==='en')?'en':'es'; const want='voz-jogamind'+(lang==='en'?'-en':'')+'.mp3'; const cur=(v.getAttribute('src')||''); if(this._voiceLang!==lang || cur.indexOf(want)<0){ this._voiceLang=lang; v.src=want; try{ v.load(); }catch(e){} } this._curDur=(this._durKnown&&this._durKnown[lang])||this._curDur||null; if(this._curDur){ this.setState({ duration:this._curDur }); } v.volume=this.muted?0:1; let _started=false; const startPlay=()=>{ if(_started) return; _started=true; try{ v.currentTime=0; }catch(e){} const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }; if(v.readyState>=1){ startPlay(); } else { v.addEventListener('loadedmetadata', startPlay, {once:true}); v.addEventListener('canplay', startPlay, {once:true}); } } if(mu){ try{ mu.currentTime=0; }catch(e){} mu.volume=this.muted?0:0.26; const pm=mu.play(); if(pm&&pm.catch) pm.catch(()=>{}); } }catch(e){} }
+  startSession(){ try{ const v=this._voice, mu=this._music; if(v){ const lang=(this.state.lang==='en')?'en':'es'; const want='voz-jogamind'+(lang==='en'?'-en':'')+'.mp3'; const cur=(v.getAttribute('src')||''); if(this._voiceLang!==lang || cur.indexOf(want)<0){ this._voiceLang=lang; v.src=want; try{ v.load(); }catch(e){} } this._curDur=(this._durKnown&&this._durKnown[lang])||this._curDur||null; if(this._curDur){ this.setState({ duration:this._curDur }); } v.volume=this.muted?0:1; let _started=false; const startPlay=()=>{ if(_started) return; _started=true; try{ v.currentTime=0; }catch(e){} const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }; if(v.readyState>=1){ startPlay(); } else { v.addEventListener('loadedmetadata', startPlay, {once:true}); v.addEventListener('canplay', startPlay, {once:true}); } } if(mu){ try{ mu.currentTime=0; }catch(e){} mu.volume=this.muted?0:0.12; const pm=mu.play(); if(pm&&pm.catch) pm.catch(()=>{}); } }catch(e){} }
   pauseSession(){ try{ if(this._voice) this._voice.pause(); if(this._music) this._music.pause(); }catch(e){} }
-  resumeSession(){ try{ if(this._voice){ this._voice.volume=this.muted?0:1; this._voice.play().catch(()=>{}); } if(this._music){ this._music.volume=this.muted?0:0.26; this._music.play().catch(()=>{}); } }catch(e){} }
+  resumeSession(){ try{ if(this._voice){ this._voice.volume=this.muted?0:1; this._voice.play().catch(()=>{}); } if(this._music){ this._music.volume=this.muted?0:0.12; this._music.play().catch(()=>{}); } }catch(e){} }
   stopSession(){ try{ if(this._voice){ this._voice.pause(); this._voice.currentTime=0; } if(this._music){ this._music.pause(); this._music.currentTime=0; } }catch(e){} }
   open(s){
     return () => {
@@ -531,9 +531,9 @@ class Component extends DCLogic {
 
     const navDef = [
       { key:'home', icon:'◈', label:t.nav[0] },
+      { key:'ia', icon:'✶', label:t.nav[3] },
       { key:'library', icon:'☰', label:t.nav[1] },
       { key:'ideas', icon:'❖', label:t.nav[2] },
-      { key:'ia', icon:'✶', label:t.nav[3] },
     ];
     const nav = navDef.map(n => {
       const active = st.view === n.key;
