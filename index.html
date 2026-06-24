@@ -716,7 +716,14 @@
 .jbw-replay{display:block;margin:26px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
 .jbw-hint{display:block;margin:2px auto 18px;background:none;border:none;cursor:pointer;font:600 11px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;color:#C9A050;animation:jbwHint 2.2s ease-in-out infinite}
 @keyframes jbwHint{0%,100%{opacity:.5}50%{opacity:1}}
-body.jbw-gate #apps,body.jbw-gate #concierge-section,body.jbw-gate .challenge,body.jbw-gate footer.foot{display:none!important}
+body.jbw-v-welcome #apps,body.jbw-v-welcome #concierge-section,body.jbw-v-welcome #challenge,body.jbw-v-welcome footer.foot{display:none!important}
+body.jbw-v-apps #welcome,body.jbw-v-apps #concierge-section,body.jbw-v-apps #challenge,body.jbw-v-apps footer.foot{display:none!important}
+body.jbw-v-concierge #welcome,body.jbw-v-concierge #apps,body.jbw-v-concierge #challenge,body.jbw-v-concierge footer.foot{display:none!important}
+.jbw-back{position:fixed;top:82px;left:22px;z-index:60;display:none;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#E7D9B8;border-radius:999px;padding:9px 16px;font:600 12px/1 system-ui;letter-spacing:.02em;cursor:pointer;backdrop-filter:blur(8px)}
+.jbw-back:hover{border-color:#E2703A;color:#fff}
+body.jbw-v-apps .jbw-back,body.jbw-v-concierge .jbw-back{display:inline-flex}
+body.jbw-v-apps #apps{padding-top:30px}
+body.jbw-v-concierge #concierge-section{padding-top:30px}
 @media(max-width:720px){.jbw-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){
   .jbw-orb{animation:jbwFloat 6s ease-in-out infinite!important}
@@ -761,6 +768,8 @@ body.jbw-gate #apps,body.jbw-gate #concierge-section,body.jbw-gate .challenge,bo
       </div>
     </div>
   </nav>
+
+  <button class="jbw-back" id="jbw-back" aria-label="Menú">← <span id="jbw-back-t">Menú principal</span></button>
 
   <section id="welcome">
     <button id="jbw-mute" aria-label="Silenciar / Mute">🔊</button>
@@ -1684,7 +1693,8 @@ Lo que dijo la persona: «${text}»`;
 /* ===== Bienvenida Joga (orbe que habla + 3 caminos) ===== */
 (function(){
   var sec=document.getElementById('welcome'); if(!sec) return;
-  try{ document.body.classList.add('jbw-gate'); }catch(e){}
+  function setView(v){ var b=document.body; b.classList.remove('jbw-v-welcome','jbw-v-apps','jbw-v-concierge'); b.classList.add('jbw-v-'+v); try{ window.scrollTo({top:0,behavior:'instant'}); }catch(e){ window.scrollTo(0,0); } }
+  setView('welcome');
   var typedEl=document.getElementById('jbw-typed'), caret=document.getElementById('jbw-caret');
   var paths=document.getElementById('jbw-paths'), grid=document.getElementById('jbw-grid');
   var orb=document.getElementById('jbw-orb'), muteBtn=document.getElementById('jbw-mute');
@@ -1710,7 +1720,7 @@ Lo que dijo la persona: «${text}»`;
         '<div class="jbw-k" style="color:'+c.ac+'">'+c.k+'</div>'+
         '<div class="jbw-t">'+c.t+'</div><div class="jbw-d">'+c.d+'</div>'+
         '<div class="jbw-go" style="color:'+c.ac+'">'+c.go+' <span style="font-size:14px">\u2192</span></div>';
-      if(c.scroll){ a.addEventListener('click',function(e){ e.preventDefault(); try{ document.body.classList.remove('jbw-gate'); }catch(err){} var tg=document.getElementById(c.scroll); if(tg) setTimeout(function(){ tg.scrollIntoView({behavior:'smooth'}); },40); }); }
+      if(c.scroll){ a.addEventListener('click',function(e){ e.preventDefault(); setView(c.scroll==='apps'?'apps':'concierge'); }); }
       grid.appendChild(a); });
   }
   var dur={}, voice, music, raf, t0, BASE=0.16, curVoiceLang=lang(), done=false;
@@ -1734,13 +1744,16 @@ Lo que dijo la persona: «${text}»`;
       if(frac>=1){ finish(); return; } raf=requestAnimationFrame(tick); })();
   }
   function setHint(){ if(!hint) return; var Lg=lang(); hint.textContent='▶ '+(Lg==='en'?'Press to hear Joga':'Presiona para escuchar a Joga'); }
+  var backBtn=document.getElementById('jbw-back'), backT=document.getElementById('jbw-back-t');
+  function setBackLabel(){ if(backT) backT.textContent=(lang()==='en'?'Main menu':'Menú principal'); }
   function go(){ if(hint) hint.style.display='none'; start(); }
-  setMuteIcon(); buildCards(); setHint();
+  setMuteIcon(); buildCards(); setHint(); setBackLabel();
+  if(backBtn) backBtn.addEventListener('click', function(){ setView('welcome'); });
   muteBtn.addEventListener('click',function(){ muted=!muted; try{localStorage.setItem('jiMute',muted?'1':'0');}catch(e){} try{ if(voice)voice.volume=muted?0:1; if(music)music.volume=muted?0:BASE; }catch(e){} setMuteIcon(); });
   if(hint) hint.addEventListener('click', go);
   orb.addEventListener('click', go);
   replay.addEventListener('click', start);
-  var lt=document.getElementById('lang-toggle'); if(lt){ lt.addEventListener('click',function(e){ if(e.target.closest('button[data-lang]')){ setHint(); setTimeout(function(){ if(hint && hint.style.display!=='none') return; start(); },60); } }); }
+  var lt=document.getElementById('lang-toggle'); if(lt){ lt.addEventListener('click',function(e){ if(e.target.closest('button[data-lang]')){ setHint(); setBackLabel(); buildCards(); setTimeout(function(){ if(hint && hint.style.display!=='none') return; start(); },60); } }); }
   var ie=document.getElementById('intro-enter'); if(ie){ ie.addEventListener('click', function(){ setTimeout(go,450); }); }
 })();
 </script>
