@@ -715,6 +715,15 @@
 .jbw-go{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font:600 12.5px/1 system-ui}
 .jbw-replay{display:block;margin:26px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
 @media(max-width:720px){.jbw-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){
+  .jbw-orb{animation:jbwFloat 6s ease-in-out infinite!important}
+  .jbw-glow{animation:jbwPulse 5s ease-in-out infinite,jbwHue 18s linear infinite!important}
+  .jbw-core{animation:jbwHue 18s linear infinite!important}
+  .jbw-rings .r1{animation:jbwR1 14s linear infinite!important}
+  .jbw-rings .r2{animation:jbwR2 19s linear infinite!important}
+  .jbw-word{animation:jbwWord 5.5s ease-in-out infinite!important}
+  .jbw-caret{animation:jbwCaret 1s steps(1) infinite!important}
+}
 </style>
 </head>
 <body>
