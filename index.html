@@ -672,12 +672,49 @@
 .manifesto .apps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:26px}
 .appcard{display:flex;align-items:center;gap:10px;min-width:0;text-align:left;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:13px 14px;cursor:pointer;color:var(--bone);font-family:var(--grot);transition:border-color .2s,background .2s,transform .2s;width:100%}
 .appcard:hover,.appcard:focus-visible{border-color:var(--ac);background:rgba(255,255,255,.06);transform:translateY(-2px);outline:none}
-.appcard .ac-g{flex:0 0 auto;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:18px;color:#0b0b0c;background:var(--ac)}
+.appcard .ac-g{flex:0 0 auto;width:42px;height:42px;border-radius:50%;position:relative;background:radial-gradient(circle at 36% 28%,rgba(255,255,255,.95),rgba(255,255,255,0) 40%),repeating-linear-gradient(0deg,rgba(255,255,255,.13) 0 1px,transparent 1px 5px),radial-gradient(circle at 50% 56%,var(--ac),color-mix(in srgb,var(--ac) 42%,#06040a) 100%);box-shadow:0 6px 18px -7px var(--ac),0 0 22px -4px var(--ac),inset 0 0 0 1px rgba(255,255,255,.1)}
+.appcard .ac-g::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid color-mix(in srgb,var(--ac) 55%,transparent);transform:rotate(-18deg) scaleY(.42);opacity:.7;pointer-events:none}
 .appcard .ac-t{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
 .appcard .ac-t b{font-size:13px;letter-spacing:.2px;line-height:1.15}
 .appcard .ac-tag{font-size:11px;opacity:.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .appcard .ac-go{flex:0 0 auto;opacity:.35;font-size:15px}
 @media(max-width:380px){.manifesto .apps-grid{grid-template-columns:1fr}}
+</style>
+<style id="welcome-css">
+@keyframes jbwPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.55}50%{transform:translate(-50%,-50%) scale(1.16);opacity:.85}}
+@keyframes jbwHue{to{filter:hue-rotate(360deg)}}
+@keyframes jbwR1{from{transform:rotate(-20deg) rotateX(72deg) rotate(0)}to{transform:rotate(-20deg) rotateX(72deg) rotate(360deg)}}
+@keyframes jbwR2{from{transform:rotate(16deg) rotateX(68deg) rotate(0)}to{transform:rotate(16deg) rotateX(68deg) rotate(-360deg)}}
+@keyframes jbwFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes jbwCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes jbwWord{0%{opacity:.78;color:#e7dcff;text-shadow:0 0 16px #9a6cf6,0 0 6px #fff}20%{opacity:1;color:#d4fbfd;text-shadow:0 0 24px #2fd0d8,0 0 8px #fff}40%{opacity:.82;color:#d6fbe4;text-shadow:0 0 18px #36d98a,0 0 6px #fff}60%{opacity:1;color:#ffeec2;text-shadow:0 0 24px #e7c46a,0 0 8px #fff}80%{opacity:.82;color:#ffd6c6;text-shadow:0 0 18px #f0825a,0 0 6px #fff}100%{opacity:.78;color:#e7dcff;text-shadow:0 0 16px #9a6cf6,0 0 6px #fff}}
+#welcome{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 22px;position:relative;text-align:center;background:radial-gradient(120% 80% at 50% 6%,rgba(21,18,42,.6),transparent 60%)}
+#jbw-mute{position:absolute;top:18px;left:18px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#cfc6b4;font-size:15px;cursor:pointer;display:grid;place-items:center;z-index:5}
+.jbw-brand{display:flex;align-items:center;gap:10px;margin-bottom:26px;opacity:.9}
+.jbw-brand span{font-family:var(--serif);font-weight:600;letter-spacing:.42em;font-size:15px;color:#E7D9B8}
+.jbw-brand small{font:600 8px/1 system-ui;letter-spacing:.34em;text-transform:uppercase;color:#8a8276}
+.jbw-orb{position:relative;width:200px;height:200px;margin-bottom:28px;animation:jbwFloat 6s ease-in-out infinite;cursor:pointer}
+.jbw-glow{position:absolute;left:50%;top:50%;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(150,108,246,.55),rgba(150,108,246,0) 66%);animation:jbwPulse 5s ease-in-out infinite,jbwHue 18s linear infinite}
+.jbw-rings{position:absolute;inset:-14px;border-radius:50%;transform-style:preserve-3d;perspective:600px}
+.jbw-rings i{position:absolute;border-radius:50%;display:block}
+.jbw-rings .r1{inset:0;border:1.5px solid rgba(205,182,255,.5);box-shadow:0 0 16px rgba(150,108,246,.4);animation:jbwR1 14s linear infinite}
+.jbw-rings .r2{inset:6px;border:1px solid rgba(231,196,106,.4);animation:jbwR2 19s linear infinite}
+.jbw-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:124px;height:124px;border-radius:50%;background:radial-gradient(circle at 36% 28%,rgba(255,255,255,.95),rgba(255,255,255,0) 42%),repeating-linear-gradient(0deg,rgba(255,255,255,.16) 0 1px,transparent 1px 6px),radial-gradient(circle at 50% 58%,#9a6cf6,#3a1f6e 100%);box-shadow:0 12px 40px -8px rgba(150,108,246,.7),inset 0 0 0 1px rgba(255,255,255,.14),inset 0 -10px 26px rgba(20,8,40,.6);animation:jbwHue 18s linear infinite}
+.jbw-word{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:.16em;animation:jbwWord 5.5s ease-in-out infinite;z-index:3}
+.jbw-speech{min-height:120px;max-width:600px;margin-bottom:6px;font-family:var(--serif);font-weight:500;font-size:clamp(20px,3.4vw,27px);line-height:1.42;color:var(--bone,#F2ECDD)}
+.jbw-caret{display:inline-block;margin-left:1px;color:#9a6cf6;animation:jbwCaret 1s steps(1) infinite}
+.jbw-paths{width:100%}
+.jbw-choose{font:600 9px/1 system-ui;letter-spacing:.3em;text-transform:uppercase;color:#C9A050;margin-bottom:18px}
+.jbw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:920px;margin:0 auto}
+.jbw-card{display:flex;flex-direction:column;text-decoration:none;text-align:left;padding:24px 22px;border-radius:20px;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);transition:transform .18s,border-color .2s;cursor:pointer}
+.jbw-card:hover{transform:translateY(-3px);border-color:var(--ac)}
+.jbw-ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+.jbw-k{font:600 9px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+.jbw-t{font-family:var(--serif);font-weight:600;font-size:19px;line-height:1.18;color:var(--bone,#F2ECDD);margin-bottom:8px}
+.jbw-d{font-size:12.5px;line-height:1.55;color:#A8A29A;flex:1}
+.jbw-go{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font:600 12.5px/1 system-ui}
+.jbw-replay{display:block;margin:26px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
+@media(max-width:720px){.jbw-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -712,7 +749,24 @@
     </div>
   </nav>
 
-  <header class="hero" id="top">
+  <section id="welcome">
+    <button id="jbw-mute" aria-label="Silenciar / Mute">🔊</button>
+    <div class="jbw-brand"><span>JOGA</span><small>Intelligence</small></div>
+    <div class="jbw-orb" id="jbw-orb" title="Toca para escuchar a Joga">
+      <div class="jbw-glow"></div>
+      <div class="jbw-rings"><i class="r1"></i><i class="r2"></i></div>
+      <div class="jbw-core"></div>
+      <div class="jbw-word">JOGA</div>
+    </div>
+    <div class="jbw-speech"><span id="jbw-typed"></span><span class="jbw-caret" id="jbw-caret">▍</span></div>
+    <div class="jbw-paths" id="jbw-paths" hidden>
+      <div class="jbw-choose" id="jbw-choose">Tres caminos para entrar</div>
+      <div class="jbw-grid" id="jbw-grid"></div>
+      <button class="jbw-replay" id="jbw-replay">↺ Escuchar de nuevo</button>
+    </div>
+  </section>
+
+  <header class="hero" id="top" style="display:none">
     <div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
     <div class="grain"></div>
     <div class="shell">
@@ -727,7 +781,7 @@
     </div>
   </header>
 
-  <section class="manifesto">
+  <section class="manifesto" id="apps">
     <div class="shell">
       <p class="reveal" data-i18n="man.p">No vendemos apps sueltas. Despertamos lo que de verdad importa, un poder a la vez.</p>
       <div class="apps-grid" id="apps-grid" aria-label="Seis poderes, seis apps"></div>
@@ -775,7 +829,7 @@
   <div id="needs" style="display:none" aria-hidden="true"></div>
 
   <!-- QUIÉN ESTÁ DETRÁS (señal de confianza) -->
-  <section class="founder" id="founder">
+  <section class="founder" id="founder" style="display:none">
     <style>
       .founder{padding:30px 0 10px}
       .founder .shell{max-width:1000px;margin:0 auto;padding:0 22px}
@@ -820,7 +874,7 @@
   </section>
 
   <!-- PRUEBA REAL (screenshot en vivo) -->
-  <section class="proof" id="proof">
+  <section class="proof" id="proof" style="display:none">
     <style>
       .proof{padding:26px 0 8px}
       .proof .shell{max-width:1000px;margin:0 auto;padding:0 22px}
@@ -1285,7 +1339,7 @@
         var c=document.createElement("button");
         c.type="button"; c.className="appcard"; c.style.setProperty("--ac",a.accent);
         c.setAttribute("aria-label", a.name);
-        c.innerHTML='<span class="ac-g">'+a.glyph+'</span>'+
+        c.innerHTML='<span class="ac-g"></span>'+
           '<span class="ac-t"><b>'+a.name+'</b><span class="ac-tag">'+tagFor(a)+'</span></span>'+
           '<span class="ac-go">\u2192</span>';
         c.addEventListener("click",function(){ openApp(a); });
@@ -1610,6 +1664,66 @@ Lo que dijo la persona: «${text}»`;
     try{ au.currentTime=0; var pr=au.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(err){}
     setTimeout(function(){ window.location.href="retos.html"; },800);
   },false);
+})();
+</script>
+<script>
+/* ===== Bienvenida Joga (orbe que habla + 3 caminos) ===== */
+(function(){
+  var sec=document.getElementById('welcome'); if(!sec) return;
+  var typedEl=document.getElementById('jbw-typed'), caret=document.getElementById('jbw-caret');
+  var paths=document.getElementById('jbw-paths'), grid=document.getElementById('jbw-grid');
+  var orb=document.getElementById('jbw-orb'), muteBtn=document.getElementById('jbw-mute');
+  var replay=document.getElementById('jbw-replay'), chooseEl=document.getElementById('jbw-choose');
+  function lang(){ try{ var s=localStorage.getItem('jiLang'); return (s==='en')?'en':'es'; }catch(e){ return 'es'; } }
+  var muted=false; try{ muted=localStorage.getItem('jiMute')==='1'; }catch(e){}
+  var SCRIPTS={
+    es:"Hola, soy Joga.\nDurante 30 d\u00edas te acompa\u00f1o a despertar seis poderes que ya viven en ti \u2014 tu mente, tu tiempo, tus h\u00e1bitos, tu m\u00e9todo, tu dinero y tus ventas.\nElige por d\u00f3nde quieres empezar:",
+    en:"Hi, I'm Joga.\nFor 30 days I'll help you awaken six powers that already live in you \u2014 your mind, time, habits, method, money and sales.\nChoose where you'd like to begin:" };
+  var CARDS={ es:[
+    {ic:'\ud83d\udd25',k:'El camino completo',t:'Empezar el reto de 30 d\u00edas',d:'Un paso cada d\u00eda, sin romper la cadena. La transformaci\u00f3n guiada del d\u00eda 1 al 30.',go:'Empezar el reto',ac:'#E2703A',href:'onboarding.html',scroll:null},
+    {ic:'\u2728',k:'Explora',t:'Conoce las 6 apps',d:'Mira cada poder por dentro \u2014 mente, tiempo, h\u00e1bitos, m\u00e9todo, dinero y ventas.',go:'Ver las apps',ac:'#9a6cf6',href:'#apps',scroll:'apps'},
+    {ic:'\ud83d\udcac',k:'\u00bfNo sabes?',t:'Deja que Joga te gu\u00ede',d:'Dime qu\u00e9 necesitas en tus palabras y te llevo al lugar correcto.',go:'Preguntar a Joga',ac:'#C9A050',href:'#concierge-section',scroll:'concierge-section'} ],
+    en:[
+    {ic:'\ud83d\udd25',k:'The full path',t:'Start the 30-day challenge',d:'One step a day, no breaking the chain. The guided transformation from day 1 to 30.',go:'Begin the challenge',ac:'#E2703A',href:'onboarding.html',scroll:null},
+    {ic:'\u2728',k:'Explore',t:'Meet the 6 apps',d:'See each power from the inside \u2014 mind, time, habits, method, money, sales.',go:'See the apps',ac:'#9a6cf6',href:'#apps',scroll:'apps'},
+    {ic:'\ud83d\udcac',k:'Not sure?',t:'Let Joga guide you',d:'Tell me what you need in your own words and I will point you to the right place.',go:'Ask Joga',ac:'#C9A050',href:'#concierge-section',scroll:'concierge-section'} ] };
+  function hexA(hex,a){ var n=parseInt(hex.slice(1),16); return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
+  function buildCards(){ var Lg=lang(); chooseEl.textContent=(Lg==='en'?'Three ways in':'Tres caminos para entrar'); replay.textContent='\u21ba '+(Lg==='en'?'Hear it again':'Escuchar de nuevo'); grid.innerHTML='';
+    CARDS[Lg].forEach(function(c){ var a=document.createElement('a'); a.className='jbw-card'; a.href=c.href; a.style.setProperty('--ac',c.ac);
+      a.innerHTML='<div class="jbw-ic" style="background:'+hexA(c.ac,.14)+';border:1px solid '+hexA(c.ac,.34)+'">'+c.ic+'</div>'+
+        '<div class="jbw-k" style="color:'+c.ac+'">'+c.k+'</div>'+
+        '<div class="jbw-t">'+c.t+'</div><div class="jbw-d">'+c.d+'</div>'+
+        '<div class="jbw-go" style="color:'+c.ac+'">'+c.go+' <span style="font-size:14px">\u2192</span></div>';
+      if(c.scroll){ a.addEventListener('click',function(e){ e.preventDefault(); var tg=document.getElementById(c.scroll); if(tg) tg.scrollIntoView({behavior:'smooth'}); }); }
+      grid.appendChild(a); });
+  }
+  var dur={}, voice, music, raf, t0, BASE=0.16, curVoiceLang=lang(), done=false;
+  function vsrc(l){ return 'voz-bienvenida'+(l==='en'?'-en':'')+'.mp3'; }
+  try{ voice=new Audio(vsrc(lang())); voice.preload='auto'; music=new Audio('musica-bienvenida.mp3'); music.preload='auto'; music.loop=true;
+    var prime=function(){ try{[voice,music].forEach(function(a){ if(!a)return; var v=a.volume; a.volume=0; var p=a.play(); if(p&&p.then)p.then(function(){a.pause();a.currentTime=0;a.volume=v;}).catch(function(){a.volume=v;}); }); }catch(e){} window.removeEventListener('pointerdown',prime); window.removeEventListener('touchstart',prime); };
+    window.addEventListener('pointerdown',prime,{once:true}); window.addEventListener('touchstart',prime,{once:true});
+    var rez=function(l,f){ try{ fetch(f).then(function(r){return r.arrayBuffer();}).then(function(b){ var C=window.AudioContext||window.webkitAudioContext; if(!C)return; var c=new C(); c.decodeAudioData(b.slice(0)).then(function(ab){ dur[l]=ab.duration; try{c.close();}catch(e){} }).catch(function(){try{c.close();}catch(e){}}); }).catch(function(){}); }catch(e){} };
+    rez('es','voz-bienvenida.mp3'); rez('en','voz-bienvenida-en.mp3');
+    voice.addEventListener('ended', finish);
+  }catch(e){}
+  function setMuteIcon(){ muteBtn.textContent=muted?'\ud83d\udd07':'\ud83d\udd0a'; }
+  function finish(){ if(raf)cancelAnimationFrame(raf); var Lg=lang(); typedEl.textContent=SCRIPTS[Lg]; if(!done){ done=true; caret.style.display='none'; paths.hidden=false; } }
+  function start(){ if(raf)cancelAnimationFrame(raf); var Lg=lang(), full=SCRIPTS[Lg]; done=false; caret.style.display=''; paths.hidden=true; typedEl.textContent=''; buildCards();
+    try{ if(voice){ if(curVoiceLang!==Lg){ curVoiceLang=Lg; voice.src=vsrc(Lg); try{voice.load();}catch(e){} } voice.currentTime=0; voice.volume=muted?0:1; var p=voice.play(); if(p&&p.catch)p.catch(function(){}); }
+      if(music){ music.currentTime=0; music.volume=muted?0:BASE; var pm=music.play(); if(pm&&pm.catch)pm.catch(function(){}); } }catch(e){}
+    t0=performance.now();
+    (function tick(){ var d=dur[Lg]||0, el, tot; if(voice && !voice.paused && d>0){ el=voice.currentTime; tot=d; } else { el=(performance.now()-t0)/1000; tot=d>0?d:(full.length*0.05); }
+      var frac=tot>0?Math.min(1,el/tot):1; typedEl.textContent=full.slice(0,Math.max(0,Math.floor(frac*full.length)));
+      if(music && !muted && d>0){ var rem=d-(voice?voice.currentTime:el); music.volume=rem<5?Math.max(0,(rem/5)*BASE):BASE; }
+      if(frac>=1){ finish(); return; } raf=requestAnimationFrame(tick); })();
+  }
+  setMuteIcon(); buildCards();
+  muteBtn.addEventListener('click',function(){ muted=!muted; try{localStorage.setItem('jiMute',muted?'1':'0');}catch(e){} try{ if(voice)voice.volume=muted?0:1; if(music)music.volume=muted?0:BASE; }catch(e){} setMuteIcon(); });
+  orb.addEventListener('click', start);
+  replay.addEventListener('click', start);
+  var lt=document.getElementById('lang-toggle'); if(lt){ lt.addEventListener('click',function(e){ if(e.target.closest('button[data-lang]')) setTimeout(start,60); }); }
+  var ie=document.getElementById('intro-enter'); if(ie){ ie.addEventListener('click', function(){ setTimeout(start,450); }); }
+  setTimeout(start, 600);
 })();
 </script>
 </body>
