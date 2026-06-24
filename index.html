@@ -714,6 +714,8 @@
 .jbw-d{font-size:12.5px;line-height:1.55;color:#A8A29A;flex:1}
 .jbw-go{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font:600 12.5px/1 system-ui}
 .jbw-replay{display:block;margin:26px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
+.jbw-hint{display:block;margin:2px auto 18px;background:none;border:none;cursor:pointer;font:600 11px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;color:#C9A050;animation:jbwHint 2.2s ease-in-out infinite}
+@keyframes jbwHint{0%,100%{opacity:.5}50%{opacity:1}}
 @media(max-width:720px){.jbw-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){
   .jbw-orb{animation:jbwFloat 6s ease-in-out infinite!important}
@@ -723,6 +725,7 @@
   .jbw-rings .r2{animation:jbwR2 19s linear infinite!important}
   .jbw-word{animation:jbwWord 5.5s ease-in-out infinite!important}
   .jbw-caret{animation:jbwCaret 1s steps(1) infinite!important}
+  .jbw-hint{animation:jbwHint 2.2s ease-in-out infinite!important}
 }
 </style>
 </head>
@@ -767,6 +770,7 @@
       <div class="jbw-core"></div>
       <div class="jbw-word">JOGA</div>
     </div>
+    <button class="jbw-hint" id="jbw-hint">▶ Presiona para escuchar a Joga</button>
     <div class="jbw-speech"><span id="jbw-typed"></span><span class="jbw-caret" id="jbw-caret">▍</span></div>
     <div class="jbw-paths" id="jbw-paths" hidden>
       <div class="jbw-choose" id="jbw-choose">Tres caminos para entrar</div>
@@ -1683,6 +1687,7 @@ Lo que dijo la persona: «${text}»`;
   var paths=document.getElementById('jbw-paths'), grid=document.getElementById('jbw-grid');
   var orb=document.getElementById('jbw-orb'), muteBtn=document.getElementById('jbw-mute');
   var replay=document.getElementById('jbw-replay'), chooseEl=document.getElementById('jbw-choose');
+  var hint=document.getElementById('jbw-hint');
   function lang(){ try{ var s=localStorage.getItem('jiLang'); return (s==='en')?'en':'es'; }catch(e){ return 'es'; } }
   var muted=false; try{ muted=localStorage.getItem('jiMute')==='1'; }catch(e){}
   var SCRIPTS={
@@ -1726,13 +1731,15 @@ Lo que dijo la persona: «${text}»`;
       if(music && !muted && d>0){ var rem=d-(voice?voice.currentTime:el); music.volume=rem<5?Math.max(0,(rem/5)*BASE):BASE; }
       if(frac>=1){ finish(); return; } raf=requestAnimationFrame(tick); })();
   }
-  setMuteIcon(); buildCards();
+  function setHint(){ if(!hint) return; var Lg=lang(); hint.textContent='▶ '+(Lg==='en'?'Press to hear Joga':'Presiona para escuchar a Joga'); }
+  function go(){ if(hint) hint.style.display='none'; start(); }
+  setMuteIcon(); buildCards(); setHint();
   muteBtn.addEventListener('click',function(){ muted=!muted; try{localStorage.setItem('jiMute',muted?'1':'0');}catch(e){} try{ if(voice)voice.volume=muted?0:1; if(music)music.volume=muted?0:BASE; }catch(e){} setMuteIcon(); });
-  orb.addEventListener('click', start);
+  if(hint) hint.addEventListener('click', go);
+  orb.addEventListener('click', go);
   replay.addEventListener('click', start);
-  var lt=document.getElementById('lang-toggle'); if(lt){ lt.addEventListener('click',function(e){ if(e.target.closest('button[data-lang]')) setTimeout(start,60); }); }
-  var ie=document.getElementById('intro-enter'); if(ie){ ie.addEventListener('click', function(){ setTimeout(start,450); }); }
-  setTimeout(start, 600);
+  var lt=document.getElementById('lang-toggle'); if(lt){ lt.addEventListener('click',function(e){ if(e.target.closest('button[data-lang]')){ setHint(); setTimeout(function(){ if(hint && hint.style.display!=='none') return; start(); },60); } }); }
+  var ie=document.getElementById('intro-enter'); if(ie){ ie.addEventListener('click', function(){ setTimeout(go,450); }); }
 })();
 </script>
 </body>
