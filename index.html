@@ -716,6 +716,7 @@
 .jbw-replay{display:block;margin:26px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
 .jbw-hint{display:block;margin:2px auto 18px;background:none;border:none;cursor:pointer;font:600 11px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;color:#C9A050;animation:jbwHint 2.2s ease-in-out infinite}
 @keyframes jbwHint{0%,100%{opacity:.5}50%{opacity:1}}
+body.jbw-gate #apps,body.jbw-gate #concierge-section,body.jbw-gate .challenge,body.jbw-gate footer.foot{display:none!important}
 @media(max-width:720px){.jbw-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){
   .jbw-orb{animation:jbwFloat 6s ease-in-out infinite!important}
@@ -1683,6 +1684,7 @@ Lo que dijo la persona: «${text}»`;
 /* ===== Bienvenida Joga (orbe que habla + 3 caminos) ===== */
 (function(){
   var sec=document.getElementById('welcome'); if(!sec) return;
+  try{ document.body.classList.add('jbw-gate'); }catch(e){}
   var typedEl=document.getElementById('jbw-typed'), caret=document.getElementById('jbw-caret');
   var paths=document.getElementById('jbw-paths'), grid=document.getElementById('jbw-grid');
   var orb=document.getElementById('jbw-orb'), muteBtn=document.getElementById('jbw-mute');
@@ -1708,7 +1710,7 @@ Lo que dijo la persona: «${text}»`;
         '<div class="jbw-k" style="color:'+c.ac+'">'+c.k+'</div>'+
         '<div class="jbw-t">'+c.t+'</div><div class="jbw-d">'+c.d+'</div>'+
         '<div class="jbw-go" style="color:'+c.ac+'">'+c.go+' <span style="font-size:14px">\u2192</span></div>';
-      if(c.scroll){ a.addEventListener('click',function(e){ e.preventDefault(); var tg=document.getElementById(c.scroll); if(tg) tg.scrollIntoView({behavior:'smooth'}); }); }
+      if(c.scroll){ a.addEventListener('click',function(e){ e.preventDefault(); try{ document.body.classList.remove('jbw-gate'); }catch(err){} var tg=document.getElementById(c.scroll); if(tg) setTimeout(function(){ tg.scrollIntoView({behavior:'smooth'}); },40); }); }
       grid.appendChild(a); });
   }
   var dur={}, voice, music, raf, t0, BASE=0.16, curVoiceLang=lang(), done=false;
