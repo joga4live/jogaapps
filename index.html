@@ -1453,8 +1453,10 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
     const reply=document.createElement("div"); reply.className="cz-reply";
     reply.textContent=message;
     const res=document.createElement("button"); res.className="cz-result"; res.style.setProperty("--accent",a.accent);
+    var czLocked = false; try{ czLocked = !appAvailable(a.file); }catch(e){}
     res.setAttribute("aria-label",T[LANG]["open"]+" "+a.name);
-    res.innerHTML=`<span class="g">${a.glyph}</span><span class="rt"><b>${a.name}</b><span>${tagFor(a)}</span></span><span class="go">${T[LANG]["cz.open"]}</span>`;
+    var czGo = czLocked ? ('\uD83D\uDD12 '+(LANG==="en"?"Locked":"Bloqueado")) : T[LANG]["cz.open"];
+    res.innerHTML=`<span class="g"${czLocked?' style="filter:grayscale(.5) brightness(.8)"':''}>${a.glyph}</span><span class="rt"><b>${a.name}</b><span>${tagFor(a)}</span></span><span class="go">${czGo}</span>`;
     res.addEventListener("click",()=>openApp(a));
     czAnswer.appendChild(reply); czAnswer.appendChild(res);
     if(step){
@@ -1693,7 +1695,8 @@ Lo que dijo la persona: «${text}»`;
     document.getElementById('pc-app').textContent=n.app.name;
     document.getElementById('pc-body').textContent=tx.body;
     var en=(typeof LANG!=='undefined' && LANG==='en');
-    enter.textContent=en?'Awaken this power →':'Despertar este poder →';
+    var pcLocked=false; try{ pcLocked = (typeof appAvailable==='function') && !appAvailable(n.app.file); }catch(e){}
+    enter.textContent= pcLocked ? (en?'\uD83D\uDD12 Unlock this power':'\uD83D\uDD12 Desbloquear este poder') : (en?'Awaken this power →':'Despertar este poder →');
     document.getElementById('pc-close').textContent=en?'Back':'Volver';
     enter.onclick=function(){ close(); try{ openApp(n.app); }catch(e){} };
     card.classList.add('open'); card.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';

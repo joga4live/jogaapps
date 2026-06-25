@@ -74,7 +74,7 @@
             <div style="font-size:12.5px;line-height:1.5;color:#a8a2b8;margin-top:4px">{{ p.def }}</div>
           </div>
           <!-- arrow -->
-          <div style="position:relative;z-index:2;flex:0 0 auto;color:{{ p.accent }};font-size:20px;align-self:center">›</div>
+          <div style="position:relative;z-index:2;flex:0 0 auto;color:{{ p.accent }};font-size:18px;align-self:center">{{ p.arrow }}</div>
         </a>
       </sc-for>
     </div>
@@ -90,11 +90,13 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:680,&quot;height&quot;:1100}}">
 class Component extends DCLogic {
-  state = { lang:'es' };
+  state = { lang:'es', paid:false };
   componentDidMount(){
     let lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') lang=sv; }catch(e){}
-    this.setState({ lang });
+    let paid=false; try{ paid = localStorage.getItem('jiPaid')==='1'; }catch(e){}
+    this.setState({ lang, paid });
   }
+  waHref(){ var L=this.state.lang||'es'; var msg=encodeURIComponent(L==='en'?"Hi! I want to unlock the full Joga 30-day challenge":"\u00a1Hola! Quiero desbloquear el Reto Joga completo de 30 d\u00edas"); return 'https://wa.me/12107496420?text='+msg; }
   toggleLang(){ this.setState(st => { const lang = st.lang==='en'?'es':'en'; try{ localStorage.setItem('jiLang',lang); }catch(e){} return { lang }; }); }
   renderVals(){
     const L = this.state.lang || 'es';
@@ -136,6 +138,8 @@ class Component extends DCLogic {
       },
     };
     const t = T[L];
+    const paid = this.state.paid;
+    const lockTxt = L==='en' ? 'Locked' : 'Bloqueado';
     const META = [
       { h:300, glyph:'A♠', href:'subment.html' },
       { h:70,  glyph:'A♥', href:'jogatime.html' },
@@ -144,12 +148,14 @@ class Component extends DCLogic {
       { h:95,  glyph:'K♠', href:'monexium.html' },
       { h:32,  glyph:'K♥', href:'ventmex.html' },
     ];
+    const wa = this.waHref();
     const powers = t.powers.map((p,i) => {
       const m = META[i];
       const accent = hue(m.h);
       const isFirst = i === 0;
+      const locked = !paid && i > 0;
       return {
-        days:p.days, name:p.name, def:p.def, glyph:m.glyph, href:m.href, accent,
+        days:p.days, name:p.name, def:p.def, glyph:m.glyph, href: locked ? wa : m.href, accent,
         cardStyle:{ position:'relative', display:'flex', gap:'15px', alignItems:'flex-start', overflow:'hidden',
           border:'1px solid rgba(255,255,255,.09)', borderRadius:'20px', padding:'18px', textDecoration:'none',
           background:`linear-gradient(155deg, oklch(0.2 0.05 ${m.h} / .6), #14121b)` },
@@ -159,11 +165,13 @@ class Component extends DCLogic {
           display:'grid', placeItems:'center', fontFamily:'Newsreader, serif', fontWeight:700, fontSize:'16px', color:'#0b0b0c',
           background:accent, boxShadow:`0 10px 24px -10px ${accent}` },
         statusStyle:{ font:'600 8.5px Inter', letterSpacing:'.1em', textTransform:'uppercase', whiteSpace:'nowrap',
-          color: isFirst ? '#0b0b0c' : '#9a90b5',
-          background: isFirst ? accent : 'rgba(255,255,255,.06)',
-          border: isFirst ? '0' : '1px solid rgba(255,255,255,.12)',
+          color: isFirst ? '#0b0b0c' : (locked ? '#E7C46A' : '#9a90b5'),
+          background: isFirst ? accent : (locked ? 'rgba(231,196,106,.12)' : 'rgba(255,255,255,.06)'),
+          border: isFirst ? '0' : (locked ? '1px solid rgba(231,196,106,.32)' : '1px solid rgba(255,255,255,.12)'),
           padding:'3px 8px', borderRadius:'999px' },
-        statusLabel: isFirst ? t.open : t.locked,
+        statusLabel: isFirst ? t.open : (locked ? ('\ud83d\udd12 '+lockTxt) : t.locked),
+        glyphOverlay: locked ? '\ud83d\udd12' : '',
+        arrow: locked ? '\ud83d\udd12' : '\u203a',
       };
     });
     return {
