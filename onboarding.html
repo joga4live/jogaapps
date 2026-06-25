@@ -29,6 +29,8 @@
 </helmet>
 <div class="ob-wrap" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;background:radial-gradient(95% 70% at 50% 22%,#13112a,#08070e 72%,#05060a)">
 
+  <a href="index.html" aria-label="Menú" style="position:fixed;top:20px;left:20px;z-index:80;display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#E7D9B8;border-radius:999px;padding:9px 16px;font:600 12px Inter;letter-spacing:.02em;backdrop-filter:blur(8px)">‹ <span>{{ backLabel }}</span></a>
+
   <!-- phone -->
   <div class="ob-phone" style="position:relative;width:392px;height:838px;background:#0B0B0C;border-radius:46px;padding:10px;box-shadow:0 50px 120px -40px rgba(0,0,0,.95),0 0 0 1.5px #2a2535">
     <div class="ob-notch" style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0B0B0C;border-radius:0 0 16px 16px;z-index:20"></div>
@@ -179,6 +181,8 @@ class Component extends DCLogic {
 
   renderVals(){
     const st = this.state;
+    let _lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') _lang=sv; }catch(e){}
+    const backLabel = _lang==='en' ? 'Main menu' : 'Menú principal';
     const POWERS = [
       { key:'mind',    name:'JogaMind',    tag:'Tu subconsciente', logo:'assets/logo-jogamind.png',    hue:276, glow:'150,108,246', days:'Días 1–5'  },
       { key:'time',    name:'JogaTime',    tag:'Tu tiempo',        logo:'assets/logo-jogatime.png',    hue:70,  glow:'231,150,60',  days:'Días 6–10' },
@@ -293,7 +297,7 @@ class Component extends DCLogic {
       next: () => { if(canNext) this.go(Math.min(4, step+1)); },
       nextLabel, nextStyle,
       restart: () => this.save({ step:0, powers:[], time:'', goal:'' }),
-      planIntro, planSteps,
+      planIntro, planSteps, backLabel,
       startHref: ({mind:'subment.html',time:'jogatime.html',bit:'protoneutron.html',path:'metodoexito.html',capital:'monexium.html',ventix:'ventmex.html'}[st.powers[0]] || 'subment.html'),
     };
   }
