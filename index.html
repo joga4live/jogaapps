@@ -1326,6 +1326,8 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
   var FREE_FILE="subment.html";
   var UNLOCK_KEY={"subment.html":"subment","jogatime.html":"jogatime","protoneutron.html":"protoneutron","metodoexito.html":"pasley","monexium.html":"monexium","ventmex.html":"ventmex"};
   var UNLOCK_CODE="JOGA7K2M9";
+  var VALID_CODES=["JOGA-4ET2L","JOGA-LVG2V","JOGA-9A4LV","JOGA-RAXR4","JOGA-G6XXH","JOGA-3HJSA","JOGA-BD8SL","JOGA-LVC3L","JOGA-ESDRT","JOGA-YAJMT","JOGA-AFPYV","JOGA-KJUYX","JOGA-BGVNL","JOGA-ZTZHD","JOGA-6QTGW","JOGA-DC8GC","JOGA-YMXEJ","JOGA-APXXG","JOGA-82KUS","JOGA-FZY9B","JOGA-8XDJD","JOGA-QUUFD","JOGA-XEARV","JOGA-A5LUD","JOGA-QSYE6","JOGA-XCGZV","JOGA-26ABC","JOGA-X3JB7","JOGA-WJ45D","JOGA-8HQTP","JOGA-8U9RY","JOGA-BGGUR","JOGA-4N6BQ","JOGA-EDE2Z","JOGA-QBEZQ","JOGA-YD7CF","JOGA-SNDQ3","JOGA-P6J72","JOGA-DQDTB","JOGA-M4AN3","JOGA-Q59TM","JOGA-6JQU5","JOGA-9C9M2","JOGA-G4PHH","JOGA-NGQSK","JOGA-AMJTA","JOGA-FUYPG","JOGA-SX6KY","JOGA-TP4Z2","JOGA-VH8MX"];
+  function codeValid(v){ if(!v) return false; v=v.trim().toUpperCase(); if(v===UNLOCK_CODE) return true; for(var i=0;i<VALID_CODES.length;i++){ if(VALID_CODES[i]===v) return true; } return false; }
   var WA_NUMBER="12107496420";   /* tu número WhatsApp: +1 210 749 6420 */
   function jiPaid(){ try{return localStorage.getItem("jiPaid")==="1";}catch(e){return false;} }
   function unlockAll(){ try{ localStorage.setItem("jiPaid","1"); for(var k in UNLOCK_KEY){ localStorage.setItem("jiUnlocked_"+UNLOCK_KEY[k],"1"); } }catch(e){} }
@@ -1343,6 +1345,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
     ".ju-sub{font-size:13px;line-height:1.55;color:#A8A29A;margin:0 0 20px}"+
     ".ju-wa{display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;border-radius:999px;padding:14px;font:600 14px system-ui;color:#08130d;background:#25D366;margin-bottom:16px}"+
     ".ju-or{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#6a6478;margin:0 0 12px}"+
+    ".ju-disc{font-size:10px;line-height:1.5;color:#7a7488;margin:16px 0 0;border-top:1px solid rgba(255,255,255,.08);padding-top:12px}"+
     ".ju-row{display:flex;gap:8px}"+
     ".ju-input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:13px 14px;color:#fff;font:600 14px system-ui;letter-spacing:.12em;text-align:center;text-transform:uppercase}"+
     ".ju-go{border:0;border-radius:12px;padding:0 18px;font:600 13px system-ui;color:#0b0b0c;background:var(--ember,#E2703A);cursor:pointer}"+
@@ -1357,11 +1360,12 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
       '<a class="ju-wa" id="ju-wa" target="_blank" rel="noopener"></a>'+
       '<p class="ju-or" id="ju-or"></p>'+
       '<div class="ju-row"><input class="ju-input" id="ju-input" autocomplete="off" /><button class="ju-go" id="ju-go"></button></div>'+
-      '<div class="ju-err" id="ju-err"></div></div>';
+      '<div class="ju-err" id="ju-err"></div>'+
+      '<p class="ju-disc" id="ju-disc"></p></div>';
     document.body.appendChild(m);
   })();
-  var UM={ es:{title:"Reto completo bloqueado",sub:"JogaMind es gratis. Para desbloquear las otras 5 apps y el reto de 30 días, escríbeme por WhatsApp y te paso tu código.",wa:"Desbloquear por WhatsApp",or:"¿Ya tienes código?",ph:"CÓDIGO",go:"Entrar",bad:"Código incorrecto. Inténtalo de nuevo."},
-    en:{title:"Full challenge locked",sub:"JogaMind is free. To unlock the other 5 apps and the 30-day challenge, message me on WhatsApp and I'll send your code.",wa:"Unlock via WhatsApp",or:"Already have a code?",ph:"CODE",go:"Enter",bad:"Wrong code. Try again."} };
+  var UM={ es:{title:"Reto completo bloqueado",sub:"JogaMind es gratis. Para desbloquear las otras 5 apps y el reto de 30 días, escríbeme por WhatsApp y te paso tu código personal.",wa:"Desbloquear por WhatsApp",or:"¿Ya tienes tu código?",ph:"TU CÓDIGO",go:"Entrar",bad:"Código incorrecto o ya usado. Verifícalo o escríbeme por WhatsApp.",disc:"🔒 Tu código es personal e intransferible y está ligado a tu acceso. Compartirlo cancela tu suscripción sin reembolso. Cada acceso queda registrado."},
+    en:{title:"Full challenge locked",sub:"JogaMind is free. To unlock the other 5 apps and the 30-day challenge, message me on WhatsApp and I'll send your personal code.",wa:"Unlock via WhatsApp",or:"Already have your code?",ph:"YOUR CODE",go:"Enter",bad:"Wrong or already-used code. Check it or message me on WhatsApp.",disc:"🔒 Your code is personal and non-transferable, tied to your access. Sharing it cancels your subscription with no refund. Every access is logged."} };
   function openUnlock(){ var u=UM[LANG]||UM.es;
     document.getElementById("ju-title").textContent=u.title;
     document.getElementById("ju-sub").textContent=u.sub;
@@ -1369,13 +1373,14 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
     document.getElementById("ju-or").textContent=u.or;
     document.getElementById("ju-input").placeholder=u.ph;
     document.getElementById("ju-go").textContent=u.go;
+    document.getElementById("ju-disc").textContent=u.disc;
     document.getElementById("ju-err").textContent="";
     document.getElementById("jbw-unlock").classList.add("open"); }
   function closeUnlock(){ document.getElementById("jbw-unlock").classList.remove("open"); }
   document.getElementById("ju-close").addEventListener("click",closeUnlock);
   document.getElementById("jbw-unlock").addEventListener("click",function(e){ if(e.target.id==="jbw-unlock") closeUnlock(); });
   function trySubmitCode(){ var u=UM[LANG]||UM.es; var v=(document.getElementById("ju-input").value||"").trim().toUpperCase();
-    if(v===UNLOCK_CODE){ unlockAll(); closeUnlock(); try{playOpenSfx();}catch(e){} var ls=document.querySelectorAll(".appcard.locked"); for(var i=0;i<ls.length;i++){ ls[i].classList.remove("locked"); var lk=ls[i].querySelector(".ac-lock"); if(lk) lk.remove(); var go=ls[i].querySelector(".ac-go"); if(go) go.textContent="\u2192"; } }
+    if(codeValid(v)){ try{ localStorage.setItem("jiCode",v); }catch(e){} unlockAll(); closeUnlock(); try{playOpenSfx();}catch(e){} var ls=document.querySelectorAll(".appcard.locked"); for(var i=0;i<ls.length;i++){ ls[i].classList.remove("locked"); var lk=ls[i].querySelector(".ac-lock"); if(lk) lk.remove(); var go=ls[i].querySelector(".ac-go"); if(go) go.textContent="\u2192"; } }
     else { document.getElementById("ju-err").textContent=u.bad; } }
   document.getElementById("ju-go").addEventListener("click",trySubmitCode);
   document.getElementById("ju-input").addEventListener("keydown",function(e){ if(e.key==="Enter") trySubmitCode(); });
