@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Joga Intelligence: plataforma premium de crecimiento consciente con experiencia bilingue y demo guiada." />
+    <meta name="theme-color" content="#f7f2e8" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Joga Intelligence" />
+    <meta property="og:description" content="Despierta lo que ya esta en ti con una experiencia premium, guiada y bilingue." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="joga-social-preview.svg" />
+    <meta property="og:image:alt" content="Joga Intelligence premium guided experience" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Joga Intelligence" />
+    <meta name="twitter:description" content="Despierta lo que ya esta en ti con una experiencia premium, guiada y bilingue." />
+    <meta name="twitter:image" content="joga-social-preview.svg" />
+    <title>Joga Intelligence</title>
+    <link rel="icon" type="image/svg+xml" href="joga-favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="joga-favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="joga-apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f2e8;
+        --bg-2: #efe3cf;
+        --surface: #fffdf9;
+        --surface-2: #fef9f1;
+        --text: #1f1916;
+        --muted: #6f655d;
+        --border: #e8dccb;
+        --accent: #b8924a;
+        --accent-soft: rgba(184, 146, 74, 0.14);
+        --shadow: 0 24px 60px rgba(31, 25, 22, 0.08);
+        --hero-glow: rgba(184, 146, 74, 0.18);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent 32%),
+          linear-gradient(135deg, var(--bg), var(--bg-2));
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        padding: 16px 0 6px;
+      }
+
+      .topbar-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border: 1px solid rgba(232, 220, 203, 0.8);
+        border-radius: 999px;
+        background: rgba(255, 253, 249, 0.78);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 24px rgba(31, 25, 22, 0.03);
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 0.88rem;
+        color: var(--accent);
+      }
+
+      .topbar nav {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+      }
+
+      .topbar-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        gap: 6px;
+      }
+
+      .lang-btn {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--muted);
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 5px 9px;
+        cursor: pointer;
+      }
+
+      .lang-btn.active {
+        background: var(--text);
+        color: white;
+        border-color: var(--text);
+      }
+
+      .topbar nav a:hover {
+        color: var(--text);
+      }
+
+      .hero {
+        min-height: calc(100vh - 72px);
+        display: flex;
+        align-items: center;
+        padding: 24px 0 86px;
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 8% auto auto -8%;
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, var(--hero-glow) 0%, transparent 72%);
+        filter: blur(12px);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 13px;
+        border: 1px solid rgba(184, 146, 74, 0.25);
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 999px;
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 18px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2.9rem, 5.8vw, 4.9rem);
+        line-height: 0.95;
+        margin: 0 0 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .hero h2 {
+        font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        color: var(--muted);
+        margin: 0 0 28px;
+        max-width: 650px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 24px;
+        border-radius: 999px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), #d8b06a);
+        color: white;
+        box-shadow: 0 10px 24px rgba(184, 146, 74, 0.22);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.86);
+        color: var(--text);
+        border-color: var(--border);
+        box-shadow: 0 8px 18px rgba(31, 25, 22, 0.03);
+      }
+
+      .music-links {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .music-label {
+        font-size: 0.86rem;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .music-btn {
+        padding: 10px 16px;
+        font-size: 0.88rem;
+      }
+
+      .hero-visual {
+        background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(254,249,241,0.9));
+        border: 1px solid rgba(232, 220, 203, 0.82);
+        border-radius: 30px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+        position: relative;
+        animation: floatCard 7s ease-in-out infinite;
+      }
+
+      .hero-visual::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,0.4);
+        pointer-events: none;
+      }
+
+      .hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: auto 24px 18px auto;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(184, 146, 74, 0.14), transparent 70%);
+        pointer-events: none;
+      }
+
+      .visual-card {
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: 20px 20px 18px;
+        margin-bottom: 14px;
+        box-shadow: 0 10px 24px rgba(31, 25, 22, 0.03);
+        animation: floatCard 7s ease-in-out infinite;
+      }
+
+      .visual-card:nth-child(2) {
+        animation-delay: 0.8s;
+      }
+
+      .visual-card h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .visual-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      .section {
+        padding: 24px 0 68px;
+      }
+
+      .section-reveal {
+        animation: sectionReveal 320ms ease-out;
+      }
+
+      @keyframes sectionReveal {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      .section-card {
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(232, 220, 203, 0.85);
+        border-radius: 26px;
+        padding: 32px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .section-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.45rem;
+      }
+
+      .section-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .benefit {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px;
+        background: var(--surface);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .benefit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(31, 25, 22, 0.05);
+        border-color: rgba(184, 146, 74, 0.24);
+      }
+
+      .metric-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .metric-card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(254,249,241,0.92));
+      }
+
+      .metric-card strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+      }
+
+      .metric-card span {
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .benefit strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .benefit span {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .flow-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .flow-step {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px;
+        background: var(--surface);
+      }
+
+      .flow-step strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .flow-step span {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .module {
+        border-radius: 18px;
+        padding: 20px;
+        background: linear-gradient(135deg, #ffffff 0%, #fcf8f1 100%);
+        border: 1px solid var(--border);
+        text-align: center;
+        font-weight: 700;
+        color: var(--text);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .module:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(31, 25, 22, 0.05);
+      }
+
+      .module.joga-mind { border-color: rgba(47, 93, 140, 0.25); }
+      .module.joga-time { border-color: rgba(44, 122, 90, 0.25); }
+      .module.joga-bit { border-color: rgba(107, 79, 161, 0.25); }
+      .module.joga-path { border-color: rgba(201, 106, 45, 0.25); }
+      .module.joga-capital { border-color: rgba(184, 146, 74, 0.25); }
+      .module.joga-ventix { border-color: rgba(139, 36, 48, 0.25); }
+      .module.joga-flow { border-color: rgba(47, 108, 160, 0.25); }
+
+      .pricing-card h3 {
+        margin-bottom: 8px;
+      }
+
+      .pricing-intro {
+        color: var(--muted);
+        margin-bottom: 20px;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .price-plan {
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 20px;
+        background: var(--surface);
+      }
+
+      .price-plan.premium {
+        background: linear-gradient(135deg, rgba(31,25,22,0.95), rgba(49,40,34,0.95));
+        color: #fff;
+        border-color: rgba(184, 146, 74, 0.4);
+      }
+
+      .plan-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        border: 1px solid rgba(184, 146, 74, 0.3);
+      }
+
+      .price-plan.premium .plan-badge {
+        background: rgba(184, 146, 74, 0.2);
+        color: #f9e6bb;
+        border-color: rgba(249, 230, 187, 0.34);
+      }
+
+      .plan-name {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .plan-price {
+        margin: 8px 0 12px;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .plan-price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+
+      .plan-price-label {
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .plan-price-value {
+        font-size: 1.06rem;
+      }
+
+      .plan-price-value.was {
+        text-decoration: line-through;
+        opacity: 0.72;
+      }
+
+      .plan-price-value.now {
+        font-size: 1.34rem;
+      }
+
+      .price-plan.premium .plan-price-value.now {
+        color: #f9e6bb;
+      }
+
+      .plan-offer-note {
+        margin: -2px 0 12px;
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.84);
+      }
+
+      .plan-features {
+        margin: 0 0 16px;
+        padding-left: 18px;
+      }
+
+      .plan-features li {
+        margin-bottom: 6px;
+        color: var(--muted);
+      }
+
+      .price-plan.premium .plan-features li {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .plan-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pricing-footnote {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .headline-block {
+        text-align: center;
+        padding: 44px 0 24px;
+      }
+
+      .headline-block h2 {
+        margin: 0 0 12px;
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        font-family: "Cormorant Garamond", Georgia, serif;
+      }
+
+      .headline-block p {
+        margin: 0 auto;
+        color: var(--muted);
+        max-width: 720px;
+      }
+
+      .cta-box {
+        background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(254,249,241,0.96));
+        border: 1px solid rgba(232, 220, 203, 0.9);
+        border-radius: 30px;
+        padding: 42px 28px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-box::before {
+        content: "";
+        position: absolute;
+        inset: auto auto -30px -20px;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(184, 146, 74, 0.16), transparent 72%);
+      }
+
+      .cta-box h3 {
+        margin: 0 0 10px;
+        font-size: 1.8rem;
+        font-family: "Cormorant Garamond", Georgia, serif;
+      }
+
+      .cta-box p {
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        padding: 20px 0 42px;
+        font-size: 0.92rem;
+      }
+
+      .music-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%) translateY(16px);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(31, 25, 22, 0.92);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms ease;
+        z-index: 60;
+      }
+
+      .music-toast.visible {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .music-toast-check {
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        background: rgba(184, 146, 74, 1);
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .music-toast-check::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 3px;
+        width: 4px;
+        height: 7px;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        transform: rotate(45deg);
+      }
+
+      @keyframes floatCard {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-4px); }
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner { grid-template-columns: 1fr; }
+        .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .flow-grid { grid-template-columns: 1fr; }
+        .pricing-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 640px) {
+        .benefits-grid, .module-grid { grid-template-columns: 1fr; }
+        .section-card { padding: 24px; }
+        .hero { padding-top: 20px; }
+        .topbar-inner { border-radius: 20px; }
+        .topbar nav { gap: 10px; font-size: 0.9rem; }
+        .topbar-controls { gap: 8px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a href="#top" class="brand">Joga Intelligence</a>
+        <div class="topbar-controls">
+          <nav>
+            <a id="navEcosystem" href="#ecosistema">Ecosistema</a>
+            <a id="navModules" href="#modulos">Modulos</a>
+            <a id="navPricing" href="#pricing">Planes</a>
+            <a id="navPath" href="#camino">Camino</a>
+          </nav>
+          <div class="lang-switch">
+            <button class="lang-btn active" type="button" data-lang="es" onclick="setLanguage('es')">ES</button>
+            <button class="lang-btn" type="button" data-lang="en" onclick="setLanguage('en')">EN</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="eyebrow" id="heroEyebrow">Ecosistema de crecimiento premium</span>
+          <h1>Joga Intelligence</h1>
+          <h2 id="heroTagline">Despierta lo que ya esta en ti.</h2>
+          <p id="heroDesc">
+            Una plataforma premium de crecimiento diseñada para acompañarte con claridad,
+            intención y propósito en cada paso de tu evolución.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" id="heroBtnPrimary" href="index.html?tour=1&present=1">Ver demo guiada</a>
+            <a class="btn btn-secondary" id="heroBtnSecondary" href="#ctaStart">Comienza hoy</a>
+          </div>
+          <div class="music-links">
+            <span class="music-label" id="musicLinksLabel">Escuchar en</span>
+            <a class="btn btn-secondary music-btn" id="musicAppleBtn" href="https://music.apple.com/" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="btn btn-secondary music-btn" id="musicAmazonBtn" href="https://music.amazon.com/" target="_blank" rel="noopener noreferrer">Amazon Music</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <h3 id="visualOneTitle">Tu evolución, integrada</h3>
+            <p id="visualOneDesc">Mente, tiempo, hábitos, propósito, dinero, ventas y energía en un solo camino.</p>
+          </div>
+          <div class="visual-card">
+            <h3 id="visualTwoTitle">Ruta diaria</h3>
+            <p id="visualTwoDesc">Una accion simple para avanzar hoy con calma y direccion.</p>
+            <div class="pill-row">
+              <span class="pill" id="pillOne">Claridad</span>
+              <span class="pill" id="pillTwo">Acompanamiento</span>
+              <span class="pill" id="pillThree">Progreso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ecosistema">
+      <div class="container">
+        <div class="section-card">
+          <h3 id="ecosystemTitle">Tu evolucion, integrada</h3>
+          <p id="ecosystemDesc">
+            Joga Intelligence reúne las áreas esenciales de tu vida para que el crecimiento
+            deje de ser disperso y se convierta en una ruta consciente, guiada y transformadora.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-card">
+          <h3 id="offerTitle">Lo que ofrece</h3>
+          <div class="benefits-grid">
+            <div class="benefit">
+              <strong id="benefitOneTitle">Claridad</strong>
+              <span id="benefitOneDesc">Decisiones mas simples y mas conscientes.</span>
+            </div>
+            <div class="benefit">
+              <strong id="benefitTwoTitle">Acompanamiento</strong>
+              <span id="benefitTwoDesc">Una experiencia que te guia dia a dia.</span>
+            </div>
+            <div class="benefit">
+              <strong id="benefitThreeTitle">Progreso</strong>
+              <span id="benefitThreeDesc">Seguimiento claro de cada avance.</span>
+            </div>
+            <div class="benefit">
+              <strong id="benefitFourTitle">Transformacion</strong>
+              <span id="benefitFourDesc">Un camino que impulsa tu evolucion real.</span>
+            </div>
+          </div>
+
+          <div class="metric-strip">
+            <div class="metric-card">
+              <strong>10 min</strong>
+              <span id="metricOneDesc">de practica al dia para sostener la intencion.</span>
+            </div>
+            <div class="metric-card">
+              <strong>1 ruta</strong>
+              <span id="metricTwoDesc">unica y guiada para cada momento.</span>
+            </div>
+            <div class="metric-card">
+              <strong>0 ruido</strong>
+              <span id="metricThreeDesc">sin distracciones, solo claridad y acompanamiento.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="modulos">
+      <div class="container">
+        <div class="section-card">
+          <h3 id="modulesTitle">Los 7 módulos</h3>
+          <div class="module-grid">
+            <div class="module joga-mind">JogaMind</div>
+            <div class="module joga-time">JogaTime</div>
+            <div class="module joga-bit">JogaBit</div>
+            <div class="module joga-path">JogaPath</div>
+            <div class="module joga-capital">JogaCapital</div>
+            <div class="module joga-ventix">JogaVentix</div>
+            <div class="module joga-flow">JogaFlow</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-card pricing-card">
+          <h3 id="pricingTitle">Elige tu acceso</h3>
+          <p class="pricing-intro" id="pricingDesc">Comienza gratis con un módulo y desbloquea los seis premium cuando quieras escalar.</p>
+          <div class="pricing-grid">
+            <article class="price-plan">
+              <span class="plan-badge" id="planFreeBadge">Publico</span>
+              <h4 class="plan-name" id="planFreeTitle">Inicio gratuito</h4>
+              <p class="plan-price" id="planFreePrice">$0</p>
+              <ul class="plan-features">
+                <li id="planFreeFeatureOne">Acceso completo a JogaMind.</li>
+                <li id="planFreeFeatureTwo">Ruta diaria y progreso personal.</li>
+                <li id="planFreeFeatureThree">Ideal para probar el metodo.</li>
+              </ul>
+              <a class="btn btn-secondary plan-btn" id="planFreeBtn" href="index.html?tour=1&present=1">Empezar gratis</a>
+            </article>
+            <article class="price-plan premium">
+              <span class="plan-badge" id="planPremiumBadge">Premium</span>
+              <h4 class="plan-name" id="planPremiumTitle">Paquete 6 módulos</h4>
+              <div class="plan-price" aria-live="polite">
+                <div class="plan-price-row">
+                  <span class="plan-price-label" id="planPriceWasLabel">Antes</span>
+                  <span class="plan-price-value was" id="planPremiumOldPrice">MXN 299 / USD 29</span>
+                </div>
+                <div class="plan-price-row">
+                  <span class="plan-price-label" id="planPriceNowLabel">Ahora</span>
+                  <span class="plan-price-value now" id="planPremiumPrice">MXN 175 / USD 20</span>
+                </div>
+              </div>
+              <p class="plan-offer-note" id="planPremiumOfferNote">Oferta de lanzamiento por tiempo limitado.</p>
+              <ul class="plan-features">
+                <li id="planPremiumFeatureOne">Desbloquea JogaTime, Bit, Path, Capital, Ventix y Flow.</li>
+                <li id="planPremiumFeatureTwo">Experiencia completa de crecimiento guiado.</li>
+                <li id="planPremiumFeatureThree">Acceso pensado para venta digital.</li>
+              </ul>
+              <a class="btn btn-primary plan-btn" id="planPremiumBtn" href="#ctaStart">Desbloquear premium</a>
+            </article>
+          </div>
+          <p class="pricing-footnote" id="pricingFootnote">Precios de ejemplo para presentacion. Puedes ajustarlos a tu oferta final.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="camino">
+      <div class="container">
+        <div class="section-card">
+          <h3 id="flowTitle">Como se vive la experiencia</h3>
+          <div class="flow-grid">
+            <div class="flow-step">
+              <strong id="flowOneTitle">1. Recibe orientacion</strong>
+              <span id="flowOneDesc">Una ruta diaria clara, breve y alineada con tu energia.</span>
+            </div>
+            <div class="flow-step">
+              <strong id="flowTwoTitle">2. Actua con intencion</strong>
+              <span id="flowTwoDesc">Acciones concretas para mover tu vida sin saturarte.</span>
+            </div>
+            <div class="flow-step">
+              <strong id="flowThreeTitle">3. Evoluciona de forma sostenida</strong>
+              <span id="flowThreeDesc">Tu progreso se vuelve visible, guiado y profundamente humano.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="headline-block">
+      <div class="container">
+        <h2 id="headlineTitle">No se trata de hacer mas.</h2>
+        <p id="headlineDesc">Se trata de avanzar con alma, con intencion y con una direccion que realmente transforma.</p>
+      </div>
+    </section>
+
+    <section class="section" id="ctaStart">
+      <div class="container">
+        <div class="cta-box">
+          <h3 id="ctaTitle">Despierta tu potencial.</h3>
+          <p id="ctaDesc">Comienza hoy.</p>
+          <a class="btn btn-primary" id="ctaButton" href="index.html?tour=1&present=1">Iniciar demo</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container" id="footerText">Joga Intelligence · Transformacion consciente</div>
+    </footer>
+
+    <div class="music-toast" id="musicToast" aria-live="polite" role="status">
+      <span class="music-toast-check" aria-hidden="true"></span>
+      <span id="musicToastText">Abriendo Apple Music...</span>
+    </div>
+
+    <script>
+      const LANGUAGE_STORAGE_KEY = 'joga.language';
+      let currentLanguage = 'es';
+      let audioContext = null;
+      let musicToastTimer = null;
+
+      const I18N = {
+        es: {
+          navEcosystem: 'Ecosistema',
+          navModules: 'Módulos',
+          navPricing: 'Planes',
+          navPath: 'Camino',
+          heroEyebrow: 'Ecosistema de crecimiento premium',
+          heroTagline: 'Despierta lo que ya está en ti.',
+          heroDesc: 'Una plataforma premium de crecimiento creada para acompañarte con claridad, intención y propósito en cada paso de tu evolución.',
+          heroBtnPrimary: 'Ver demo guiada',
+          heroBtnSecondary: 'Comienza hoy',
+          musicLinksLabel: 'Escuchar en',
+          musicAppleBtn: 'Apple Music',
+          musicAmazonBtn: 'Amazon Music',
+          musicOpeningApple: 'Abriendo Apple Music...',
+          musicOpeningAmazon: 'Abriendo Amazon Music...',
+          visualOneTitle: 'Tu evolución, integrada',
+          visualOneDesc: 'Mente, tiempo, hábitos, propósito, dinero, ventas y energía en un solo camino.',
+          visualTwoTitle: 'Ruta diaria',
+          visualTwoDesc: 'Una acción clara para avanzar hoy con calma y dirección.',
+          pillOne: 'Claridad',
+          pillTwo: 'Acompañamiento',
+          pillThree: 'Progreso',
+          ecosystemTitle: 'Tu evolución, integrada',
+          ecosystemDesc: 'Joga Intelligence integra las áreas esenciales de tu vida para que el crecimiento deje de ser disperso y se convierta en una ruta consciente, guiada y transformadora.',
+          offerTitle: 'Lo que ofrece',
+          benefitOneTitle: 'Claridad',
+          benefitOneDesc: 'Decisiones más simples y más conscientes.',
+          benefitTwoTitle: 'Acompañamiento',
+          benefitTwoDesc: 'Una experiencia que te acompaña día a día.',
+          benefitThreeTitle: 'Progreso',
+          benefitThreeDesc: 'Seguimiento claro de cada avance.',
+          benefitFourTitle: 'Transformación',
+          benefitFourDesc: 'Un camino que impulsa tu evolución real.',
+          metricOneDesc: 'de práctica al día para sostener la intención.',
+          metricTwoDesc: 'única y guiada para cada momento.',
+          metricThreeDesc: 'sin ruido, solo claridad y acompañamiento.',
+          modulesTitle: 'Los 7 módulos',
+          pricingTitle: 'Elige tu acceso',
+          pricingDesc: 'Comienza gratis con un módulo y desbloquea los seis premium cuando quieras escalar.',
+          planFreeBadge: 'Público',
+          planFreeTitle: 'Inicio gratuito',
+          planFreePrice: '$0',
+          planFreeFeatureOne: 'Acceso completo a JogaMind.',
+          planFreeFeatureTwo: 'Ruta diaria y progreso personal.',
+          planFreeFeatureThree: 'Ideal para probar el método.',
+          planFreeBtn: 'Empezar gratis',
+          planPremiumBadge: 'Premium',
+          planPremiumTitle: 'Paquete 6 módulos',
+          planPriceWasLabel: 'Antes',
+          planPremiumOldPrice: 'MXN 299 / USD 29',
+          planPriceNowLabel: 'Ahora',
+          planPremiumPrice: 'MXN 175 / USD 20',
+          planPremiumOfferNote: 'Oferta de lanzamiento por tiempo limitado.',
+          planPremiumFeatureOne: 'Desbloquea JogaTime, Bit, Path, Capital, Ventix y Flow.',
+          planPremiumFeatureTwo: 'Experiencia completa de crecimiento guiado.',
+          planPremiumFeatureThree: 'Acceso pensado para venta digital.',
+          planPremiumBtn: 'Desbloquear premium',
+          pricingFootnote: 'Precios de ejemplo para presentación. Puedes ajustarlos a tu oferta final.',
+          flowTitle: 'Cómo se vive la experiencia',
+          flowOneTitle: '1. Recibe orientación',
+          flowOneDesc: 'Una ruta diaria clara, breve y alineada con tu energía.',
+          flowTwoTitle: '2. Actúa con intención',
+          flowTwoDesc: 'Acciones concretas para mover tu vida sin saturarte.',
+          flowThreeTitle: '3. Evoluciona de forma sostenida',
+          flowThreeDesc: 'Tu progreso se vuelve visible, guiado y profundamente humano.',
+          headlineTitle: 'No se trata de hacer más.',
+          headlineDesc: 'Se trata de avanzar con alma, con intención y con una dirección que realmente transforma.',
+          ctaTitle: 'Despierta tu potencial.',
+          ctaDesc: 'Comienza hoy.',
+          ctaButton: 'Iniciar demo',
+          footerText: 'Joga Intelligence · Transformación consciente'
+        },
+        en: {
+          navEcosystem: 'Ecosystem',
+          navModules: 'Modules',
+          navPricing: 'Plans',
+          navPath: 'Path',
+          heroEyebrow: 'Premium growth ecosystem',
+          heroTagline: 'Awaken what is already within you.',
+          heroDesc: 'A premium growth platform built to guide you with clarity, intention, and purpose through every step of your evolution.',
+          heroBtnPrimary: 'Watch guided demo',
+          heroBtnSecondary: 'Start today',
+          musicLinksLabel: 'Listen on',
+          musicAppleBtn: 'Apple Music',
+          musicAmazonBtn: 'Amazon Music',
+          musicOpeningApple: 'Opening Apple Music...',
+          musicOpeningAmazon: 'Opening Amazon Music...',
+          visualOneTitle: 'Your evolution, integrated',
+          visualOneDesc: 'Mind, time, habits, purpose, money, sales, and energy in one single path.',
+          visualTwoTitle: 'Daily route',
+          visualTwoDesc: 'A clear action to move forward today with calm and direction.',
+          pillOne: 'Clarity',
+          pillTwo: 'Guidance',
+          pillThree: 'Progress',
+          ecosystemTitle: 'Your evolution, integrated',
+          ecosystemDesc: 'Joga Intelligence brings together the essential areas of your life so growth stops being fragmented and becomes a conscious, guided, and transformative path.',
+          offerTitle: 'What it offers',
+          benefitOneTitle: 'Clarity',
+          benefitOneDesc: 'Simpler, more conscious decisions.',
+          benefitTwoTitle: 'Guidance',
+          benefitTwoDesc: 'An experience that supports you every day.',
+          benefitThreeTitle: 'Progress',
+          benefitThreeDesc: 'Clear tracking of each step forward.',
+          benefitFourTitle: 'Transformation',
+          benefitFourDesc: 'A path that drives real evolution.',
+          metricOneDesc: 'of daily practice to sustain intention.',
+          metricTwoDesc: 'single guided route for each moment.',
+          metricThreeDesc: 'no noise, only clarity and guidance.',
+          modulesTitle: 'The 7 modules',
+          pricingTitle: 'Choose your access',
+          pricingDesc: 'Start free with one module and unlock the other six premium modules when you are ready to scale.',
+          planFreeBadge: 'Public',
+          planFreeTitle: 'Free starter',
+          planFreePrice: '$0',
+          planFreeFeatureOne: 'Full access to JogaMind.',
+          planFreeFeatureTwo: 'Daily route and personal progress.',
+          planFreeFeatureThree: 'Perfect to validate the method.',
+          planFreeBtn: 'Start free',
+          planPremiumBadge: 'Premium',
+          planPremiumTitle: '6-module package',
+          planPriceWasLabel: 'Was',
+          planPremiumOldPrice: 'MXN 299 / USD 29',
+          planPriceNowLabel: 'Now',
+          planPremiumPrice: 'MXN 175 / USD 20',
+          planPremiumOfferNote: 'Launch offer for a limited time.',
+          planPremiumFeatureOne: 'Unlock JogaTime, Bit, Path, Capital, Ventix, and Flow.',
+          planPremiumFeatureTwo: 'Complete guided growth experience.',
+          planPremiumFeatureThree: 'Built for digital product sales.',
+          planPremiumBtn: 'Unlock premium',
+          pricingFootnote: 'Sample pricing for presentation. You can adjust this to your final offer.',
+          flowTitle: 'How the experience works',
+          flowOneTitle: '1. Receive guidance',
+          flowOneDesc: 'A clear, short daily route aligned with your energy.',
+          flowTwoTitle: '2. Act with intention',
+          flowTwoDesc: 'Concrete actions to move your life forward without overload.',
+          flowThreeTitle: '3. Evolve sustainably',
+          flowThreeDesc: 'Your progress becomes visible, guided, and deeply human.',
+          headlineTitle: 'It is not about doing more.',
+          headlineDesc: 'It is about moving forward with soul, intention, and a direction that truly transforms.',
+          ctaTitle: 'Awaken your potential.',
+          ctaDesc: 'Start today.',
+          ctaButton: 'Launch demo',
+          footerText: 'Joga Intelligence · Conscious transformation'
+        }
+      };
+
+      function getInitialLanguage() {
+        try {
+          const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+          if (stored === 'es' || stored === 'en') {
+            return stored;
+          }
+        } catch (error) {
+          // Ignore storage access errors and continue with browser fallback.
+        }
+        const browserLang = (navigator.language || '').toLowerCase();
+        return browserLang.startsWith('en') ? 'en' : 'es';
+      }
+
+      function setLanguage(lang) {
+        currentLanguage = lang;
+        try {
+          localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+        } catch (error) {
+          // Ignore storage access errors.
+        }
+        document.documentElement.lang = lang;
+        document.querySelectorAll('.lang-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+        applyLanguage();
+      }
+
+      function applyLanguage() {
+        const ui = I18N[currentLanguage];
+        Object.keys(ui).forEach((key) => {
+          const el = document.getElementById(key);
+          if (el) {
+            el.textContent = ui[key];
+          }
+        });
+      }
+
+      function ensureAudioContext() {
+        if (!audioContext) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          audioContext = AudioCtx ? new AudioCtx() : null;
+        }
+        if (audioContext && audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+      }
+
+      function playSound(kind = 'tap') {
+        ensureAudioContext();
+        if (!audioContext) return;
+
+        const now = audioContext.currentTime;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        osc.type = kind === 'success' ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(kind === 'success' ? 780 : 720, now);
+        if (kind === 'success') {
+          osc.frequency.exponentialRampToValueAtTime(980, now + 0.14);
+        }
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(kind === 'success' ? 0.03 : 0.02, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + (kind === 'success' ? 0.18 : 0.08));
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.start(now);
+        osc.stop(now + (kind === 'success' ? 0.2 : 0.1));
+      }
+
+      function showMusicToast(message) {
+        const toast = document.getElementById('musicToast');
+        const toastText = document.getElementById('musicToastText');
+        if (!toast || !toastText) return;
+
+        toastText.textContent = message;
+        toast.classList.add('visible');
+
+        if (musicToastTimer) {
+          clearTimeout(musicToastTimer);
+        }
+
+        musicToastTimer = setTimeout(() => {
+          toast.classList.remove('visible');
+        }, 1500);
+      }
+
+      document.addEventListener('click', (event) => {
+        const interactive = event.target.closest('a, button, .module, .item');
+        if (!interactive) return;
+        const kind = interactive.classList.contains('btn-primary') || interactive.classList.contains('btn') ? 'success' : 'tap';
+        playSound(kind);
+
+        const isMusicLink = interactive.id === 'musicAppleBtn' || interactive.id === 'musicAmazonBtn';
+        if (isMusicLink && interactive.dataset.busy === '1') {
+          event.preventDefault();
+          return;
+        }
+
+        if (isMusicLink) {
+          interactive.dataset.busy = '1';
+          setTimeout(() => {
+            interactive.removeAttribute('data-busy');
+          }, 900);
+        }
+
+        if (interactive.id === 'musicAppleBtn') {
+          showMusicToast(I18N[currentLanguage].musicOpeningApple);
+        } else if (interactive.id === 'musicAmazonBtn') {
+          showMusicToast(I18N[currentLanguage].musicOpeningAmazon);
+        }
+
+        if (interactive.tagName === 'A' && interactive.getAttribute('href') && interactive.getAttribute('href').startsWith('#')) {
+          const target = document.querySelector(interactive.getAttribute('href'));
+          if (target) {
+            target.classList.remove('section-reveal');
+            void target.offsetWidth;
+            target.classList.add('section-reveal');
+          }
+        }
+      });
+
+      setLanguage(getInitialLanguage());
+    </script>
+  </body>
+</html>
