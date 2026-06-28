@@ -794,8 +794,8 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
     <div class="grain"></div>
     <div class="shell">
       <div class="eyebrow" data-i18n="hero.eyebrow">Inteligencia para la vida</div>
-      <h1 data-i18n-html="hero.h1">Despierta los seis poderes que ya viven en ti. <em>En 30 días.</em></h1>
-      <p class="lede" data-i18n-html="hero.lede">Tu mente, tu tiempo, tus hábitos, tu método, tu dinero y tus ventas — seis apps que trabajan como una sola. <b>Un reto guiado de 30 días</b> para transformar lo que de verdad mueve tu vida.</p>
+      <h1 data-i18n-html="hero.h1">Despierta los siete poderes que ya viven en ti. <em>En 30 días.</em></h1>
+      <p class="lede" data-i18n-html="hero.lede">Tu energía, tu mente, tu tiempo, tus hábitos, tu método, tu dinero y tus ventas — siete apps que trabajan como una sola. <b>Un reto guiado de 30 días</b> para transformar lo que de verdad mueve tu vida.</p>
 
       <div class="actions">
         <a class="btn primary" href="onboarding.html" data-i18n="hero.cta1">Empezar el reto de 30 días →</a>
@@ -807,7 +807,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
   <section class="manifesto" id="apps">
     <div class="shell">
       <p class="reveal" data-i18n="man.p">No vendemos apps sueltas. Despertamos lo que de verdad importa, un poder a la vez.</p>
-      <div class="apps-grid" id="apps-grid" aria-label="Seis poderes, seis apps"></div>
+      <div class="apps-grid" id="apps-grid" aria-label="Siete poderes, siete apps"></div>
     </div>
   </section>
 
@@ -848,7 +848,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
   </section>
 
 
-  <!-- Sección "Seis poderes / Seis apps" retirada. Se conserva #needs oculto porque el script lo usa. -->
+  <!-- Sección "Siete poderes / Siete apps" retirada. Se conserva #needs oculto porque el script lo usa. -->
   <div id="needs" style="display:none" aria-hidden="true"></div>
 
   <!-- QUIÉN ESTÁ DETRÁS (señal de confianza) -->
@@ -886,7 +886,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
           <div class="founder-eyebrow" data-i18n="founder.eyebrow">Por qué Joga</div>
           <h2 class="founder-name" data-i18n="founder.name">Un método, no una promesa vacía</h2>
           <div class="founder-role" data-i18n="founder.role">El sistema Joga Intelligence</div>
-          <p class="founder-bio" data-i18n-html="founder.bio">Joga Intelligence nace de una certeza simple: todos llevamos dentro poderes que nunca aprendimos a desarrollar. <em>No son talento de unos cuantos — están en ti, esperando.</em> Seis apps y un método claro y diario para despertarlos, uno a la vez.</p>
+          <p class="founder-bio" data-i18n-html="founder.bio">Joga Intelligence nace de una certeza simple: todos llevamos dentro poderes que nunca aprendimos a desarrollar. <em>No son talento de unos cuantos — están en ti, esperando.</em> Siete apps y un método claro y diario para despertarlos, uno a la vez.</p>
           <div class="founder-promise">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2703A" stroke-width="1.8"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg>
             <span data-i18n="founder.promise">En 30 días empiezas a despertar el poder que ya vive en ti.</span>
@@ -1009,23 +1009,26 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
 
 <script>
   const NEEDS = [
-    { num:"01", need:"El poder de tu transformación", essence:"Despierto la fuerza que ya vive en mí.",
-      body:"Dentro de ti vive el poder más grande que existe, y nadie te lo enseñó: tu subconsciente. Es ahí donde de verdad te encuentras contigo mismo y donde empieza tu transformación. Domina este poder y ningún obstáculo de la vida volverá a detenerte. Aquí empieza todo.",
+    { num:"01", need:"El poder de tu energía", essence:"Cuido mi cuerpo y mi energía cada día.",
+      body:"Sin energía, ningún poder se sostiene. Tu cuerpo es la base de todo lo demás: tu mente, tu tiempo y tus metas dependen de cómo te sientes. JOGAFLOW te enseña a cuidar tu cuerpo y tu energía con respiración, movimiento y descanso, para que cada día tengas la fuerza de avanzar. Cuando tu energía fluye, todo lo demás fluye contigo.",
+      app:{key:"energia", name:"JOGAFLOW", tag:"Energía en equilibrio", glyph:"F", file:"jogaflow.html", accent:"oklch(0.72 0.155 250)"} },
+    { num:"02", need:"El poder de tu transformación", essence:"Despierto la fuerza que ya vive en mí.",
+      body:"Dentro de ti vive el poder más grande que existe, y nadie te lo enseñó: tu subconsciente. Es ahí donde de verdad te encuentras contigo mismo y donde empieza tu transformación. Domina este poder y ningún obstáculo de la vida volverá a detenerte. Aquí empieza tu despertar.",
       app:{key:"poder", name:"JOGAMIND", tag:"Entrena tu subconsciente", glyph:"S", file:"subment.html", accent:"oklch(0.72 0.155 300)"} },
-    { num:"02", need:"El poder de tu tiempo", essence:"Soy dueño de mis horas y mi enfoque.",
+    { num:"03", need:"El poder de tu tiempo", essence:"Soy dueño de mis horas y mi enfoque.",
       body:"Tu tiempo empezó a correr el día que naciste, y nunca vuelve. De joven cuesta verlo; de grande darías lo que fuera por recuperarlo. No se puede recuperar, pero sí se puede dominar. JOGATIME te enseña a administrar tu tiempo en lugar de desperdiciarlo en lo que no te da nada. Apróvechalo ahora, porque el tiempo se acaba.",
       app:{key:"tiempo", name:"JOGATIME", tag:"Time is everything", glyph:"J", file:"jogatime.html", accent:"oklch(0.72 0.155 70)"} },
-    { num:"03", need:"El poder de tus hábitos", essence:"Lo que repito cada día me construye.",
+    { num:"04", need:"El poder de tus hábitos", essence:"Lo que repito cada día me construye.",
       body:"No naciste con tus hábitos: los aprendiste. De niño imitaste los de tu familia, buenos y malos, sin darte cuenta; de adulto sumaste otros. La pregunta es cuáles te construyen y cuáles te destruyen. JOGABIT te lo revela, hasta lo más pequeño, para que tú decidas quién quieres ser.",
       app:{key:"conocimiento", name:"JOGABIT", tag:"Hábitos fundamentales", glyph:"P", file:"protoneutron.html", accent:"oklch(0.72 0.155 195)"} },
-    { num:"04", need:"El poder de tus pasos", essence:"Crezco un peldaño cada día.",
+    { num:"05", need:"El poder de tus pasos", essence:"Crezco un peldaño cada día.",
       body:"Avanzar no basta: importa hacia dónde y siguiendo qué. JOGAPATH une tus pasos con las leyes que de verdad funcionan, esas que no fallan. Cuando tus acciones siguen los principios correctos, dejas de andar a ciegas y cada paso te acerca a lo que quieres. Esa es la combinación explosiva.",
       app:{key:"crecimiento", name:"JOGAPATH", tag:"El Método del Éxito", glyph:"P", file:"metodoexito.html", accent:"oklch(0.72 0.155 145)"} },
-    { num:"05", need:"El poder de tu dinero", essence:"Dirijo mi prosperidad con cabeza y calma.",
+    { num:"06", need:"El poder de tu dinero", essence:"Dirijo mi prosperidad con cabeza y calma.",
       body:"El dinero no llega solo: llega por conexión. Con las personas correctas, con las oportunidades correctas y con la forma correcta de pensarlo. JOGACAPITAL te enseña a crear esas conexiones para que el dinero deje de ser una lucha y empiece a fluir hacia ti. El dinero es un poder, y aquí aprendes a manejarlo.",
       app:{key:"prosperidad", name:"JOGACAPITAL", tag:"Finanzas · Mente + Método", glyph:"M", file:"monexium.html", accent:"oklch(0.72 0.155 95)"} },
-    { num:"06", need:"El poder de tus ventas", essence:"Conecto, escucho y cierro con honestidad.",
-      body:"No es la última por ser la menor, sino porque aquí todo se une. JOGAVENTIX reúne tus seis poderes: el subconsciente que te transforma, el tiempo que administras, los hábitos que construyes, los pasos y leyes que sigues y el dinero que conectas. Todo eso, junto, se vuelve resultado. Este es el poder donde dejas de aprender y empiezas a lograr.",
+    { num:"07", need:"El poder de tus ventas", essence:"Conecto, escucho y cierro con honestidad.",
+      body:"No es la última por ser la menor, sino porque aquí todo se une. JOGAVENTIX reúne tus seis poderes: la energía que sostiene tu cuerpo, el subconsciente que te transforma, el tiempo que administras, los hábitos que construyes, los pasos y leyes que sigues y el dinero que conectas. Todo eso, junto, se vuelve resultado. Este es el poder donde dejas de aprender y empiezas a lograr.",
       app:{key:"ventas", name:"JOGAVENTIX", tag:"El arte de vender", glyph:"V", file:"ventmex.html", accent:"oklch(0.72 0.155 32)"} },
   ];
 
@@ -1056,7 +1059,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
       body:"Money does not arrive on its own: it arrives through connection. With the right people, the right opportunities and the right way of thinking about it. JOGACAPITAL teaches you to create those connections so money stops being a struggle and starts flowing toward you. Money is a power, and here you learn to handle it.",
       tag:"Finance · Mind + Method"},
     ventas:{need:"The power of your sales",essence:"I connect, listen and close with honesty.",
-      body:"It is last not because it is the least, but because here everything comes together. JOGAVENTIX brings together your six powers: the subconscious that transforms you, the time you manage, the habits you build, the steps and laws you follow and the money you connect. All of it, together, becomes results. This is the power where you stop learning and start achieving.",
+      body:"It is last not because it is the least, but because here everything comes together. JOGAVENTIX brings together your six powers: the energy that sustains your body, the subconscious that transforms you, the time you manage, the habits you build, the steps and laws you follow and the money you connect. All of it, together, becomes results. This is the power where you stop learning and start achieving.",
       tag:"The art of selling"},
     crecimiento:{need:"The power of your steps",essence:"I climb one step every day.",
       body:"Moving forward is not enough: where you go and what you follow is what matters. JOGAPATH unites your steps with the laws that truly work, the ones that never fail. When your actions follow the right principles, you stop walking blind and every step brings you closer to what you want. That is the explosive combination.",
@@ -1064,6 +1067,9 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
     conocimiento:{need:"The power of your habits",essence:"What I repeat each day builds me.",
       body:"You were not born with your habits: you learned them. As a child you copied your family\u2019s, good and bad, without noticing; as an adult you added more. The question is which ones build you and which ones destroy you. JOGABIT reveals them, down to the smallest one, so you decide who you want to be.",
       tag:"Core habits"},
+    energia:{need:"The power of your energy",essence:"I care for my body and my energy every day.",
+      body:"Without energy, no power holds up. Your body is the foundation of everything else: your mind, your time and your goals depend on how you feel. JOGAFLOW teaches you to care for your body and energy through breath, movement and rest, so every day you have the strength to move forward. When your energy flows, everything else flows with you.",
+      tag:"Energy in balance"},
   };
   function L(n){ if(LANG==="en"){const e=NEEDS_EN[n.app.key];return {need:e.need,essence:e.essence,body:e.body,tag:e.tag};}
     return {need:n.need,essence:n.essence,body:n.body,tag:n.app.tag}; }
@@ -1072,15 +1078,15 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
   const SHARE_SVG='<svg class="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>';
   const T={
     es:{ "nav.apps":"Abrir las apps","nav.install":"Instalar app","hero.eyebrow":"Inteligencia para la vida",
-      "hero.h1":"Despierta los seis poderes que ya viven en ti. <em>En 30 días.</em>",
-      "hero.lede":"Tu mente, tu tiempo, tus hábitos, tu método, tu dinero y tus ventas — seis apps que trabajan como una sola. <b>Un reto guiado de 30 días</b> para transformar lo que de verdad mueve tu vida.",
+      "hero.h1":"Despierta los siete poderes que ya viven en ti. <em>En 30 días.</em>",
+      "hero.lede":"Tu energía, tu mente, tu tiempo, tus hábitos, tu método, tu dinero y tus ventas — siete apps que trabajan como una sola. <b>Un reto guiado de 30 días</b> para transformar lo que de verdad mueve tu vida.",
       "hero.cta1":"Empezar el reto de 30 días →","hero.cta2":"Ver todas las apps",
       "cz.greet":"Hola, soy Joga.","cz.sub":"¿Qué necesitas hoy?","cz.thinking":"Pensando en lo mejor para ti…","cz.more":"¿Algo más?",
       "cz.ph":"Dímelo en tus palabras… p. ej. «ando sin tiempo»","cz.thinkingLabel":"Joga está pensando",
       "cz.unsure":"No te entendí del todo. Dímelo con otras palabras, o elige una opción de abajo.","cz.open":"Abrir →",
       "man.p":"No vendemos apps sueltas. Despertamos lo que de verdad importa, un poder a la vez.","cz.section":"¿No sabes por dónde empezar?",
-      "man.needs":"<span>Transformación</span> · <span>Tiempo</span> · <span>Hábitos</span> · <span>Pasos</span> · <span>Dinero</span> · <span>Ventas</span>",
-      "ch.h2":"Seis poderes. <em>Seis apps.</em>",
+      "man.needs":"<span>Energía</span> · <span>Transformación</span> · <span>Tiempo</span> · <span>Hábitos</span> · <span>Pasos</span> · <span>Dinero</span> · <span>Ventas</span>",
+      "ch.h2":"Siete poderes. <em>Siete apps.</em>",
       "lau.eyebrow":"Todo en un solo lugar","lau.h2":"Tu vida entera, a un toque",
       "lau.p":"Abre cualquiera de las apps sin salir de Joga Intelligence. Una sola puerta de entrada.",
       "foot.tag":"Mente + Método","foot.copy":"Diseñado para una vida más plena",
@@ -1088,20 +1094,20 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
       "v.back":"‹ Volver","v.open":"Abrir ↗",
       "intro.thesis":"No son necesidades. Son los poderes que ya viven en ti. Una app para despertar cada uno.","intro.skip":"Saltar","intro.enter":"Toca para entrar",
       "founder.eyebrow":"Por qué Joga","founder.name":"Un método, no una promesa vacía","founder.role":"El sistema Joga Intelligence",
-      "founder.bio":"Joga Intelligence nace de una certeza simple: todos llevamos dentro poderes que nunca aprendimos a desarrollar. <em>No son talento de unos cuantos — están en ti, esperando.</em> Construí estas seis apps para darte un método claro y diario que los despierte, uno a la vez.",
+      "founder.bio":"Joga Intelligence nace de una certeza simple: todos llevamos dentro poderes que nunca aprendimos a desarrollar. <em>No son talento de unos cuantos — están en ti, esperando.</em> Construí estas siete apps para darte un método claro y diario que los despierte, uno a la vez.",
       "founder.promise":"En 30 días empiezas a despertar el poder que ya vive en ti.",
       "proof.eyebrow":"No es promesa, es real","proof.title":"Mírala funcionando",
       "open":"Abrir" },
     en:{ "nav.apps":"Open the apps","nav.install":"Install app","hero.eyebrow":"Intelligence for life",
-      "hero.h1":"Awaken the six powers already alive in you. <em>In 30 days.</em>",
-      "hero.lede":"Your mind, your time, your habits, your method, your money and your sales — six apps that work as one. <b>A guided 30-day challenge</b> to transform what truly moves your life.",
+      "hero.h1":"Awaken the seven powers already alive in you. <em>In 30 days.</em>",
+      "hero.lede":"Your energy, your mind, your time, your habits, your method, your money and your sales — seven apps that work as one. <b>A guided 30-day challenge</b> to transform what truly moves your life.",
       "hero.cta1":"Start the 30-day challenge →","hero.cta2":"See all the apps",
       "cz.greet":"Hi, I'm Joga.","cz.sub":"What do you need today?","cz.thinking":"Thinking of what's best for you…","cz.more":"Anything else?",
       "cz.ph":"Tell me in your words… e.g. \"I'm out of time\"","cz.thinkingLabel":"Joga is thinking",
       "cz.unsure":"I didn't quite get that. Tell me another way, or pick an option below.","cz.open":"Open →",
       "man.p":"We don't sell loose apps. We awaken what truly matters, one power at a time.","cz.section":"Not sure where to start?",
-      "man.needs":"<span>Transformation</span> · <span>Time</span> · <span>Habits</span> · <span>Steps</span> · <span>Money</span> · <span>Sales</span>",
-      "ch.h2":"Six powers. <em>Six apps.</em>",
+      "man.needs":"<span>Energy</span> · <span>Transformation</span> · <span>Time</span> · <span>Habits</span> · <span>Steps</span> · <span>Money</span> · <span>Sales</span>",
+      "ch.h2":"Seven powers. <em>Seven apps.</em>",
       "lau.eyebrow":"Everything in one place","lau.h2":"Your whole life, one tap away",
       "lau.p":"Open any of the apps without leaving Joga Intelligence. One single doorway.",
       "foot.tag":"Mind + Method","foot.copy":"Designed for a fuller life",
@@ -1109,7 +1115,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
       "v.back":"‹ Back","v.open":"Open ↗",
       "intro.thesis":"These aren't needs. They're the powers already alive in you. One app to awaken each.","intro.skip":"Skip","intro.enter":"Tap to enter",
       "founder.eyebrow":"Why Joga","founder.name":"A method, not an empty promise","founder.role":"The Joga Intelligence system",
-      "founder.bio":"Joga Intelligence is built on a simple conviction: we all carry powers within that we never learned to develop. <em>They're not a gift for the few — they're in you, waiting.</em> I built these six apps to give you a clear, daily method to awaken them, one at a time.",
+      "founder.bio":"Joga Intelligence is built on a simple conviction: we all carry powers within that we never learned to develop. <em>They're not a gift for the few — they're in you, waiting.</em> I built these seven apps to give you a clear, daily method to awaken them, one at a time.",
       "founder.promise":"In 30 days you begin to awaken the power already alive in you.",
       "proof.eyebrow":"Not a promise — it's real","proof.title":"See it working",
       "open":"Open" },
@@ -1323,8 +1329,8 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
   }
 
   /* ===== Sistema de candados (paywall) ===== */
-  var FREE_FILE="subment.html";
-  var UNLOCK_KEY={"subment.html":"subment","jogatime.html":"jogatime","protoneutron.html":"protoneutron","metodoexito.html":"pasley","monexium.html":"monexium","ventmex.html":"ventmex"};
+  var FREE_FILE="jogaflow.html";
+  var UNLOCK_KEY={"subment.html":"subment","jogatime.html":"jogatime","protoneutron.html":"protoneutron","metodoexito.html":"pasley","monexium.html":"monexium","ventmex.html":"ventmex","jogaflow.html":"jogaflow"};
   var UNLOCK_CODE="JOGA7K2M9";
   var VALID_CODES=["JOGA-4ET2L","JOGA-LVG2V","JOGA-9A4LV","JOGA-RAXR4","JOGA-G6XXH","JOGA-3HJSA","JOGA-BD8SL","JOGA-LVC3L","JOGA-ESDRT","JOGA-YAJMT","JOGA-AFPYV","JOGA-KJUYX","JOGA-BGVNL","JOGA-ZTZHD","JOGA-6QTGW","JOGA-DC8GC","JOGA-YMXEJ","JOGA-APXXG","JOGA-82KUS","JOGA-FZY9B","JOGA-8XDJD","JOGA-QUUFD","JOGA-XEARV","JOGA-A5LUD","JOGA-QSYE6","JOGA-XCGZV","JOGA-26ABC","JOGA-X3JB7","JOGA-WJ45D","JOGA-8HQTP","JOGA-8U9RY","JOGA-BGGUR","JOGA-4N6BQ","JOGA-EDE2Z","JOGA-QBEZQ","JOGA-YD7CF","JOGA-SNDQ3","JOGA-P6J72","JOGA-DQDTB","JOGA-M4AN3","JOGA-Q59TM","JOGA-6JQU5","JOGA-9C9M2","JOGA-G4PHH","JOGA-NGQSK","JOGA-AMJTA","JOGA-FUYPG","JOGA-SX6KY","JOGA-TP4Z2","JOGA-VH8MX"];
   function codeValid(v){ if(!v) return false; v=v.trim().toUpperCase(); if(v===UNLOCK_CODE) return true; for(var i=0;i<VALID_CODES.length;i++){ if(VALID_CODES[i]===v) return true; } return false; }
@@ -1385,7 +1391,7 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
   document.getElementById("ju-go").addEventListener("click",trySubmitCode);
   document.getElementById("ju-input").addEventListener("keydown",function(e){ if(e.key==="Enter") trySubmitCode(); });
 
-  /* ---- rejilla de las 6 apps (data-driven) ---- */
+  /* ---- rejilla de las 7 apps (data-driven) ---- */
   (function buildAppsGrid(){
     var g=document.getElementById("apps-grid"); if(!g) return;
     try{
@@ -1435,6 +1441,8 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
       kw:["crecer","crec","mejor","exito","meta","metas","propos","motiv","discipl","habit","superar","desarrollo","logr","constan","ser mejor","no se que hacer","sin rumbo","perdido","rumbo","growth","success","goal","improve","discipline","cambiar mi vida"] },
     conocimiento:{ ack:"La curiosidad pide laboratorio.", ack_en:"Curiosity calls for a lab.",
       kw:["aprend","conoc","cienc","crear","experiment","idea","curios","constru","proyecto","innov","estudi","saber","entender","tecnolog","laborator","program","invent","learn","build","science","create","study","knowledge","tech"] },
+    energia:     { ack:"Tu energía es la base de todo.", ack_en:"Your energy is the base of everything.",
+      kw:["energia","cuerpo","salud","cansad","agotad","fatiga","descans","dormir","sueno","respir","ejercicio","movimiento","bienestar","estres","relaj","vitalidad","fuerza","animo","equilibrio","body","health","energy","tired","rest","sleep","breath","exercise","wellness","stress","vitality","balance"] },
   };
   function normalize(t){
     return (t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ");
@@ -1740,15 +1748,15 @@ Lo que dijo la persona: «${text}»`;
   function lang(){ try{ var s=localStorage.getItem('jiLang'); return (s==='en')?'en':'es'; }catch(e){ return 'es'; } }
   var muted=false; try{ muted=localStorage.getItem('jiMute')==='1'; }catch(e){}
   var SCRIPTS={
-    es:"Hola, soy Joga.\nDurante 30 d\u00edas te acompa\u00f1o a despertar seis poderes que ya viven en ti \u2014 tu mente, tu tiempo, tus h\u00e1bitos, tu m\u00e9todo, tu dinero y tus ventas.\nElige por d\u00f3nde quieres empezar:",
-    en:"Hi, I'm Joga.\nFor 30 days I'll help you awaken six powers that already live in you \u2014 your mind, time, habits, method, money and sales.\nChoose where you'd like to begin:" };
+    es:"Hola, soy Joga.\nDurante 30 d\u00edas te acompa\u00f1o a despertar siete poderes que ya viven en ti \u2014 tu energ\u00eda, tu mente, tu tiempo, tus h\u00e1bitos, tu m\u00e9todo, tu dinero y tus ventas.\nElige por d\u00f3nde quieres empezar:",
+    en:"Hi, I'm Joga.\nFor 30 days I'll help you awaken seven powers that already live in you \u2014 your energy, mind, time, habits, method, money and sales.\nChoose where you'd like to begin:" };
   var CARDS={ es:[
     {ic:'\ud83d\udd25',k:'El camino completo',t:'Empezar el reto de 30 d\u00edas',d:'Un paso cada d\u00eda, sin romper la cadena. La transformaci\u00f3n guiada del d\u00eda 1 al 30.',go:'Empezar el reto',ac:'#E2703A',href:'onboarding.html',scroll:null},
-    {ic:'\u2728',k:'Explora',t:'Conoce las 6 apps',d:'Mira cada poder por dentro \u2014 mente, tiempo, h\u00e1bitos, m\u00e9todo, dinero y ventas.',go:'Ver las apps',ac:'#9a6cf6',href:'#apps',scroll:'apps'},
+    {ic:'\u2728',k:'Explora',t:'Conoce las 7 apps',d:'Mira cada poder por dentro \u2014 energ\u00eda, mente, tiempo, h\u00e1bitos, m\u00e9todo, dinero y ventas.',go:'Ver las apps',ac:'#9a6cf6',href:'#apps',scroll:'apps'},
     {ic:'\ud83d\udcac',k:'\u00bfNo sabes?',t:'Deja que Joga te gu\u00ede',d:'Dime qu\u00e9 necesitas en tus palabras y te llevo al lugar correcto.',go:'Preguntar a Joga',ac:'#C9A050',href:'#concierge-section',scroll:'concierge-section'} ],
     en:[
     {ic:'\ud83d\udd25',k:'The full path',t:'Start the 30-day challenge',d:'One step a day, no breaking the chain. The guided transformation from day 1 to 30.',go:'Begin the challenge',ac:'#E2703A',href:'onboarding.html',scroll:null},
-    {ic:'\u2728',k:'Explore',t:'Meet the 6 apps',d:'See each power from the inside \u2014 mind, time, habits, method, money, sales.',go:'See the apps',ac:'#9a6cf6',href:'#apps',scroll:'apps'},
+    {ic:'\u2728',k:'Explore',t:'Meet the 7 apps',d:'See each power from the inside \u2014 energy, mind, time, habits, method, money, sales.',go:'See the apps',ac:'#9a6cf6',href:'#apps',scroll:'apps'},
     {ic:'\ud83d\udcac',k:'Not sure?',t:'Let Joga guide you',d:'Tell me what you need in your own words and I will point you to the right place.',go:'Ask Joga',ac:'#C9A050',href:'#concierge-section',scroll:'concierge-section'} ] };
   function hexA(hex,a){ var n=parseInt(hex.slice(1),16); return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
   function buildCards(){ var Lg=lang(); chooseEl.textContent=(Lg==='en'?'Three ways in':'Tres caminos para entrar'); replay.textContent='\u21ba '+(Lg==='en'?'Hear it again':'Escuchar de nuevo'); grid.innerHTML='';
