@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f2e8"/>
+      <stop offset="1" stop-color="#efe3cf"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d8b06a"/>
+      <stop offset="1" stop-color="#b8924a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#d8b06a" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#d8b06a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="150" r="320" fill="url(#glow)"/>
+  <circle cx="180" cy="540" r="260" fill="url(#glow)"/>
+
+  <!-- monogram badge -->
+  <rect x="100" y="232" width="166" height="166" rx="40" fill="#fffdf9" stroke="url(#gold)" stroke-width="4"/>
+  <text x="183" y="320" text-anchor="middle" dominant-baseline="central"
+        font-family="Georgia, 'Cormorant Garamond', serif" font-size="108" font-weight="600"
+        fill="url(#gold)">J</text>
+
+  <!-- eyebrow -->
+  <text x="312" y="250" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700"
+        letter-spacing="4" fill="#b8924a">ECOSISTEMA DE CRECIMIENTO PREMIUM</text>
+  <!-- title -->
+  <text x="310" y="338" font-family="Georgia, 'Cormorant Garamond', serif" font-size="92" font-weight="700"
+        letter-spacing="-2" fill="#1f1916">Joga Intelligence</text>
+  <!-- tagline -->
+  <text x="312" y="400" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="34" font-weight="500"
+        fill="#6f655d">Despierta lo que ya está en ti.</text>
+
+  <!-- module pills -->
+  <g font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#b8924a">
+    <rect x="312" y="448" width="150" height="48" rx="24" fill="#fffdf9" stroke="url(#gold)" stroke-width="2"/>
+    <text x="387" y="472" text-anchor="middle" dominant-baseline="central">JogaMind</text>
+    <rect x="474" y="448" width="146" height="48" rx="24" fill="#fffdf9" stroke="url(#gold)" stroke-width="2"/>
+    <text x="547" y="472" text-anchor="middle" dominant-baseline="central">JogaTime</text>
+    <rect x="632" y="448" width="138" height="48" rx="24" fill="#fffdf9" stroke="url(#gold)" stroke-width="2"/>
+    <text x="701" y="472" text-anchor="middle" dominant-baseline="central">JogaBit</text>
+    <rect x="782" y="448" width="150" height="48" rx="24" fill="#fffdf9" stroke="url(#gold)" stroke-width="2"/>
+    <text x="857" y="472" text-anchor="middle" dominant-baseline="central">JogaFlow</text>
+    <rect x="944" y="448" width="92" height="48" rx="24" fill="url(#gold)"/>
+    <text x="990" y="472" text-anchor="middle" dominant-baseline="central" fill="#fffdf9">+3</text>
+  </g>
+
+  <text x="312" y="556" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="500" fill="#8a8296">7 módulos · una sola ruta de evolución</text>
+</svg>
