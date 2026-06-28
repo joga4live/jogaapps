@@ -46,8 +46,8 @@
         <div style="animation:obFloat 6s ease-in-out infinite;margin-bottom:30px">
           <dc-import name="Joga Orb" hue="276" size="186" word="" hint-size="186px,186px"></dc-import>
         </div>
-        <h1 style="font-family:Newsreader,serif;font-weight:500;font-size:33px;line-height:1.18;letter-spacing:-.01em;color:#F4F0FF;margin:0 0 14px;text-wrap:balance">Despierta los seis poderes que ya viven en ti.</h1>
-        <p style="font-size:15px;line-height:1.6;color:#a59cc4;margin:0 0 40px;max-width:30ch">Un reto guiado de 30 días para transformar tu mente, tu tiempo y tu dinero — un poder a la vez.</p>
+        <h1 style="font-family:Newsreader,serif;font-weight:500;font-size:33px;line-height:1.18;letter-spacing:-.01em;color:#F4F0FF;margin:0 0 14px;text-wrap:balance">Despierta los siete poderes que ya viven en ti.</h1>
+        <p style="font-size:15px;line-height:1.6;color:#a59cc4;margin:0 0 40px;max-width:30ch">Un reto guiado de 30 días para transformar tu energía, tu mente y tu dinero — un poder a la vez.</p>
         <button onClick="{{ start }}" style="appearance:none;border:0;cursor:pointer;border-radius:999px;padding:17px 0;width:100%;font:600 15px Inter;letter-spacing:.02em;color:#10101a;background:linear-gradient(120deg,#e9d8a6,#E7C46A 55%,#cdb6ff);box-shadow:0 18px 40px -16px rgba(231,196,106,.6)">Comenzar</button>
         <div style="margin-top:18px;font:500 12px Inter;color:#6f6a86">Tardas menos de 1 minuto</div>
       </div>
@@ -61,7 +61,7 @@
         <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:27px;line-height:1.2;color:#F4F0FF;margin:0 0 8px">¿Qué querés transformar primero?</h2>
         <p style="font-size:13.5px;line-height:1.6;color:#a59cc4;margin:0 0 22px">Elegí uno o varios. Tu reto empieza por ahí.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <sc-for list="{{ powers }}" as="p" hint-placeholder-count="6">
+          <sc-for list="{{ powers }}" as="p" hint-placeholder-count="7">
             <button onClick="{{ p.toggle }}" style="{{ p.cardStyle }}">
               <div style="{{ p.checkStyle }}">✓</div>
               <img src="{{ p.logo }}" alt="{{ p.name }}" style="width:84px;height:auto;margin:2px 0 8px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))" />
@@ -122,7 +122,7 @@
           <p style="font-size:13px;line-height:1.6;color:#a59cc4;margin:0 0 22px">{{ planIntro }}</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px">
-          <sc-for list="{{ planSteps }}" as="s" hint-placeholder-count="6">
+          <sc-for list="{{ planSteps }}" as="s" hint-placeholder-count="7">
             <div style="{{ s.rowStyle }}">
               <img src="{{ s.logo }}" alt="{{ s.name }}" style="width:52px;height:auto;flex:0 0 auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))" />
               <div style="flex:1;min-width:0">
@@ -184,12 +184,13 @@ class Component extends DCLogic {
     let _lang='es'; try{ const sv=localStorage.getItem('jiLang'); if(sv==='en'||sv==='es') _lang=sv; }catch(e){}
     const backLabel = _lang==='en' ? 'Main menu' : 'Menú principal';
     const POWERS = [
-      { key:'mind',    name:'JogaMind',    tag:'Tu subconsciente', logo:'assets/logo-jogamind.png',    hue:276, glow:'150,108,246', days:'Días 1–5'  },
-      { key:'time',    name:'JogaTime',    tag:'Tu tiempo',        logo:'assets/logo-jogatime.png',    hue:70,  glow:'231,150,60',  days:'Días 6–10' },
-      { key:'bit',     name:'JogaBit',     tag:'Tus hábitos',      logo:'assets/logo-jogabit.png',     hue:195, glow:'50,196,205',  days:'Días 11–15'},
-      { key:'path',    name:'JogaPath',    tag:'Tu método',        logo:'assets/logo-jogapath.png',    hue:150, glow:'60,200,120',  days:'Días 16–20'},
-      { key:'capital', name:'JogaCapital', tag:'Tu dinero',        logo:'assets/logo-jogacapital.png', hue:95,  glow:'196,176,74',  days:'Días 21–25'},
-      { key:'ventix',  name:'JogaVentix',  tag:'Tus ventas',       logo:'assets/logo-jogaventix.png',  hue:35,  glow:'232,118,80',  days:'Días 26–30'},
+      { key:'energia', name:'JogaFlow',    tag:'Tu energía',       logo:'assets/logo-jogaflow.png',    hue:230, glow:'47,108,160',  days:'Días 1–5'  },
+      { key:'mind',    name:'JogaMind',    tag:'Tu subconsciente', logo:'assets/logo-jogamind.png',    hue:276, glow:'150,108,246', days:'Días 6–10' },
+      { key:'time',    name:'JogaTime',    tag:'Tu tiempo',        logo:'assets/logo-jogatime.png',    hue:70,  glow:'231,150,60',  days:'Días 11–14'},
+      { key:'bit',     name:'JogaBit',     tag:'Tus hábitos',      logo:'assets/logo-jogabit.png',     hue:195, glow:'50,196,205',  days:'Días 15–18'},
+      { key:'path',    name:'JogaPath',    tag:'Tu método',        logo:'assets/logo-jogapath.png',    hue:150, glow:'60,200,120',  days:'Días 19–22'},
+      { key:'capital', name:'JogaCapital', tag:'Tu dinero',        logo:'assets/logo-jogacapital.png', hue:95,  glow:'196,176,74',  days:'Días 23–26'},
+      { key:'ventix',  name:'JogaVentix',  tag:'Tus ventas',       logo:'assets/logo-jogaventix.png',  hue:35,  glow:'232,118,80',  days:'Días 27–30'},
     ];
     const TIMES = [
       { key:'manana', icon:'☀', label:'Mañana', sub:'Para arrancar el día con foco' },
@@ -298,7 +299,7 @@ class Component extends DCLogic {
       nextLabel, nextStyle,
       restart: () => this.save({ step:0, powers:[], time:'', goal:'' }),
       planIntro, planSteps, backLabel,
-      startHref: ({mind:'subment.html',time:'jogatime.html',bit:'protoneutron.html',path:'metodoexito.html',capital:'monexium.html',ventix:'ventmex.html'}[st.powers[0]] || 'subment.html'),
+      startHref: ({energia:'jogaflow.html',mind:'subment.html',time:'jogatime.html',bit:'protoneutron.html',path:'metodoexito.html',capital:'monexium.html',ventix:'ventmex.html'}[st.powers[0]] || 'jogaflow.html'),
     };
   }
 }
