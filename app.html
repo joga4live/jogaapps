@@ -713,7 +713,11 @@
 .jbw-t{font-family:var(--serif);font-weight:600;font-size:19px;line-height:1.18;color:var(--bone,#F2ECDD);margin-bottom:8px}
 .jbw-d{font-size:12.5px;line-height:1.55;color:#A8A29A;flex:1}
 .jbw-go{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font:600 12.5px/1 system-ui}
-.jbw-replay{display:block;margin:26px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
+.jbw-enter{display:inline-flex;align-items:center;gap:9px;margin:8px auto 0;padding:15px 32px;border-radius:999px;background:linear-gradient(180deg,#dcb766,#b8924a);color:#1a130a;font:600 14px/1 system-ui;letter-spacing:.01em;text-decoration:none;border:none;cursor:pointer;box-shadow:0 16px 36px -10px rgba(184,146,74,.65);transition:transform .18s ease,box-shadow .18s ease}
+.jbw-enter:hover{transform:translateY(-2px);box-shadow:0 22px 46px -10px rgba(184,146,74,.75)}
+.jbw-enter2{display:block;margin:16px auto 0;background:none;border:none;cursor:pointer;font:600 12px/1 system-ui;letter-spacing:.04em;color:#C9A050;text-decoration:none;opacity:.9;transition:opacity .18s ease}
+.jbw-enter2:hover{opacity:1}
+.jbw-replay{display:block;margin:22px auto 0;background:none;border:none;cursor:pointer;font:500 11.5px/1 system-ui;color:#6a6478;letter-spacing:.04em}
 .jbw-hint{display:block;margin:2px auto 18px;background:none;border:none;cursor:pointer;font:600 11px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;color:#C9A050;animation:jbwHint 2.2s ease-in-out infinite}
 @keyframes jbwHint{0%,100%{opacity:.5}50%{opacity:1}}
 body.jbw-v-welcome #apps,body.jbw-v-welcome #concierge-section,body.jbw-v-welcome #challenge,body.jbw-v-welcome footer.foot{display:none!important}
@@ -785,6 +789,8 @@ body.jbw-v-concierge #concierge-section{padding-top:30px}
     <div class="jbw-paths" id="jbw-paths" hidden>
       <div class="jbw-choose" id="jbw-choose">Tres caminos para entrar</div>
       <div class="jbw-grid" id="jbw-grid"></div>
+      <a class="jbw-enter" id="jbw-enter" href="onboarding.html">Empezar el reto de 30 días <span aria-hidden="true">→</span></a>
+      <button class="jbw-enter2" id="jbw-enter2">o conoce las 7 apps</button>
       <button class="jbw-replay" id="jbw-replay">↺ Escuchar de nuevo</button>
     </div>
   </section>
@@ -1760,7 +1766,10 @@ Lo que dijo la persona: «${text}»`;
     {ic:'\ud83d\udcac',k:'Not sure?',t:'Let Joga guide you',d:'Tell me what you need in your own words and I will point you to the right place.',go:'Ask Joga',ac:'#C9A050',href:'#concierge-section',scroll:'concierge-section'} ] };
   function hexA(hex,a){ var n=parseInt(hex.slice(1),16); return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
   function buildCards(){ var Lg=lang(); if(chooseEl){ chooseEl.style.display='none'; } replay.textContent='\u21ba '+(Lg==='en'?'Hear it again':'Escuchar de nuevo'); grid.innerHTML='';
-    /* Las 3 tarjetas ("tres caminos") se movieron a la pagina de inicio (index.html). Aqui queda solo el orbe + audio. */
+    /* Las 3 tarjetas ("tres caminos") se movieron a la pagina de inicio (index.html). Aqui queda el orbe + audio + un CTA limpio. */
+    var enter=document.getElementById('jbw-enter'), enter2=document.getElementById('jbw-enter2');
+    if(enter){ enter.innerHTML=(Lg==='en'?'Start the 30-day challenge':'Empezar el reto de 30 d\u00edas')+' <span aria-hidden="true">\u2192</span>'; }
+    if(enter2){ enter2.textContent=(Lg==='en'?'or meet the 7 apps':'o conoce las 7 apps'); enter2.onclick=function(e){ e.preventDefault(); setView('apps'); }; }
   }
   var dur={}, voice, music, raf, t0, BASE=0.16, curVoiceLang=lang(), done=false;
   function vsrc(l){ return 'voz-bienvenida'+(l==='en'?'-en':'')+'.mp3'; }
