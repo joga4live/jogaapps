@@ -1745,7 +1745,9 @@ Lo que dijo la persona: «${text}»`;
 (function(){
   var sec=document.getElementById('welcome'); if(!sec) return;
   function setView(v){ var b=document.body; b.classList.remove('jbw-v-welcome','jbw-v-apps','jbw-v-concierge'); b.classList.add('jbw-v-'+v); try{ window.scrollTo({top:0,behavior:'instant'}); }catch(e){ window.scrollTo(0,0); } }
-  setView('welcome');
+  function viewFromHash(){ var h=(location.hash||'').toLowerCase(); if(h.indexOf('concierge')>-1) return 'concierge'; if(h.indexOf('apps')>-1) return 'apps'; return 'welcome'; }
+  setView(viewFromHash());
+  window.addEventListener('hashchange', function(){ setView(viewFromHash()); });
   var typedEl=document.getElementById('jbw-typed'), caret=document.getElementById('jbw-caret');
   var paths=document.getElementById('jbw-paths'), grid=document.getElementById('jbw-grid');
   var orb=document.getElementById('jbw-orb'), muteBtn=document.getElementById('jbw-mute');
