@@ -49,10 +49,10 @@
         <div style="{{ glow1Style }}"></div>
         <div style="{{ glow2Style }}"></div>
         <div style="{{ glow3Style }}"></div>
-        <div style="position:absolute;top:120px;left:50px;width:3px;height:3px;border-radius:50%;background:#cc6c47;animation:subTwinkle 4s ease-in-out infinite"></div>
+        <div style="position:absolute;top:120px;left:50px;width:3px;height:3px;border-radius:50%;background:#d4796a;animation:subTwinkle 4s ease-in-out infinite"></div>
         <div style="position:absolute;top:200px;right:60px;width:2px;height:2px;border-radius:50%;background:#fff;animation:subTwinkle 5.5s ease-in-out infinite"></div>
         <div style="position:absolute;top:300px;left:120px;width:2px;height:2px;border-radius:50%;background:#b8923a;animation:subTwinkle 6s ease-in-out infinite"></div>
-        <div style="position:absolute;top:90px;right:120px;width:2px;height:2px;border-radius:50%;background:#cc6c47;animation:subTwinkle 4.8s ease-in-out infinite"></div>
+        <div style="position:absolute;top:90px;right:120px;width:2px;height:2px;border-radius:50%;background:#d4796a;animation:subTwinkle 4.8s ease-in-out infinite"></div>
       </div>
 
       <!-- ============ HOME ============ -->
@@ -62,11 +62,11 @@
         <!-- header -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:26px">
           <div>
-            <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2572f">JogaVentix</div>
+            <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2564a">JogaVentix</div>
             <div style="font-family:Newsreader,serif;font-weight:500;font-size:23px;color:#2a201a;margin-top:3px">{{ greeting }}</div>
           </div>
           <div style="display:flex;align-items:center;gap:8px">
-            <button onClick="{{ toggleLang }}" style="appearance:none;border:1px solid rgba(80,40,26,.12);background:rgba(80,40,26,.07);cursor:pointer;height:34px;padding:0 12px;border-radius:999px;font:600 11px Inter;letter-spacing:.05em;color:#c2572f" aria-label="Idioma">{{ langLabel }}</button>
+            <button onClick="{{ toggleLang }}" style="appearance:none;border:1px solid rgba(80,40,26,.12);background:rgba(80,40,26,.07);cursor:pointer;height:34px;padding:0 12px;border-radius:999px;font:600 11px Inter;letter-spacing:.05em;color:#c2564a" aria-label="Idioma">{{ langLabel }}</button>
             <button onClick="{{ toggleMute }}" style="appearance:none;border:1px solid rgba(80,40,26,.12);background:rgba(80,40,26,.07);cursor:pointer;width:34px;height:34px;border-radius:50%;font-size:13px;display:grid;place-items:center" aria-label="Silenciar">{{ muteIcon }}</button>
             <div style="display:flex;align-items:center;gap:7px;background:rgba(231,196,106,.1);border:1px solid rgba(231,196,106,.3);padding:7px 13px;border-radius:999px">
               <span style="font-size:14px">✦</span>
@@ -88,15 +88,15 @@
 
         <!-- affirmation hero -->
         <div style="position:relative;border-radius:26px;overflow:hidden;padding:30px 24px 26px;margin-bottom:22px;background:linear-gradient(165deg,#fff3ec,#ffe5d8);border:1px solid rgba(204,108,71,.22);box-shadow:0 22px 44px -28px rgba(204,108,71,.4)">
-          <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c2572f;margin-bottom:14px">{{ intentionLabel }}</div>
+          <div style="font:600 9.5px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c2564a;margin-bottom:14px">{{ intentionLabel }}</div>
           <div style="font-family:Newsreader,serif;font-weight:500;font-size:27px;line-height:1.28;color:#2a201a;letter-spacing:-.01em">{{ affirmation }}</div>
-          <button onClick="{{ affirm }}" style="margin-top:22px;appearance:none;cursor:pointer;border:0;border-radius:999px;padding:13px 22px;font:600 13px Inter;letter-spacing:.02em;color:#fbece2;background:linear-gradient(135deg,#c2572f,#cc6c47);box-shadow:0 10px 24px -10px rgba(232,118,80,.9);display:inline-flex;align-items:center;gap:8px" style-hover="transform:translateY(-1px)">{{ affirmLabel }}</button><button onClick="{{ cycleAff }}" aria-label="otra frase" style="margin-top:22px;margin-left:9px;appearance:none;cursor:pointer;border:1px solid rgba(80,40,26,.16);background:rgba(80,40,26,.08);color:#2a201a;border-radius:999px;width:44px;height:44px;font-size:17px;vertical-align:top;line-height:1">↻</button>
+          <button onClick="{{ affirm }}" style="margin-top:22px;appearance:none;cursor:pointer;border:0;border-radius:999px;padding:13px 22px;font:600 13px Inter;letter-spacing:.02em;color:#fbece2;background:linear-gradient(135deg,#c2564a,#d4796a);box-shadow:0 10px 24px -10px rgba(194,86,74,.9);display:inline-flex;align-items:center;gap:8px" style-hover="transform:translateY(-1px)">{{ affirmLabel }}</button><button onClick="{{ cycleAff }}" aria-label="otra frase" style="margin-top:22px;margin-left:9px;appearance:none;cursor:pointer;border:1px solid rgba(80,40,26,.16);background:rgba(80,40,26,.08);color:#2a201a;border-radius:999px;width:44px;height:44px;font-size:17px;vertical-align:top;line-height:1">↻</button>
         </div>
 
         <!-- session of the day -->
         <div style="font:600 10px Inter;letter-spacing:.28em;text-transform:uppercase;color:#8a7464;margin:0 2px 12px">{{ focusLabel }}</div>
-        <button onClick="{{ playFeatured }}" style="width:100%;text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(238,140,105,.24);border-radius:22px;padding:20px;margin-bottom:22px;background:linear-gradient(160deg,#fbf1ea,#f7efe8);display:flex;align-items:center;gap:16px" style-hover="border-color:rgba(238,140,105,.5)">
-          <div style="flex:0 0 auto;width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c25c34,#9f4f30);box-shadow:0 12px 26px -10px rgba(140,100,240,.9)">
+        <button onClick="{{ playFeatured }}" style="width:100%;text-align:left;appearance:none;cursor:pointer;border:1px solid rgba(212,121,106,.24);border-radius:22px;padding:20px;margin-bottom:22px;background:linear-gradient(160deg,#fbf1ea,#f7efe8);display:flex;align-items:center;gap:16px" style-hover="border-color:rgba(212,121,106,.5)">
+          <div style="flex:0 0 auto;width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c2564a,#9f4f30);box-shadow:0 12px 26px -10px rgba(140,100,240,.9)">
             <span style="font-size:22px;color:#fff;margin-left:3px">▶</span>
           </div>
           <div style="flex:1;min-width:0">
@@ -127,12 +127,12 @@
       <!-- ============ TÉCNICAS ============ -->
       <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:84px 22px 110px">
-        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2572f;margin-bottom:4px">{{ practicesKicker }}</div>
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2564a;margin-bottom:4px">{{ practicesKicker }}</div>
         <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#2a201a;margin:0 0 6px">{{ practicesTitle }}</h2>
         <p style="font-size:13px;color:#8a7464;margin:0 0 18px;line-height:1.5">{{ practicesSub }}</p>
         <div style="margin-bottom:22px">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-            <span style="font:600 10px Inter;letter-spacing:.18em;text-transform:uppercase;color:#c2572f">{{ progressLabel }}</span>
+            <span style="font:600 10px Inter;letter-spacing:.18em;text-transform:uppercase;color:#c2564a">{{ progressLabel }}</span>
             <span style="font-family:Newsreader,serif;font-weight:600;font-size:15px;color:#2a201a">{{ practiceCount }}</span>
           </div>
           <div style="height:7px;border-radius:7px;background:rgba(80,40,26,.09);overflow:hidden">
@@ -148,7 +148,7 @@
                   <div style="font:600 9px Inter;letter-spacing:.18em;text-transform:uppercase;color:#8a7464">{{ p.num }}</div>
                   <div style="font-family:Newsreader,serif;font-weight:600;font-size:17px;color:#2a201a;line-height:1.2;margin-top:2px">{{ p.title }}</div>
                   <div style="font-size:13px;line-height:1.55;color:#9a8274;margin-top:6px">{{ p.desc }}</div>
-                  <div style="font-size:12px;line-height:1.55;color:#8a7464;font-style:italic;margin-top:8px;border-left:2px solid rgba(238,140,105,.4);padding-left:10px">{{ p.extra }}</div>
+                  <div style="font-size:12px;line-height:1.55;color:#8a7464;font-style:italic;margin-top:8px;border-left:2px solid rgba(212,121,106,.4);padding-left:10px">{{ p.extra }}</div>
                 </div>
               </div>
               <button onClick="{{ p.toggle }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
@@ -161,7 +161,7 @@
       <!-- ============ LEYES ============ -->
       <sc-if value="{{ isIdeas }}" hint-placeholder-val="{{ false }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:84px 22px 110px">
-        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2572f;margin-bottom:4px">{{ ideasKicker }}</div>
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2564a;margin-bottom:4px">{{ ideasKicker }}</div>
         <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:28px;color:#2a201a;margin:0 0 6px">{{ ideasTitle }}</h2>
         <p style="font-size:13px;color:#8a7464;margin:0 0 18px;line-height:1.5">{{ ideasSub }}</p>
         <div style="display:flex;flex-direction:column;gap:12px">
@@ -172,7 +172,7 @@
                 <div style="font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#2a201a;line-height:1.2">{{ b.title }}</div>
               </div>
               <div style="font-size:13px;line-height:1.55;color:#9a8274">{{ b.idea }}</div>
-              <div style="font-size:12px;line-height:1.5;color:#c2572f;margin-top:10px;background:rgba(232,118,80,.08);border-radius:10px;padding:10px 12px"><b style="color:#c2572f">→ </b>{{ b.ej }}</div>
+              <div style="font-size:12px;line-height:1.5;color:#c2564a;margin-top:10px;background:rgba(194,86,74,.08);border-radius:10px;padding:10px 12px"><b style="color:#c2564a">→ </b>{{ b.ej }}</div>
             </div>
           </sc-for>
         </div>
@@ -182,7 +182,7 @@
       <!-- ============ DIAGNÓSTICO IA ============ -->
       <sc-if value="{{ isIA }}" hint-placeholder-val="{{ false }}">
       <div class="sub-scroll" style="position:absolute;inset:0;z-index:10;overflow-y:auto;padding:84px 22px 110px">
-        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2572f;margin-bottom:4px">{{ iaKicker }}</div>
+        <div style="font:600 10px Inter;letter-spacing:.32em;text-transform:uppercase;color:#c2564a;margin-bottom:4px">{{ iaKicker }}</div>
         <h2 style="font-family:Newsreader,serif;font-weight:500;font-size:26px;color:#2a201a;margin:0 0 6px">{{ iaTitle }}</h2>
         <p style="font-size:13px;color:#8a7464;margin:0 0 16px;line-height:1.5">{{ iaSub }}</p>
         <div style="display:flex;gap:11px;align-items:flex-start;margin-bottom:16px">
@@ -190,9 +190,9 @@
           <div style="background:rgba(80,40,26,.07);border:1px solid rgba(80,40,26,.1);border-radius:4px 16px 16px 16px;padding:12px 15px;font-size:13px;line-height:1.55;color:#2a201a">{{ iaGreeting }}</div>
         </div>
         <textarea value="{{ iaInput }}" onChange="{{ onIaInput }}" placeholder="{{ iaPlaceholder }}" style="width:100%;min-height:120px;resize:vertical;box-sizing:border-box;background:rgba(80,40,26,.06);border:1px solid rgba(80,40,26,.1);border-radius:14px;padding:14px;color:#2a201a;font:400 13.5px Inter;line-height:1.5;outline:none"></textarea>
-        <button onClick="{{ runDiagnosis }}" style="width:100%;margin-top:12px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#ffffff;background:linear-gradient(135deg,#c2572f,#cc6c47)">{{ iaBtnLabel }}</button>
+        <button onClick="{{ runDiagnosis }}" style="width:100%;margin-top:12px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#ffffff;background:linear-gradient(135deg,#c2564a,#d4796a)">{{ iaBtnLabel }}</button>
         <sc-if value="{{ iaResult }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:18px;border:1px solid rgba(238,140,105,.3);border-radius:16px;padding:16px;background:rgba(95,45,30,.25)">
+        <div style="margin-top:18px;border:1px solid rgba(212,121,106,.3);border-radius:16px;padding:16px;background:rgba(95,45,30,.25)">
           <div style="font-family:Newsreader,serif;font-weight:400;font-size:14.5px;line-height:1.6;color:#2a201a;white-space:pre-wrap">{{ iaResult }}</div>
         </div>
         </sc-if>
@@ -204,12 +204,12 @@
       <div style="position:absolute;inset:0;z-index:100;background:radial-gradient(120% 75% at 50% 38%,#f8f1ea,#f3eae2 78%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px;text-align:center">
         <img src="joga-logo.png" alt="Joga Intelligence" style="height:26px;width:auto;margin-bottom:18px;opacity:.92" />
         <div style="position:relative;margin-bottom:30px;display:grid;place-items:center">
-          <div style="position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(232,118,80,.28),transparent 66%);filter:blur(16px)"></div>
+          <div style="position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(194,86,74,.28),transparent 66%);filter:blur(16px)"></div>
           <img src="assets/logo-jogaventix.png" alt="JogaVentix" style="position:relative;width:212px;height:auto;filter:drop-shadow(0 16px 38px rgba(0,0,0,.55))" />
         </div>
         <div style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.18;color:#2a201a;margin-bottom:12px;max-width:14ch">{{ unlockTag }}</div>
         <div style="font:600 9px Inter;letter-spacing:.2em;text-transform:uppercase;color:#8a7464;margin-bottom:34px">{{ challengeDays }}</div>
-        <button onClick="{{ enterApp }}" style="appearance:none;border:0;cursor:pointer;border-radius:999px;padding:16px 52px;font:600 14px Inter;letter-spacing:.03em;color:#0b0b0c;background:#c2572f;box-shadow:0 16px 40px -12px rgba(232,118,80,.5)">{{ unlockCta }}</button>
+        <button onClick="{{ enterApp }}" style="appearance:none;border:0;cursor:pointer;border-radius:999px;padding:16px 52px;font:600 14px Inter;letter-spacing:.03em;color:#0b0b0c;background:#c2564a;box-shadow:0 16px 40px -12px rgba(194,86,74,.5)">{{ unlockCta }}</button>
       </div>
       </sc-if>
 
@@ -219,9 +219,9 @@
         <div style="width:100%;background:linear-gradient(180deg,#ffffff,#f4eefb);border-radius:28px 28px 0 0;border-top:1px solid rgba(80,40,26,.1);padding:26px 24px 34px;box-shadow:0 -20px 60px -20px rgba(0,0,0,.9)">
           <div style="width:42px;height:4px;border-radius:4px;background:rgba(80,40,26,.14);margin:0 auto 20px"></div>
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-            <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#0b0b0c;background:#c2572f">9♥</div>
+            <div style="flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-family:Newsreader,serif;font-weight:600;font-size:16px;color:#0b0b0c;background:#c2564a">9♥</div>
             <div>
-              <div style="font:600 9px Inter;letter-spacing:.28em;text-transform:uppercase;color:#c2572f">{{ aboutTitle }}</div>
+              <div style="font:600 9px Inter;letter-spacing:.28em;text-transform:uppercase;color:#c2564a">{{ aboutTitle }}</div>
               <div style="font-family:Newsreader,serif;font-weight:500;font-size:20px;color:#2a201a">{{ challengeDays }}</div>
             </div>
           </div>
@@ -230,7 +230,7 @@
             <span style="font-size:15px">⛓</span>
             <span style="font-size:12px;color:#8a7464;font-style:italic">{{ chainRule }}</span>
           </div>
-          <button onClick="{{ closeAbout }}" style="width:100%;margin-top:20px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#0b0b0c;background:#c2572f">{{ aboutClose }}</button>
+          <button onClick="{{ closeAbout }}" style="width:100%;margin-top:20px;appearance:none;border:0;cursor:pointer;border-radius:999px;padding:14px;font:600 13px Inter;color:#0b0b0c;background:#c2564a">{{ aboutClose }}</button>
         </div>
       </div>
       </sc-if>
@@ -250,16 +250,16 @@
       <div style="position:absolute;inset:0;z-index:80;background:radial-gradient(120% 70% at 50% 35%,#fbece2,#f3eae2 75%);display:flex;flex-direction:column;align-items:center;padding:60px 28px 40px">
         <!-- close -->
         <button onClick="{{ closePlayer }}" style="position:absolute;top:58px;left:24px;appearance:none;border:0;background:rgba(80,40,26,.09);color:#2a201a;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
-        <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c2572f;margin-top:6px">{{ player.tag }}</div>
+        <div style="font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c2564a;margin-top:6px">{{ player.tag }}</div>
         <div style="font-family:Newsreader,serif;font-weight:500;font-size:25px;color:#2a201a;margin-top:8px;text-align:center">{{ player.title }}</div>
 
         <!-- breathing orb -->
         <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;position:relative;cursor:pointer" onClick="{{ togglePlay }}">
-          <dc-import name="Joga Orb" c1="#cc6c47" c2="#cc6c47" c3="#9a4a2c" glow="232,118,80" word="{{ breathWord }}" hint-size="230px,230px"></dc-import>
+          <dc-import name="Joga Orb" c1="#d4796a" c2="#d4796a" c3="#9a4a2c" glow="194,86,74" word="{{ breathWord }}" hint-size="230px,230px"></dc-import>
         </div>
 
         <!-- affirmation echo -->
-        <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;color:#cc6c47;text-align:center;line-height:1.4;max-width:26ch;margin-bottom:24px;min-height:84px;transition:opacity .4s ease">{{ narration }}</div>
+        <div style="font-family:Newsreader,serif;font-weight:400;font-size:17px;color:#d4796a;text-align:center;line-height:1.4;max-width:26ch;margin-bottom:24px;min-height:84px;transition:opacity .4s ease">{{ narration }}</div>
 
         <!-- progress -->
         <div style="width:100%;max-width:300px">
@@ -274,7 +274,7 @@
         <!-- controls -->
         <div style="display:flex;align-items:center;gap:30px;margin-top:24px">
           <span style="color:#8a7464;font-size:22px">⟲</span>
-          <button onClick="{{ togglePlay }}" style="appearance:none;border:0;cursor:pointer;width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#c2572f,#b85530);color:#fbece2;font-size:26px;display:grid;place-items:center;box-shadow:0 16px 40px -12px rgba(232,118,80,.9)">{{ playIcon }}</button>
+          <button onClick="{{ togglePlay }}" style="appearance:none;border:0;cursor:pointer;width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#c2564a,#9e4339);color:#fbece2;font-size:26px;display:grid;place-items:center;box-shadow:0 16px 40px -12px rgba(194,86,74,.9)">{{ playIcon }}</button>
           <span style="color:#8a7464;font-size:22px">✦</span>
         </div>
       </div>
@@ -288,8 +288,8 @@
         </div>
         <img src="joga-logo.png" alt="Joga" style="height:22px;width:auto;opacity:.9;margin-bottom:26px;position:relative;z-index:2" />
         <div style="position:relative;width:140px;height:140px;display:grid;place-items:center;margin-bottom:26px">
-          <div style="position:absolute;width:110px;height:110px;border-radius:50%;border:2px solid #c2572f;animation:jiCelebRing 1.1s ease-out forwards"></div>
-          <div style="position:absolute;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#c2572f55,transparent 68%);filter:blur(6px)"></div>
+          <div style="position:absolute;width:110px;height:110px;border-radius:50%;border:2px solid #c2564a;animation:jiCelebRing 1.1s ease-out forwards"></div>
+          <div style="position:absolute;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#c2564a55,transparent 68%);filter:blur(6px)"></div>
           <div style="position:relative;font-family:Newsreader,serif;font-weight:600;font-size:58px;color:#2a201a;animation:jiCelebPop .6s ease-out both;line-height:1">{{ streak }}</div>
         </div>
         <div style="font-family:Newsreader,serif;font-weight:500;font-size:24px;color:#2a201a;margin-bottom:8px;position:relative;z-index:2">✨ {{ toastLabel }}</div>
@@ -299,7 +299,7 @@
 
       <!-- completion toast -->
       <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;bottom:120px;left:50%;transform:translateX(-50%);z-index:90;background:linear-gradient(135deg,#fbece2,#fbece2);border:1px solid rgba(238,140,105,.5);color:#2a201a;padding:14px 22px;border-radius:16px;font-family:Newsreader,serif;font-size:14px;box-shadow:0 20px 50px -16px rgba(0,0,0,.8);white-space:nowrap">✦ {{ toastLabel }} <span style="color:#b8923a;font-weight:600">{{ streak }}</span></div>
+      <div style="position:absolute;bottom:120px;left:50%;transform:translateX(-50%);z-index:90;background:linear-gradient(135deg,#fbece2,#fbece2);border:1px solid rgba(212,121,106,.5);color:#2a201a;padding:14px 22px;border-radius:16px;font-family:Newsreader,serif;font-size:14px;box-shadow:0 20px 50px -16px rgba(0,0,0,.8);white-space:nowrap">✦ {{ toastLabel }} <span style="color:#b8923a;font-weight:600">{{ streak }}</span></div>
       </sc-if>
 
     </div>
@@ -307,9 +307,9 @@
 
   <!-- side caption -->
   <div style="flex:0 0 auto;max-width:300px;color:#9a8274">
-    <div style="font:600 11px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c2572f;margin-bottom:14px">App 06 · JogaVentix</div>
+    <div style="font:600 11px Inter;letter-spacing:.3em;text-transform:uppercase;color:#c2564a;margin-bottom:14px">App 06 · JogaVentix</div>
     <div style="font-family:Newsreader,serif;font-weight:500;font-size:30px;line-height:1.15;color:#2a201a;margin-bottom:16px">El arte de vender</div>
-    <p style="font-size:13.5px;line-height:1.7;color:#8a7464;margin:0 0 18px">Prototipo funcional. Toca <b style="color:#c2572f">▶ una sesión</b> para abrir el reproductor con respiración guiada, da tu <b style="color:#c2572f">venta</b>, y navega entre Hoy · Técnicas · Progreso.</p>
+    <p style="font-size:13.5px;line-height:1.7;color:#8a7464;margin:0 0 18px">Prototipo funcional. Toca <b style="color:#c2564a">▶ una sesión</b> para abrir el reproductor con respiración guiada, da tu <b style="color:#c2564a">venta</b>, y navega entre Hoy · Técnicas · Progreso.</p>
     <div style="font:600 9.5px Inter;letter-spacing:.26em;text-transform:uppercase;color:#9a7866;margin-bottom:9px">{{ glowNote }}</div>
     <div style="display:flex;gap:8px;margin-bottom:24px">
       <sc-for list="{{ modeChips }}" as="c" hint-placeholder-count="3">
@@ -319,7 +319,7 @@
     <div style="display:flex;flex-direction:column;gap:10px">
       <sc-for list="{{ caption }}" as="c" hint-placeholder-count="3">
         <div style="display:flex;gap:11px;align-items:flex-start">
-          <span style="flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:#b85530;margin-top:6px"></span>
+          <span style="flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:#9e4339;margin-top:6px"></span>
           <span style="font-size:12.5px;line-height:1.55;color:#9a8274">{{ c }}</span>
         </div>
       </sc-for>
@@ -472,10 +472,10 @@ class Component extends DCLogic {
     const t = D[L];
     const AFFP = { es:["Conecto, escucho y cierro con honestidad.","Vender es servir, no presionar.","Escucho más de lo que hablo.","Cada objeción es una puerta, no un muro.","Pido el cierre con confianza.","La confianza vende más que cualquier técnica."], en:["I connect, listen, and close with honesty.","Selling is serving, not pushing.","I listen more than I talk.","Every objection is a door, not a wall.","I ask for the close with confidence.","Trust sells more than any technique."] }; const affList = (AFFP[L]||AFFP.es);
     const meta = [
-      { len:8, icon:'❂', chipBg:'rgba(232,118,80,.18)' },
+      { len:8, icon:'❂', chipBg:'rgba(194,86,74,.18)' },
       { len:12, icon:'☾', chipBg:'rgba(231,196,106,.16)' },
-      { len:15, icon:'❍', chipBg:'rgba(232,118,80,.18)' },
-      { len:7, icon:'✦', chipBg:'rgba(238,140,105,.16)' },
+      { len:15, icon:'❍', chipBg:'rgba(194,86,74,.18)' },
+      { len:7, icon:'✦', chipBg:'rgba(212,121,106,.16)' },
       { len:6, icon:'≈', chipBg:'rgba(190,80,50,.22)' },
     ];
     const sessions = meta.map((m,i) => ({ ...m, title:t.sessions[i].title, tag:t.sessions[i].tag }));
@@ -516,10 +516,10 @@ class Component extends DCLogic {
         dotStyle: {
           width:'30px', height:'30px', borderRadius:'50%', display:'grid', placeItems:'center',
           margin:'0 auto', fontSize:'13px',
-          background: done ? 'linear-gradient(135deg,#c2572f,#cc6c47)' : 'rgba(80,40,26,.08)',
+          background: done ? 'linear-gradient(135deg,#c2564a,#d4796a)' : 'rgba(80,40,26,.08)',
           color: done ? '#fbece2' : '#8a7464',
           border: isToday ? '1.5px solid #b8923a' : '1px solid rgba(80,40,26,.09)',
-          boxShadow: done ? '0 6px 16px -6px rgba(232,118,80,.8)' : 'none'
+          boxShadow: done ? '0 6px 16px -6px rgba(194,86,74,.8)' : 'none'
         }};
     });
 
@@ -532,8 +532,8 @@ class Component extends DCLogic {
     const nav = navDef.map(n => {
       const active = st.view === n.key;
       return { icon:n.icon, label:n.label, go:this.go(n.key),
-        iconStyle:{ color: active ? '#c2572f' : '#8a7464' },
-        labelStyle:{ color: active ? '#c2572f' : '#8a7464' } };
+        iconStyle:{ color: active ? '#c2564a' : '#8a7464' },
+        labelStyle:{ color: active ? '#c2564a' : '#8a7464' } };
     });
 
     const pct = st.duration ? Math.min(100, (st.elapsed/st.duration)*100) : 0;
@@ -554,18 +554,18 @@ class Component extends DCLogic {
     const orbDur = ['6s','7s','8s'][st.breathStep];
 
     const PRINS = [
-      {color:'#c2572f', es:{title:'Escucha antes de hablar', idea:'La venta empieza por entender. Haz preguntas y deja hablar al cliente: él te dirá cómo venderle.', ej:'Antes de tu pitch, pregunta: ¿qué es lo más importante para ti en esto?'}, en:{title:'Listen before you talk', idea:'Selling starts with understanding. Ask questions and let the customer talk: they’ll tell you how to sell to them.', ej:'Before your pitch, ask: what matters most to you in this?'}},
-      {color:'#c25c34', es:{title:'Vende el beneficio', idea:'El cliente no compra lo que el producto ES, sino lo que el producto HACE por él. Habla de resultados, no de funciones.', ej:'En vez de «tiene X función», di «esto te ahorra Y horas a la semana».'}, en:{title:'Sell the benefit', idea:'The customer doesn’t buy what the product IS, but what it DOES for them. Talk about results, not features.', ej:'Instead of “it has feature X,” say “this saves you Y hours a week.”'}},
-      {color:'#cc6c47', es:{title:'La objeción es interés', idea:'Cuando alguien objeta, no te está rechazando: te está pidiendo más información. Una objeción es una puerta, no un muro.', ej:'Ante un «está caro», responde con «comparado con qué?» y escucha.'}, en:{title:'An objection is interest', idea:'When someone objects, they’re not rejecting you: they’re asking for more info. An objection is a door, not a wall.', ej:'To “it’s expensive,” reply “compared to what?” and listen.'}},
-      {color:'#c2572f', es:{title:'Crea confianza primero', idea:'La gente compra de quien confía. La honestidad y el seguimiento valen más que cualquier técnica de presión.', ej:'Si tu producto no es para alguien, díselo. Esa honestidad te trae 10 ventas después.'}, en:{title:'Build trust first', idea:'People buy from whom they trust. Honesty and follow-up are worth more than any pressure tactic.', ej:'If your product isn’t for someone, tell them. That honesty brings 10 sales later.'}},
-      {color:'#c2572f', es:{title:'Pide el cierre', idea:'Muchas ventas se pierden por no atreverse a preguntar. Después de resolver dudas, pide la decisión con claridad.', ej:'«Por lo que me cuentas, esto te sirve. ¿Lo arrancamos?» Y quédate callado.'}, en:{title:'Ask for the close', idea:'Many sales are lost by not daring to ask. After resolving doubts, ask for the decision clearly.', ej:'“From what you tell me, this fits. Shall we start?” Then stay quiet.'}},
-      {color:'#b85530', es:{title:'El seguimiento cierra', idea:'La mayoría de las ventas pasan después del primer «no». Un seguimiento amable, sin acosar, hace la diferencia.', ej:'Si te dijeron «lo pienso», agenda tú el siguiente contacto, no lo dejes al aire.'}, en:{title:'Follow-up closes', idea:'Most sales happen after the first “no.” A kind follow-up, without harassing, makes the difference.', ej:'If they said “I’ll think about it,” you schedule the next contact — don’t leave it open.'}},
+      {color:'#c2564a', es:{title:'Escucha antes de hablar', idea:'La venta empieza por entender. Haz preguntas y deja hablar al cliente: él te dirá cómo venderle.', ej:'Antes de tu pitch, pregunta: ¿qué es lo más importante para ti en esto?'}, en:{title:'Listen before you talk', idea:'Selling starts with understanding. Ask questions and let the customer talk: they’ll tell you how to sell to them.', ej:'Before your pitch, ask: what matters most to you in this?'}},
+      {color:'#c2564a', es:{title:'Vende el beneficio', idea:'El cliente no compra lo que el producto ES, sino lo que el producto HACE por él. Habla de resultados, no de funciones.', ej:'En vez de «tiene X función», di «esto te ahorra Y horas a la semana».'}, en:{title:'Sell the benefit', idea:'The customer doesn’t buy what the product IS, but what it DOES for them. Talk about results, not features.', ej:'Instead of “it has feature X,” say “this saves you Y hours a week.”'}},
+      {color:'#d4796a', es:{title:'La objeción es interés', idea:'Cuando alguien objeta, no te está rechazando: te está pidiendo más información. Una objeción es una puerta, no un muro.', ej:'Ante un «está caro», responde con «comparado con qué?» y escucha.'}, en:{title:'An objection is interest', idea:'When someone objects, they’re not rejecting you: they’re asking for more info. An objection is a door, not a wall.', ej:'To “it’s expensive,” reply “compared to what?” and listen.'}},
+      {color:'#c2564a', es:{title:'Crea confianza primero', idea:'La gente compra de quien confía. La honestidad y el seguimiento valen más que cualquier técnica de presión.', ej:'Si tu producto no es para alguien, díselo. Esa honestidad te trae 10 ventas después.'}, en:{title:'Build trust first', idea:'People buy from whom they trust. Honesty and follow-up are worth more than any pressure tactic.', ej:'If your product isn’t for someone, tell them. That honesty brings 10 sales later.'}},
+      {color:'#c2564a', es:{title:'Pide el cierre', idea:'Muchas ventas se pierden por no atreverse a preguntar. Después de resolver dudas, pide la decisión con claridad.', ej:'«Por lo que me cuentas, esto te sirve. ¿Lo arrancamos?» Y quédate callado.'}, en:{title:'Ask for the close', idea:'Many sales are lost by not daring to ask. After resolving doubts, ask for the decision clearly.', ej:'“From what you tell me, this fits. Shall we start?” Then stay quiet.'}},
+      {color:'#9e4339', es:{title:'El seguimiento cierra', idea:'La mayoría de las ventas pasan después del primer «no». Un seguimiento amable, sin acosar, hace la diferencia.', ej:'Si te dijeron «lo pienso», agenda tú el siguiente contacto, no lo dejes al aire.'}, en:{title:'Follow-up closes', idea:'Most sales happen after the first “no.” A kind follow-up, without harassing, makes the difference.', ej:'If they said “I’ll think about it,” you schedule the next contact — don’t leave it open.'}},
     ];
     const ideasList = PRINS.map(b => ({ color:b.color, title:b[L].title, author:'', idea:b[L].idea, ej:b[L].ej }));
 
     return {
       muteIcon: st.muted ? '🔇' : '🔊',
-      toggleMute: () => this.toggleMute(), exitApp: () => { try{ if(window.parent&&window.parent!==window&&typeof window.parent.closeApp==='function'){ window.parent.closeApp(); return; } }catch(e){} try{ if(window.parent&&window.parent!==window){ window.parent.postMessage({type:'jogaExit'},'*'); return; } }catch(e){} try{ if(history.length>1){ history.back(); return; } }catch(e){} location.href='index.html'; },
+      toggleMute: () => this.toggleMute(), exitApp: () => { try{ if(window.parent&&window.parent!==window&&typeof window.parent.closeApp==='function'){ window.parent.closeApp(); return; } }catch(e){} try{ if(window.parent&&window.parent!==window){ window.parent.postMessage({type:'jogaExit'},'*'); return; } }catch(e){} try{ if(history.length>1){ history.back(); return; } }catch(e){} location.href='app.html'; },
       langLabel: L==='es' ? 'ES' : 'EN',
       toggleLang: () => this.toggleLang(),
       intentionLabel: t.intention, focusLabel: t.focusLabel, ritualTitle: t.ritualT, ritualSub: t.ritualS,
@@ -585,9 +585,9 @@ class Component extends DCLogic {
         { key:'night', label:t.modes[2] },
       ].map(c => ({ label:c.label, set:() => { this.play('tap'); this.setState({ timeMode:c.key }); },
         style:{ appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'7px 14px', font:'600 12px Inter',
-          border: mode===c.key ? '1px solid #c25c34' : '1px solid rgba(80,40,26,.12)',
-          background: mode===c.key ? 'rgba(232,118,80,.22)' : 'transparent',
-          color: mode===c.key ? '#c2572f' : '#9a7866' } })),
+          border: mode===c.key ? '1px solid #c2564a' : '1px solid rgba(80,40,26,.12)',
+          background: mode===c.key ? 'rgba(194,86,74,.22)' : 'transparent',
+          color: mode===c.key ? '#c2564a' : '#9a7866' } })),
       isHome: st.view==='home', isLibrary: st.view==='library', isIdeas: st.view==='ideas', isIA: st.view==='ia',
       greeting, streak: st.streak, totalSessions: st.totalSessions, totalMin: st.baseMin,
       affirmation: (affList[st.affIdx % affList.length] || t.aff), aboutOpen: st.aboutOpen, enterApp: () => { if(st.lockOpening) return; this.play('unlock'); this.setState({ lockOpening:true }); setTimeout(()=>{ try{ localStorage.setItem('jiUnlocked_ventmex','1'); }catch(e){} this.setState({ locked:false, lockOpening:false }); }, 850); }, locked: st.locked, lockOpening: st.lockOpening, lockGlyph: st.lockOpening ? '\uD83D\uDD13' : '\uD83D\uDD12', lockStyle: { fontSize:'62px', lineHeight:1, animation: st.lockOpening ? 'jiLockBurst .85s ease-in forwards' : 'jiLockPop .6s ease-out both' }, ringStyle: { position:'absolute', width:'120px', height:'120px', borderRadius:'50%', border:'2px solid rgba(80,40,26,.2)', animation: st.lockOpening ? 'jiRingPulse .85s ease-out forwards' : 'none', opacity: st.lockOpening ? 1 : 0 }, unlockTag: t.unlockTag, unlockCta: t.unlockCta, aboutTitle: t.aboutTitle, aboutBody: t.aboutBody, aboutClose: t.aboutClose, openAbout: () => { this.play('tap'); this.setState({ aboutOpen:true }); }, closeAbout: () => this.setState({ aboutOpen:false }), challengeDays: t.cday, challengeDef: t.cdef, chainRule: t.crule,
@@ -600,14 +600,14 @@ class Component extends DCLogic {
       library: sessions.map(withPlay),
       practicesKicker: t.pKicker, practicesTitle: t.pTitle, practicesSub: t.pSub, progressLabel: t.pProgress,
       practiceCount: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length) + ' / 3',
-      practiceBarStyle: { width: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length/3*100)+'%', height:'100%', borderRadius:'7px', background:'linear-gradient(90deg,#cc6c47,#c2572f)', transition:'width .5s ease' },
+      practiceBarStyle: { width: (Object.keys(st.doneP).filter(k=>st.doneP[k]).length/3*100)+'%', height:'100%', borderRadius:'7px', background:'linear-gradient(90deg,#d4796a,#c2564a)', transition:'width .5s ease' },
       practices: t.practices.map((p,i) => {
         const done = !!st.doneP[i];
         return { icon:p.icon, num:p.num, title:p.title, desc:p.desc, extra:p.extra,
-          chipBg: done ? 'rgba(232,118,80,.3)' : 'rgba(232,118,80,.14)',
-          cardStyle: { border:'1px solid '+(done?'rgba(238,140,105,.5)':'rgba(80,40,26,.09)'), borderRadius:'18px', padding:'16px', background: done?'linear-gradient(160deg,rgba(95,45,30,.4),rgba(19,13,11,.6))':'linear-gradient(160deg,#fbf1ea,#ffffff)', transition:'all .3s ease' },
+          chipBg: done ? 'rgba(194,86,74,.3)' : 'rgba(194,86,74,.14)',
+          cardStyle: { border:'1px solid '+(done?'rgba(212,121,106,.5)':'rgba(80,40,26,.09)'), borderRadius:'18px', padding:'16px', background: done?'linear-gradient(160deg,rgba(95,45,30,.4),rgba(19,13,11,.6))':'linear-gradient(160deg,#fbf1ea,#ffffff)', transition:'all .3s ease' },
           btnLabel: done ? t.pDone : t.pMark,
-          btnStyle: { width:'100%', marginTop:'14px', appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'11px', font:'600 12.5px Inter', border:'0', color: done?'#ffffff':'#c2572f', background: done?'#c2572f':'rgba(232,118,80,.12)', transition:'all .3s ease' },
+          btnStyle: { width:'100%', marginTop:'14px', appearance:'none', cursor:'pointer', borderRadius:'999px', padding:'11px', font:'600 12.5px Inter', border:'0', color: done?'#ffffff':'#c2564a', background: done?'#c2564a':'rgba(194,86,74,.12)', transition:'all .3s ease' },
           toggle: () => this.togglePractice(i) };
       }),
       ideasKicker: t.ideasKicker, ideasTitle: t.ideasTitle, ideasSub: t.ideasSub, ideas: ideasList,
@@ -625,11 +625,11 @@ class Component extends DCLogic {
       closePlayer: () => this.closePlayer(),
       elapsedLabel: this.fmt(st.elapsed),
       remainLabel: '-' + this.fmt(Math.max(0, st.duration - st.elapsed)),
-      progressStyle: { width: pct+'%', height:'100%', borderRadius:'4px', background:'linear-gradient(90deg,#b85530,#c2572f)', transition:'width 1s linear' },
+      progressStyle: { width: pct+'%', height:'100%', borderRadius:'4px', background:'linear-gradient(90deg,#9e4339,#c2564a)', transition:'width 1s linear' },
       breathWord: st.playing ? breathWords[st.breathStep] : t.paused,
       narration,
       orbAnim: { animation: st.playing ? `subBreathe ${orbDur} ease-in-out infinite` : 'none' },
-      showToast: st.showToast, celebrate: st.celebrate, confetti: Array.from({length:16}).map((_,i)=>{ const cols=['#c2572f','#b8923a','#2a201a']; const seed=(i*73)%100; return { pieceStyle:{ position:'absolute', top:'-12px', left:(4+seed*0.92)+'%', width:(i%3===0?'9px':'6px'), height:(i%3===0?'9px':'6px'), borderRadius:i%2?'50%':'1px', background:cols[i%3], animation:`jiConfetti ${1.6+(seed%5)*0.18}s ease-in ${ (seed%7)*0.12 }s forwards` } }; }),
+      showToast: st.showToast, celebrate: st.celebrate, confetti: Array.from({length:16}).map((_,i)=>{ const cols=['#c2564a','#b8923a','#2a201a']; const seed=(i*73)%100; return { pieceStyle:{ position:'absolute', top:'-12px', left:(4+seed*0.92)+'%', width:(i%3===0?'9px':'6px'), height:(i%3===0?'9px':'6px'), borderRadius:i%2?'50%':'1px', background:cols[i%3], animation:`jiConfetti ${1.6+(seed%5)*0.18}s ease-in ${ (seed%7)*0.12 }s forwards` } }; }),
       caption: [
         'Tus efectos reales (boom + tap) conectados desde el hub, con botón de silencio.',
         'El aura se adapta sola a la hora del día — aquí puedes previsualizar las tres.',
