@@ -104,36 +104,38 @@ class Component extends DCLogic {
     const T = {
       es:{
         kicker:'El reto de 30 días', title:'Joga Challenge',
-        intro:'Seis poderes, uno por etapa. Cinco días con cada uno para entrenar tu mente, tu tiempo y tu dinero — sin romper la cadena.',
-        stats:[{n:'30',label:'días'},{n:'6',label:'poderes'},{n:'1',label:'cadena'}],
+        intro:'Siete poderes, uno por etapa. Unos días con cada uno para entrenar tu energía, tu mente, tu tiempo y tu dinero — sin romper la cadena.',
+        stats:[{n:'30',label:'días'},{n:'7',label:'poderes'},{n:'1',label:'cadena'}],
         ruleTitle:'La regla de oro', ruleSub:'Nunca dos días seguidos sin hacerlo.',
         deckLabel:'La baraja de tus poderes',
         closing:'Una cadena que no se rompe. Empieza por el primer poder y avanza un día a la vez.',
         cta:'Empezar el reto', open:'Empieza aquí', locked:'Se abre en su etapa',
         powers:[
-          {days:'Días 1–5', name:'JogaMind', def:'Reprograma tu subconsciente. El músculo de aparecer.'},
-          {days:'Días 6–10', name:'JogaTime', def:'Tu tiempo es tu reino. Bloquea tus horas y protege tu foco.'},
-          {days:'Días 11–15', name:'JogaBit', def:'El laboratorio de tus hábitos. Reemplaza uno que te frena.'},
-          {days:'Días 16–20', name:'JogaPath', def:'El método del éxito, paso a paso. Estrategia, no suerte.'},
-          {days:'Días 21–25', name:'JogaCapital', def:'Tu dinero, con cabeza fría. Control, no suerte.'},
-          {days:'Días 26–30', name:'JogaVentix', def:'El cierre donde se unen los seis poderes. Vender es servir.'},
+          {days:'Días 1–4', name:'JogaFlow', def:'Tu energía es la base. Respira, muévete y recárgate.'},
+          {days:'Días 5–8', name:'JogaMind', def:'Reprograma tu subconsciente. El músculo de aparecer.'},
+          {days:'Días 9–13', name:'JogaTime', def:'Tu tiempo es tu reino. Bloquea tus horas y protege tu foco.'},
+          {days:'Días 14–17', name:'JogaBit', def:'El laboratorio de tus hábitos. Reemplaza uno que te frena.'},
+          {days:'Días 18–21', name:'JogaPath', def:'El método del éxito, paso a paso. Estrategia, no suerte.'},
+          {days:'Días 22–26', name:'JogaCapital', def:'Tu dinero, con cabeza fría. Control, no suerte.'},
+          {days:'Días 27–30', name:'JogaVentix', def:'El cierre donde se unen los siete poderes. Vender es servir.'},
         ],
       },
       en:{
         kicker:'The 30-day challenge', title:'Joga Challenge',
-        intro:'Six powers, one per stage. Five days with each to train your mind, your time and your money — without breaking the chain.',
-        stats:[{n:'30',label:'days'},{n:'6',label:'powers'},{n:'1',label:'chain'}],
+        intro:'Seven powers, one per stage. A few days with each to train your energy, your mind, your time and your money — without breaking the chain.',
+        stats:[{n:'30',label:'days'},{n:'7',label:'powers'},{n:'1',label:'chain'}],
         ruleTitle:'The golden rule', ruleSub:'Never two days in a row without doing it.',
         deckLabel:'The deck of your powers',
         closing:'A chain that doesn\u2019t break. Start with the first power and advance one day at a time.',
         cta:'Start the challenge', open:'Start here', locked:'Opens at its stage',
         powers:[
-          {days:'Days 1–5', name:'JogaMind', def:'Reprogram your subconscious. The muscle of showing up.'},
-          {days:'Days 6–10', name:'JogaTime', def:'Your time is your kingdom. Block your hours, guard your focus.'},
-          {days:'Days 11–15', name:'JogaBit', def:'The lab of your habits. Replace one that holds you back.'},
-          {days:'Days 16–20', name:'JogaPath', def:'The method of success, step by step. Strategy, not luck.'},
-          {days:'Days 21–25', name:'JogaCapital', def:'Your money, with a cool head. Control, not luck.'},
-          {days:'Days 26–30', name:'JogaVentix', def:'The close where all six powers meet. Selling is serving.'},
+          {days:'Days 1–4', name:'JogaFlow', def:'Your energy is the base. Breathe, move and recharge.'},
+          {days:'Days 5–8', name:'JogaMind', def:'Reprogram your subconscious. The muscle of showing up.'},
+          {days:'Days 9–13', name:'JogaTime', def:'Your time is your kingdom. Block your hours, guard your focus.'},
+          {days:'Days 14–17', name:'JogaBit', def:'The lab of your habits. Replace one that holds you back.'},
+          {days:'Days 18–21', name:'JogaPath', def:'The method of success, step by step. Strategy, not luck.'},
+          {days:'Days 22–26', name:'JogaCapital', def:'Your money, with a cool head. Control, not luck.'},
+          {days:'Days 27–30', name:'JogaVentix', def:'The close where all seven powers meet. Selling is serving.'},
         ],
       },
     };
@@ -141,12 +143,13 @@ class Component extends DCLogic {
     const paid = this.state.paid;
     const lockTxt = L==='en' ? 'Locked' : 'Bloqueado';
     const META = [
-      { h:300, glyph:'A♠', href:'subment.html' },
-      { h:70,  glyph:'A♥', href:'jogatime.html' },
-      { h:195, glyph:'A♦', href:'protoneutron.html' },
-      { h:145, glyph:'A♣', href:'metodoexito.html' },
-      { h:95,  glyph:'K♠', href:'monexium.html' },
-      { h:32,  glyph:'K♥', href:'ventmex.html' },
+      { h:160, glyph:'A♠', href:'jogaflow.html' },
+      { h:300, glyph:'A♥', href:'subment.html' },
+      { h:70,  glyph:'A♦', href:'jogatime.html' },
+      { h:195, glyph:'A♣', href:'protoneutron.html' },
+      { h:145, glyph:'K♠', href:'metodoexito.html' },
+      { h:95,  glyph:'K♥', href:'monexium.html' },
+      { h:32,  glyph:'K♦', href:'ventmex.html' },
     ];
     const wa = this.waHref();
     const powers = t.powers.map((p,i) => {
@@ -179,7 +182,7 @@ class Component extends DCLogic {
       toggleLang: () => this.toggleLang(),
       kicker:t.kicker, title:t.title, intro:t.intro, stats:t.stats,
       ruleTitle:t.ruleTitle, ruleSub:t.ruleSub, deckLabel:t.deckLabel,
-      closing:t.closing, cta:t.cta, firstHref:'subment.html',
+      closing:t.closing, cta:t.cta, firstHref:'jogaflow.html',
       powers,
     };
   }
