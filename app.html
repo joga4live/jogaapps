@@ -9,10 +9,8 @@
 
 <!-- PWA -->
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="jogafavicon.svg">
+<link rel="apple-touch-icon" href="jogaappletouchicon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1798,7 +1796,7 @@ Lo que dijo la persona: «${text}»`;
   function setBackLabel(){ if(backT) backT.textContent=(lang()==='en'?'Main menu':'Menú principal'); }
   function go(){ if(hint) hint.style.display='none'; start(); }
   setMuteIcon(); buildCards(); setHint(); setBackLabel();
-  if(backBtn) backBtn.addEventListener('click', function(){ setView('welcome'); });
+  if(backBtn) backBtn.addEventListener('click', function(){ if(document.body.classList.contains('jbw-v-welcome')){ location.href='index.html'; } else { location.hash=''; setView('welcome'); } });
   muteBtn.addEventListener('click',function(){ muted=!muted; try{localStorage.setItem('jiMute',muted?'1':'0');}catch(e){} try{ if(voice)voice.volume=muted?0:1; if(music)music.volume=muted?0:BASE; }catch(e){} setMuteIcon(); });
   if(hint) hint.addEventListener('click', go);
   orb.addEventListener('click', go);

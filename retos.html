@@ -23,7 +23,7 @@
 
   <!-- top bar -->
   <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:linear-gradient(to bottom,rgba(11,10,15,.92),rgba(11,10,15,0));backdrop-filter:blur(8px)">
-    <div style="width:24px"></div>
+    <a href="index.html" aria-label="Inicio" style="display:inline-flex;align-items:center;gap:7px;text-decoration:none;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);height:34px;padding:0 14px;border-radius:999px;font:600 11px Inter;letter-spacing:.04em;color:#E7C46A">&#x2039; {{ backLabel }}</a>
     <button onClick="{{ toggleLang }}" style="appearance:none;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);cursor:pointer;height:34px;padding:0 14px;border-radius:999px;font:600 11px Inter;letter-spacing:.05em;color:#E7C46A">{{ langLabel }}</button>
   </div>
 
@@ -179,6 +179,7 @@ class Component extends DCLogic {
     });
     return {
       langLabel: L==='es' ? 'EN' : 'ES',
+      backLabel: L==='en' ? 'Home' : 'Inicio',
       toggleLang: () => this.toggleLang(),
       kicker:t.kicker, title:t.title, intro:t.intro, stats:t.stats,
       ruleTitle:t.ruleTitle, ruleSub:t.ruleSub, deckLabel:t.deckLabel,
