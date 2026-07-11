@@ -78,6 +78,7 @@
           <div style="margin-top:22px;display:flex;align-items:center;gap:9px">
             <button id="jfAffirm" class="tapfx" style="cursor:pointer;border:0;border-radius:999px;padding:13px 22px;font:600 13px Inter;color:#fff;background:linear-gradient(135deg,var(--flow),var(--flow2));box-shadow:0 10px 24px -10px rgba(47,108,160,.9);display:inline-flex;align-items:center;gap:8px">Lo siento hoy</button>
             <button id="jfCycle" class="tapfx" aria-label="otra frase" style="cursor:pointer;border:1px solid var(--line);background:rgba(45,38,58,.08);color:var(--ink);border-radius:999px;width:44px;height:44px;font-size:17px;line-height:1">↻</button>
+            <button id="jfVoiceBtn" class="tapfx" aria-label="Escuchar" style="cursor:pointer;border:1px solid rgba(47,108,160,.3);background:var(--flow-soft);color:var(--flow);border-radius:999px;height:44px;padding:0 16px;font:600 13px Inter;display:inline-flex;align-items:center;gap:7px"><span id="jfVoiceIco">▶</span><span id="jfVoiceLbl">Escuchar</span></button>
           </div>
         </div>
 
@@ -148,19 +149,44 @@
   var lang = (get(LS.lang)==="en")?"en":"es";
   var muted = get(LS.mute)==="1";
 
-  /* ---------- i18n ---------- */
+  /* audio: nombres exactos como están en GitHub (sin guiones) */
+  var voice=null, music=null, voicePlaying=false;
+  function voiceSrc(){ return lang==="en" ? "vozjogaflowen.mp3" : "vozjogaflow.mp3"; }
+  function ensureAudio(){
+    if(!voice){ try{ voice=new Audio(voiceSrc()); voice.preload="auto"; voice.addEventListener("ended", stopVoice); }catch(e){ voice=null; } }
+    if(!music){ try{ music=new Audio("musicajogaflow.mp3"); music.preload="auto"; music.loop=true; music.volume=0.18; }catch(e){ music=null; } }
+  }
+  function applyVoiceLabel(){
+    var lbl=document.getElementById("jfVoiceLbl"), ico=document.getElementById("jfVoiceIco");
+    if(lbl) lbl.textContent = voicePlaying ? t().voicePause : t().voiceListen;
+    if(ico) ico.textContent = voicePlaying ? "❚❚" : "▶";
+  }
+  function stopVoice(){ voicePlaying=false; try{ if(voice) voice.pause(); if(music) music.pause(); }catch(e){} applyVoiceLabel(); }
+  function toggleVoice(){
+    ensureAudio(); if(!voice) return;
+    if(voicePlaying){ stopVoice(); return; }
+    var want=voiceSrc(); if((voice.getAttribute("src")||"").indexOf(want)<0){ voice.src=want; try{ voice.load(); }catch(e){} }
+    try{ voice.currentTime=0; }catch(e){}
+    voice.volume = muted?0:1;
+    if(music){ music.volume = muted?0:0.18; try{ music.currentTime=0; }catch(e){} var pm=music.play(); if(pm&&pm.catch) pm.catch(function(){}); }
+    var p=voice.play(); if(p&&p.catch) p.catch(function(){});
+    voicePlaying=true; applyVoiceLabel();
+  }
+  function applyAudioMute(){ try{ if(voice) voice.volume=muted?0:1; if(music) music.volume=muted?0:0.18; }catch(e){} }
+
   var T={
     es:{
       langLabel:"ES",
       greetMorning:"Buenos días",greetAfternoon:"Buenas tardes",greetEvening:"Buenas noches",
       intentionLabel:"Intención de hoy",
       affirmLabel:"Lo siento hoy",affirmed:"Sentido ✓",
+      voiceListen:"Escuchar",voicePause:"Pausar",
       breatheLabel:"Respiración guiada",breatheTitle:"Respira conmigo",breatheSub:"Ciclo 4·7·8 para calmar y recargar tu energía.",
       ritualsLabel:"Rituales de energía",checkLabel:"¿Cómo está tu energía?",
       prepare:"Prepárate",inhale:"Inhala",hold:"Sostén",exhale:"Exhala",
       cueInhale:"Inhala lento por la nariz",cueHold:"Sostén el aire con calma",cueExhale:"Exhala suave por la boca",
       start:"Comenzar",pause:"Pausar",round:"Ronda",of:"de",breatheDone:"Respiración completa. Tu energía se renueva.",
-      stepsLabel:"Pasos",completeRitual:"Completar ritual",ritualDone:"Ritual completado. ¡Bien hecho!",
+      stepsLabel:"Pasos",completeRitual:"Completar ritual",ritualDone:"¡Ritual completado. Bien hecho!",
       streakUp:"Racha +1 · sigue así",
       tips:["Tómalo con calma: una acción pequeña ya cuenta.",
             "Tu cuerpo te pide movimiento suave. Estírate un momento.",
@@ -189,6 +215,7 @@
       greetMorning:"Good morning",greetAfternoon:"Good afternoon",greetEvening:"Good evening",
       intentionLabel:"Today's intention",
       affirmLabel:"I feel it today",affirmed:"Felt ✓",
+      voiceListen:"Listen",voicePause:"Pause",
       breatheLabel:"Guided breathing",breatheTitle:"Breathe with me",breatheSub:"4·7·8 cycle to calm and recharge your energy.",
       ritualsLabel:"Energy rituals",checkLabel:"How is your energy?",
       prepare:"Get ready",inhale:"Inhale",hold:"Hold",exhale:"Exhale",
@@ -221,7 +248,6 @@
   };
   function t(){return T[lang];}
 
-  /* ---------- sound (WebAudio, no files) ---------- */
   var actx=null;
   function tone(kind){
     if(muted) return;
@@ -241,7 +267,6 @@
     }catch(e){}
   }
 
-  /* ---------- helpers ---------- */
   function $(id){return document.getElementById(id);}
   var toastTimer=null;
   function toast(msg){
@@ -260,7 +285,6 @@
     return true;
   }
 
-  /* ---------- render text ---------- */
   var affIdx=0;
   function greeting(){
     var h=new Date().getHours(), s=t();
@@ -281,6 +305,7 @@
     $("jfCheckLabel").textContent=s.checkLabel;
     $("jfAffirmation").textContent=s.affs[affIdx % s.affs.length];
     document.documentElement.lang=lang;
+    applyVoiceLabel();
     renderRituals();
     renderCheck();
   }
@@ -289,7 +314,6 @@
     $("jfAffirmation").textContent=s.affs[affIdx];
   }
 
-  /* ---------- rituals ---------- */
   function renderRituals(){
     var s=t(), wrap=$("jfRituals"); wrap.innerHTML="";
     s.rituals.forEach(function(r,i){
@@ -321,7 +345,6 @@
     $("jfRitualView").scrollTop=0;
   }
 
-  /* ---------- energy check-in ---------- */
   function renderCheck(){
     var s=t(), wrap=$("jfCheckScale"); wrap.innerHTML="";
     var saved=parseInt(get(LS.energy)||"0",10)||0;
@@ -341,8 +364,7 @@
     $("jfCheckTip").textContent= saved? (s.tips[saved-1]||"") : s.energyTip0;
   }
 
-  /* ---------- breathing engine (4-7-8) ---------- */
-  var bz={running:false,phase:0,round:1,rounds:4,timer:null,seq:null};
+  var bz={running:false,phase:0,round:1,rounds:4,timer:null};
   function breatheReset(){
     bz.running=false; bz.phase=0; bz.round=1;
     if(bz.timer){clearTimeout(bz.timer);bz.timer=null;}
@@ -359,14 +381,13 @@
     ring.style.transitionDuration=secs+"s";
     ring.style.transform="scale("+scale+")";
   }
-  function countdown(secs,label){
-    var s=t(), n=secs;
+  function countdown(secs){
+    var n=secs;
     $("jfBreatheCount").textContent=n;
     var iv=setInterval(function(){ n--; if(n>=1)$("jfBreatheCount").textContent=n; },1000);
     bz._iv=iv;
     return iv;
   }
-  // phases: 0 inhale(4,scale 1.9,in), 1 hold(7,hold), 2 exhale(8,scale1,out)
   var PHASES=[
     {key:"inhale",secs:4,scale:1.9,cue:"cueInhale",lbl:"inhale",tone:"in"},
     {key:"hold",secs:7,scale:1.9,cue:"cueHold",lbl:"hold",tone:null},
@@ -418,17 +439,15 @@
     },1400);
   }
 
-  /* ---------- wiring ---------- */
   function init(){
     renderStatic();
-
     $("jfLang").addEventListener("click",function(){
       lang=(lang==="es")?"en":"es"; set(LS.lang,lang); tone("tap");
-      breatheReset(); renderStatic();
+      stopVoice(); breatheReset(); renderStatic();
     });
     $("jfMute").addEventListener("click",function(){
       muted=!muted; set(LS.mute,muted?"1":"0"); $("jfMute").textContent=muted?"🔇":"🔊";
-      if(!muted) tone("tap");
+      applyAudioMute(); if(!muted) tone("tap");
     });
     $("jfAffirm").addEventListener("click",function(){
       tone("success");
@@ -438,7 +457,7 @@
       toast(up?t().streakUp:t().affirmed);
     });
     $("jfCycle").addEventListener("click",function(){tone("tap");cycleAff(1);});
-
+    $("jfVoiceBtn").addEventListener("click",function(){tone("tap");toggleVoice();});
     $("jfOpenBreathe").addEventListener("click",function(){
       tone("tap"); breatheReset(); $("jfBreatheView").style.display="block";
     });
@@ -449,7 +468,6 @@
       tone("tap");
       if(bz.running) breathePause(); else breatheStart();
     });
-
     $("jfRitualBack").addEventListener("click",function(){
       tone("tap"); $("jfRitualView").style.display="none";
     });
@@ -458,10 +476,8 @@
       $("jfRitualView").style.display="none";
       toast(up?t().streakUp:t().ritualDone);
     });
-
     $("jfBack").addEventListener("click",function(){
-      tone("tap");
-      try{ if(window.parent && window.parent!==window){ /* index viewer has its own Volver */ } }catch(e){}
+      tone("tap"); stopVoice();
       try{ history.length>1 ? history.back() : null; }catch(e){}
     });
   }
