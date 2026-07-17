@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Los 6 Números de la Suerte · Lotto Texas · Joga</title>
+<link rel="icon" href="jogafavicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:#0b0a0f;
+    font-family:Inter,system-ui,sans-serif;
+    color:#F2ECDD;
+    /* roles de color (modo oscuro fijo, marca Joga) */
+    --page:#0b0a0f;
+    --surface:#14121d;          /* superficie de gráficas */
+    --ink:#F2ECDD;              /* texto primario */
+    --ink-2:#a8a2b8;            /* texto secundario */
+    --muted:#8a8276;            /* ejes / etiquetas */
+    --grid:#262233;             /* rejilla hairline */
+    --baseline:#383349;         /* eje base */
+    --gold:#E7C46A;             /* acento de marca (texto/cromo) */
+    --bar:#B3861F;              /* serie 1 · frecuencia (validado sobre --surface) */
+    --lucky:#7F66D6;            /* serie 2 · tus números (validado sobre --surface) */
+    --violet-hi:#a98cf2;
+  }
+  .wrap{min-height:100vh;background:radial-gradient(130% 75% at 50% -8%,#1c1830,#0b0a0f 68%)}
+  .container{max-width:760px;margin:0 auto;padding:26px 22px 70px}
+  .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:linear-gradient(to bottom,rgba(11,10,15,.92),rgba(11,10,15,0));backdrop-filter:blur(8px)}
+  .pillbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);height:34px;padding:0 14px;border-radius:999px;font:600 11px Inter;letter-spacing:.04em;color:var(--gold);cursor:pointer;appearance:none}
+  h1{font-family:Newsreader,serif;font-weight:600;font-size:clamp(30px,6vw,44px);line-height:1.06;margin:0 0 10px;text-align:center}
+  h1 .hi{color:var(--gold)}
+  .sub{font-size:15px;line-height:1.65;color:var(--ink-2);max-width:52ch;margin:0 auto 24px;text-align:center}
+  .pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+  .pill{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 20px;min-width:92px}
+  .pill b{font-family:Newsreader,serif;font-weight:600;font-size:24px;color:var(--gold)}
+  .pill span{font:600 9px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:20px;margin-top:22px}
+  .card h2{font-family:Newsreader,serif;font-weight:600;font-size:21px;margin:0 0 4px}
+  .card .hint{font-size:12.5px;color:var(--ink-2);margin:0 0 14px;line-height:1.55}
+  .seclabel{font:600 10px Inter;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin:34px 2px 0}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .btn{appearance:none;border:0;cursor:pointer;border-radius:999px;padding:12px 22px;font:600 13px Inter;letter-spacing:.02em;color:#1a1226;background:linear-gradient(135deg,#f0d68a,var(--gold));box-shadow:0 10px 26px -10px rgba(231,196,106,.55)}
+  .btn.violet{color:#14101f;background:linear-gradient(135deg,#cdb6ff,var(--violet-hi));box-shadow:0 10px 26px -10px rgba(150,110,245,.7)}
+  .btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:var(--gold);box-shadow:none}
+  .btn:disabled{opacity:.5;cursor:default}
+  .methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .method{appearance:none;text-align:left;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:14px 14px 12px;color:var(--ink);transition:border-color .15s, background .15s}
+  .method:hover{border-color:rgba(231,196,106,.45);background:rgba(231,196,106,.06)}
+  .method.active{border-color:var(--gold);background:rgba(231,196,106,.09)}
+  .method .em{font-size:20px}
+  .method b{display:block;font:600 13.5px Inter;margin-top:6px}
+  .method span{display:block;font-size:11.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+  .balls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:22px 0 6px;min-height:64px}
+  .ball{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-family:Newsreader,serif;font-weight:700;font-size:24px;color:#241a05;background:radial-gradient(circle at 32% 28%,#f7e6b2,var(--gold) 58%,#b98f35);box-shadow:0 10px 24px -8px rgba(231,196,106,.55), inset 0 -3px 6px rgba(0,0,0,.25);animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+  @keyframes pop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+  .ball:nth-child(2){animation-delay:.12s}.ball:nth-child(3){animation-delay:.24s}
+  .ball:nth-child(4){animation-delay:.36s}.ball:nth-child(5){animation-delay:.48s}.ball:nth-child(6){animation-delay:.6s}
+  .verify{font-size:13px;line-height:1.7;color:var(--ink-2)}
+  .verify b{color:var(--ink)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:7px 13px;font:600 12.5px Inter}
+  .chip .n{font-family:Newsreader,serif;font-weight:700;font-size:16px;color:var(--gold)}
+  .chip small{font-weight:500;color:var(--muted)}
+  .chartbox{background:var(--surface);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 12px 8px;overflow-x:auto}
+  .chartbox svg{display:block;min-width:560px;width:100%;height:auto}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 4px 2px;font-size:11.5px;color:var(--ink-2)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  details{margin-top:12px}
+  summary{cursor:pointer;font:600 12px Inter;color:var(--gold)}
+  table{border-collapse:collapse;width:100%;font-size:12px;margin-top:10px}
+  th,td{text-align:right;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.07);font-variant-numeric:tabular-nums}
+  th{color:var(--muted);font:600 10px Inter;letter-spacing:.08em;text-transform:uppercase}
+  td:first-child,th:first-child{text-align:left}
+  textarea{width:100%;min-height:90px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.14);border-radius:10px;color:var(--ink);font:12px ui-monospace,monospace;padding:10px}
+  input[type=file]{font-size:12px;color:var(--ink-2)}
+  .status{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+  .status b{color:var(--gold)}
+  .warn{color:#ec835a}
+  .ok{color:#0ca30c}
+  .eratoggle{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden}
+  .eratoggle button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:600 11.5px Inter;padding:9px 15px;cursor:pointer}
+  .eratoggle button.on{background:rgba(231,196,106,.16);color:var(--gold)}
+  .math{font-size:14px;line-height:1.75;color:var(--ink-2)}
+  .math b{color:var(--ink)}
+  .formula{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:14px 16px;margin:12px 0;font-family:Newsreader,serif;font-size:17px;color:var(--ink);text-align:center;overflow-x:auto}
+  .tooltip{position:fixed;z-index:50;pointer-events:none;background:#1e1a2c;border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:8px 11px;font:12px Inter;color:var(--ink);box-shadow:0 12px 30px rgba(0,0,0,.5);display:none;max-width:230px;line-height:1.5}
+  .foot{text-align:center;margin-top:44px;padding-top:26px;border-top:1px solid rgba(255,255,255,.08);font-size:11.5px;line-height:1.7;color:var(--muted)}
+  @media (max-width:520px){ .ball{width:48px;height:48px;font-size:20px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a href="index.html" class="pillbtn">&#x2039; Joga Apps</a>
+    <span style="font:600 10px Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)">Experimento</span>
+  </div>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <div style="text-align:center;margin-bottom:8px">
+      <div style="font-size:44px;line-height:1;margin-bottom:10px">🍀</div>
+      <h1>Los 6 Números <span class="hi">de la Suerte</span></h1>
+      <p class="sub">Análisis estadístico de los números ganadores reales de <b>Lotto Texas</b> (6 de 54) — solo Lotto Texas: sin Powerball, sin Mega Millions. Un experimento: la historia describe el pasado, no predice el futuro.</p>
+      <div class="pills">
+        <div class="pill"><b id="pDraws">–</b><span>sorteos</span></div>
+        <div class="pill"><b id="pRange">–</b><span>periodo</span></div>
+        <div class="pill"><b>1 / 25,827,165</b><span>prob. exacta 6/6</span></div>
+      </div>
+    </div>
+
+    <!-- DATOS -->
+    <div class="seclabel">1 · Datos</div>
+    <div class="card">
+      <h2>Historial de sorteos</h2>
+      <p class="hint">La app incluye una pequeña muestra verificada. Para el experimento completo, carga el historial oficial (desde 1992) publicado por la Lotería de Texas.</p>
+      <div class="row" style="margin-bottom:12px">
+        <button class="btn" id="btnFetch">⬇ Cargar historial oficial</button>
+        <div class="eratoggle" role="group" aria-label="Era del juego">
+          <button id="eraCur" class="on" title="Matriz actual 6 de 54">Era actual (desde 26-abr-2006)</button>
+          <button id="eraAll" title="Incluye matrices antiguas 6/50 y 5/44+bono">Todo el historial</button>
+        </div>
+      </div>
+      <div class="status" id="dataStatus">Cargando…</div>
+      <details>
+        <summary>Cargar manualmente (archivo CSV oficial o pegar resultados)</summary>
+        <p class="hint" style="margin-top:10px">Descarga el archivo oficial <b>lottotexas.csv</b> desde
+          <a href="https://www.texaslottery.com/export/sites/lottery/Games/Lotto_Texas/Winning_Numbers/lottotexas.csv" target="_blank" rel="noopener" style="color:var(--gold)">texaslottery.com</a>
+          y súbelo aquí, o pega líneas con formato <code>MM/DD/AAAA 5 12 23 34 45 51</code>.</p>
+        <div class="row">
+          <input type="file" id="fileIn" accept=".csv,.txt">
+        </div>
+        <textarea id="pasteIn" placeholder="Lotto Texas,04,26,2006,8,14,21,33,48,51&#10;o&#10;07/15/2026 3 13 16 27 32 37"></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn ghost" id="btnPaste">Procesar texto pegado</button>
+          <button class="btn ghost" id="btnClear">Borrar datos guardados</button>
+        </div>
+      </details>
+    </div>
+
+    <!-- GENERADOR -->
+    <div class="seclabel">2 · Generador</div>
+    <div class="card">
+      <h2>Genera tus 6 números</h2>
+      <p class="hint">Elige un método. Todos producen combinaciones válidas de Lotto Texas (6 números distintos del 1 al 54).</p>
+      <div class="methods">
+        <button class="method" data-m="hot"><span class="em">🔥</span><b>Calientes</b><span>Pondera los números que más han salido en la historia.</span></button>
+        <button class="method" data-m="cold"><span class="em">❄️</span><b>Atrasados</b><span>Pondera los que llevan más sorteos sin aparecer.</span></button>
+        <button class="method" data-m="mix"><span class="em">⚖️</span><b>Equilibrado</b><span>Mezcla frecuencia + suma típica + balance par/impar.</span></button>
+        <button class="method" data-m="rand"><span class="em">🎲</span><b>Azar puro</b><span>Uniforme, como la tómbola real. Igual de válido.</span></button>
+      </div>
+      <div class="balls" id="balls" aria-live="polite"></div>
+      <div class="row" style="justify-content:center;margin-bottom:14px">
+        <button class="btn violet" id="btnAgain" style="display:none">↻ Generar de nuevo</button>
+        <button class="btn ghost" id="btnCopy" style="display:none">Copiar números</button>
+      </div>
+      <div class="verify" id="verify"></div>
+    </div>
+
+    <!-- ANALISIS -->
+    <div class="seclabel">3 · Análisis del historial</div>
+
+    <div class="card">
+      <h2>Frecuencia por número (1–54)</h2>
+      <p class="hint" id="freqHint">Cuántas veces ha salido cada número en los sorteos analizados. La línea marca el promedio esperado si todo fuera perfectamente uniforme.</p>
+      <div class="chartbox"><div id="freqChart"></div></div>
+      <div class="legend">
+        <span><i style="background:var(--bar)"></i>Frecuencia histórica</span>
+        <span><i style="background:var(--lucky)"></i>Tus números de la suerte</span>
+        <span><i style="background:none;border-top:1px solid var(--muted);width:14px;height:0;border-radius:0;vertical-align:3px"></i>Promedio esperado</span>
+      </div>
+      <div class="row" style="margin-top:14px;gap:18px;align-items:flex-start">
+        <div style="flex:1;min-width:240px">
+          <div style="font:600 10px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">🔥 Más frecuentes</div>
+          <div class="chips" id="hotChips"></div>
+        </div>
+        <div style="flex:1;min-width:240px">
+          <div style="font:600 10px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">❄️ Más atrasados</div>
+          <div class="chips" id="coldChips"></div>
+        </div>
+      </div>
+      <details>
+        <summary>Ver tabla de datos completa</summary>
+        <div style="overflow-x:auto"><table id="freqTable"></table></div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Suma de los 6 números ganadores</h2>
+      <p class="hint" id="sumHint">Distribución histórica de la suma de cada combinación ganadora. La mayoría cae en una franja central — el método “Equilibrado” genera dentro de esa franja.</p>
+      <div class="chartbox"><div id="sumChart"></div></div>
+      <div class="legend">
+        <span><i style="background:var(--bar)"></i>Sorteos por franja de suma</span>
+        <span id="sumMarkerLegend" style="display:none"><i style="background:var(--lucky)"></i>Suma de tus números</span>
+      </div>
+    </div>
+
+    <!-- MATEMATICA -->
+    <div class="seclabel">4 · La matemática (a = b = c)</div>
+    <div class="card math">
+      <h2>¿Se puede calcular el número exacto?</h2>
+      <p>Las combinaciones posibles de 6 números entre 54 se calculan con el coeficiente binomial:</p>
+      <div class="formula">C(54, 6) = 54! / (6! · 48!) = <b style="color:var(--gold)">25,827,165</b></div>
+      <p>Y aquí está el <b>a = b = c</b> del experimento: si <b>a</b>, <b>b</b> y <b>c</b> son tres combinaciones cualesquiera —la más “caliente”, la más “fría” o una al azar—, la probabilidad de que salgan exactas es idéntica:</p>
+      <div class="formula">P(a) = P(b) = P(c) = 1 / 25,827,165 ≈ 0.0000039%</div>
+      <p>Cada sorteo es <b>independiente</b>: las bolas no tienen memoria. Que un número haya salido mucho (o lleve tiempo sin salir) <b>no cambia su probabilidad futura</b> — creer lo contrario es la famosa <i>falacia del jugador</i>. Lo que sí hace este análisis: describir fielmente el pasado real del juego, detectar la franja de sumas típica, y generar combinaciones válidas y balanceadas. Es un experimento estadístico y de entretenimiento, no una promesa de premio.</p>
+      <p id="mathLive"></p>
+    </div>
+
+    <div class="foot">
+      🍀 Experimento Joga · Datos: sorteos oficiales de Lotto Texas (Lotería de Texas) · Sorteos lunes, miércoles y sábado 10:12 pm CT<br>
+      Solo entretenimiento. Cada combinación tiene exactamente la misma probabilidad. Juega con responsabilidad · 18+ · App no afiliada a la Texas Lottery Commission.
+    </div>
+
+  </div>
+</div>
+
+<div class="tooltip" id="tip"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ============ datos ============ */
+  var ERA_START = Date.UTC(2006,3,26); // 26-abr-2006: regreso a la matriz 6/54
+  var ODDS = 25827165;
+  // Muestra verificada (sorteos reales recientes)
+  var SEED = [
+    {t:Date.UTC(2026,6,11), n:[20,23,36,39,48,54]},
+    {t:Date.UTC(2026,6,13), n:[16,17,27,35,44,48]},
+    {t:Date.UTC(2026,6,15), n:[3,13,16,27,32,37]}
+  ];
+  var CSV_URL = 'https://www.texaslottery.com/export/sites/lottery/Games/Lotto_Texas/Winning_Numbers/lottotexas.csv';
+  var PROXIES = [
+    function(u){ return u; },
+    function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
+    function(u){ return 'https://corsproxy.io/?url=' + encodeURIComponent(u); }
+  ];
+
+  var allDraws = [];   // [{t:ms, n:[6]}] orden ascendente por fecha
+  var draws = [];      // filtrados por era
+  var era = 'cur';     // 'cur' | 'all'
+  var sourceLabel = '';
+  var lucky = null;    // números generados actuales
+  var stats = null;
+
+  function $(id){ return document.getElementById(id); }
+  function fmt(n){ return n.toLocaleString('es-US'); }
+  function fdate(t){
+    var d = new Date(t);
+    return String(d.getUTCMonth()+1).padStart(2,'0') + '/' + String(d.getUTCDate()).padStart(2,'0') + '/' + d.getUTCFullYear();
+  }
+
+  /* ============ parsers ============ */
+  // CSV oficial: "Lotto Texas,MM,DD,YYYY,n1,n2,n3,n4,n5,n6"
+  function parseOfficial(text){
+    var out = [];
+    var lines = text.split(/\r?\n/);
+    for (var i=0;i<lines.length;i++){
+      var f = lines[i].split(',');
+      if (f.length < 10) continue;
+      if (!/lotto\s*texas/i.test(f[0])) continue;
+      var mo=+f[1], da=+f[2], yr=+f[3];
+      if (!(yr>=1992 && yr<2100 && mo>=1 && mo<=12 && da>=1 && da<=31)) continue;
+      var nums = [];
+      for (var k=4;k<10;k++){
+        var v = parseInt(f[k],10);
+        if (!(v>=1 && v<=54)) { nums=null; break; }
+        nums.push(v);
+      }
+      if (!nums) continue;
+      nums.sort(function(a,b){return a-b;});
+      out.push({t:Date.UTC(yr,mo-1,da), n:nums});
+    }
+    return out;
+  }
+  // Genérico: una línea = una fecha + 6 números
+  function parseGeneric(text){
+    var out = [];
+    var lines = text.split(/\r?\n/);
+    for (var i=0;i<lines.length;i++){
+      var line = lines[i].trim();
+      if (!line) continue;
+      var t = null, rest = line;
+      var m = line.match(/(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})/);
+      if (m){ t = Date.UTC(+m[3], +m[1]-1, +m[2]); rest = line.replace(m[0],' '); }
+      else {
+        m = line.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+        if (m){ t = Date.UTC(+m[1], +m[2]-1, +m[3]); rest = line.replace(m[0],' '); }
+      }
+      if (t === null) continue;
+      var nums = (rest.match(/\d{1,2}/g)||[]).map(Number).filter(function(v){return v>=1 && v<=54;});
+      if (nums.length !== 6) continue;
+      nums.sort(function(a,b){return a-b;});
+      out.push({t:t, n:nums});
+    }
+    return out;
+  }
+
+  function adoptDraws(list, label, persistText){
+    if (!list.length) return false;
+    // dedupe por fecha, orden ascendente
+    var seen = {};
+    list = list.filter(function(d){ var k=d.t; if(seen[k])return false; seen[k]=1; return true; });
+    list.sort(function(a,b){ return a.t-b.t; });
+    allDraws = list;
+    sourceLabel = label;
+    if (persistText){
+      try { localStorage.setItem('l6n_csv', persistText); localStorage.setItem('l6n_label', label); } catch(e){}
+    }
+    refresh();
+    return true;
+  }
+
+  /* ============ estadística ============ */
+  function computeStats(ds){
+    var counts = new Array(55).fill(0);
+    var lastIdx = new Array(55).fill(-1);
+    var sums = [];
+    for (var i=0;i<ds.length;i++){
+      var s = 0;
+      for (var j=0;j<6;j++){ var v=ds[i].n[j]; counts[v]++; lastIdx[v]=i; s+=v; }
+      sums.push(s);
+    }
+    var gaps = new Array(55).fill(null);
+    for (var n=1;n<=54;n++) gaps[n] = (lastIdx[n]===-1) ? ds.length : (ds.length-1-lastIdx[n]);
+    var sorted = sums.slice().sort(function(a,b){return a-b;});
+    function pct(p){ return sorted.length ? sorted[Math.min(sorted.length-1, Math.floor(p*sorted.length))] : 0; }
+    return {
+      counts:counts, lastIdx:lastIdx, gaps:gaps, sums:sums,
+      p15:pct(.15), p85:pct(.85), p10:pct(.10), p90:pct(.90),
+      expected: ds.length*6/54
+    };
+  }
+
+  /* ============ generador ============ */
+  function weightedSix(weight){
+    var picked = [], used = {};
+    for (var k=0;k<6;k++){
+      var tot = 0, i;
+      for (i=1;i<=54;i++) if (!used[i]) tot += weight[i];
+      var r = Math.random()*tot;
+      for (i=1;i<=54;i++){
+        if (used[i]) continue;
+        r -= weight[i];
+        if (r<=0){ picked.push(i); used[i]=1; break; }
+      }
+      if (picked.length<k+1){ for(i=54;i>=1;i--){ if(!used[i]){picked.push(i);used[i]=1;break;} } }
+    }
+    return picked.sort(function(a,b){return a-b;});
+  }
+  function genNumbers(method){
+    var w = new Array(55).fill(1), i;
+    var enough = draws.length >= 20;
+    if (method==='hot' && enough){
+      for (i=1;i<=54;i++) w[i] = Math.pow(stats.counts[i]+1, 2);
+      return weightedSix(w);
+    }
+    if (method==='cold' && enough){
+      for (i=1;i<=54;i++) w[i] = Math.pow(stats.gaps[i]+1, 2);
+      return weightedSix(w);
+    }
+    if (method==='mix' && enough){
+      var max = Math.max.apply(null, stats.counts.slice(1));
+      for (i=1;i<=54;i++) w[i] = 0.6 + 0.4*(stats.counts[i]/(max||1));
+      var best = null;
+      for (var t=0;t<400;t++){
+        var c = weightedSix(w);
+        var sum = c.reduce(function(a,b){return a+b;},0);
+        var evens = c.filter(function(v){return v%2===0;}).length;
+        best = c;
+        if (sum>=stats.p15 && sum<=stats.p85 && evens>=2 && evens<=4) return c;
+      }
+      return best;
+    }
+    return weightedSix(w); // azar puro (o datos insuficientes)
+  }
+
+  function verifyCombo(c){
+    var set = {}, i, j;
+    for (i=0;i<6;i++) set[c[i]] = 1;
+    var best = 0, bestT = null, c3=0, c4=0, c5=0, c6=0;
+    for (i=0;i<draws.length;i++){
+      var m = 0, n = draws[i].n;
+      for (j=0;j<6;j++) if (set[n[j]]) m++;
+      if (m>best){ best=m; bestT=draws[i].t; }
+      if (m===3)c3++; else if(m===4)c4++; else if(m===5)c5++; else if(m===6)c6++;
+    }
+    return {best:best, bestT:bestT, c3:c3, c4:c4, c5:c5, c6:c6};
+  }
+
+  /* ============ tooltips ============ */
+  var tip = $('tip');
+  function bindTips(root){
+    root.querySelectorAll('[data-tip]').forEach(function(el){
+      el.addEventListener('mousemove', function(ev){
+        tip.innerHTML = el.getAttribute('data-tip');
+        tip.style.display = 'block';
+        var x = Math.min(ev.clientX+14, window.innerWidth-240);
+        tip.style.left = x+'px';
+        tip.style.top = (ev.clientY+14)+'px';
+      });
+      el.addEventListener('mouseleave', function(){ tip.style.display='none'; });
+    });
+  }
+
+  /* ============ gráficas (SVG) ============ */
+  function freqChartSVG(){
+    var W=1080, H=300, padL=34, padB=26, padT=14, padR=8;
+    var iw = W-padL-padR, ih = H-padT-padB;
+    var maxC = Math.max(1, Math.max.apply(null, stats.counts.slice(1)));
+    var slot = iw/54, bw = Math.min(24, Math.max(4, slot-3));
+    var luckySet = {}; if (lucky) lucky.forEach(function(v){luckySet[v]=1;});
+    var s = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Frecuencia por número">';
+    // rejilla
+    var ticks = 4, i;
+    for (i=1;i<=ticks;i++){
+      var yv = Math.round(maxC*i/ticks);
+      var y = padT + ih - ih*(yv/maxC);
+      s += '<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="var(--grid)" stroke-width="1"/>';
+      s += '<text x="'+(padL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="var(--muted)" font-family="Inter">'+fmt(yv)+'</text>';
+    }
+    // línea de promedio esperado (referencia, sólida y tenue)
+    var ye = padT + ih - ih*(stats.expected/maxC);
+    if (stats.expected <= maxC) s += '<line x1="'+padL+'" y1="'+ye+'" x2="'+(W-padR)+'" y2="'+ye+'" stroke="var(--muted)" stroke-width="1" opacity=".8"/>';
+    // barras
+    for (var n=1;n<=54;n++){
+      var c = stats.counts[n];
+      var h = ih*(c/maxC);
+      var x = padL + slot*(n-1) + (slot-bw)/2;
+      var y2 = padT + ih - h;
+      var col = luckySet[n] ? 'var(--lucky)' : 'var(--bar)';
+      var last = stats.lastIdx[n]>=0 ? fdate(draws[stats.lastIdx[n]].t) : 'nunca';
+      var tipTxt = '<b>Número '+n+'</b><br>Salió '+fmt(c)+' veces ('+(draws.length? (100*c/(draws.length*6)).toFixed(2):'0')+'%)<br>Última vez: '+last+(luckySet[n]?'<br>🍀 En tus números':'');
+      s += '<path data-tip="'+tipTxt.replace(/"/g,'&quot;')+'" d="M'+x+' '+(padT+ih)+' V'+(y2+2)+' Q'+x+' '+y2+' '+(x+2)+' '+y2+' H'+(x+bw-2)+' Q'+(x+bw)+' '+y2+' '+(x+bw)+' '+(y2+2)+' V'+(padT+ih)+' Z" fill="'+col+'"/>';
+    }
+    // eje base + etiquetas X
+    s += '<line x1="'+padL+'" y1="'+(padT+ih)+'" x2="'+(W-padR)+'" y2="'+(padT+ih)+'" stroke="var(--baseline)" stroke-width="1"/>';
+    for (n=1;n<=54;n++){
+      if (n===1 || n%5===0){
+        var xc = padL + slot*(n-1) + slot/2;
+        s += '<text x="'+xc+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Inter">'+n+'</text>';
+      }
+    }
+    s += '</svg>';
+    return s;
+  }
+
+  function sumChartSVG(){
+    var W=1080, H=240, padL=34, padB=26, padT=16, padR=8;
+    var iw=W-padL-padR, ih=H-padT-padB;
+    var binW = 15, lo = 21, hi = 309;
+    var nb = Math.ceil((hi-lo+1)/binW);
+    var bins = new Array(nb).fill(0), i;
+    for (i=0;i<stats.sums.length;i++){
+      var b = Math.min(nb-1, Math.max(0, Math.floor((stats.sums[i]-lo)/binW)));
+      bins[b]++;
+    }
+    var maxB = Math.max(1, Math.max.apply(null, bins));
+    var slot = iw/nb, bw = Math.min(24, slot-3);
+    var s = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Distribución de la suma">';
+    var ticks=3;
+    for (i=1;i<=ticks;i++){
+      var yv = Math.round(maxB*i/ticks);
+      var y = padT+ih-ih*(yv/maxB);
+      s += '<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="var(--grid)" stroke-width="1"/>';
+      s += '<text x="'+(padL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="var(--muted)" font-family="Inter">'+fmt(yv)+'</text>';
+    }
+    for (i=0;i<nb;i++){
+      var c = bins[i];
+      var h = ih*(c/maxB);
+      var x = padL + slot*i + (slot-bw)/2;
+      var y2 = padT+ih-h;
+      var a = lo+i*binW, bEnd = a+binW-1;
+      var tipTxt = '<b>Suma '+a+'–'+bEnd+'</b><br>'+fmt(c)+' sorteos';
+      if (c>0){
+        s += '<path data-tip="'+tipTxt+'" d="M'+x+' '+(padT+ih)+' V'+(y2+2)+' Q'+x+' '+y2+' '+(x+2)+' '+y2+' H'+(x+bw-2)+' Q'+(x+bw)+' '+y2+' '+(x+bw)+' '+(y2+2)+' V'+(padT+ih)+' Z" fill="var(--bar)"/>';
+      }
+    }
+    s += '<line x1="'+padL+'" y1="'+(padT+ih)+'" x2="'+(W-padR)+'" y2="'+(padT+ih)+'" stroke="var(--baseline)" stroke-width="1"/>';
+    for (i=0;i<=nb;i+=4){
+      var xv = lo+i*binW;
+      var xc = padL + slot*i;
+      s += '<text x="'+xc+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Inter">'+xv+'</text>';
+    }
+    // marcador de la suma del jugador
+    if (lucky){
+      var sum = lucky.reduce(function(a,b){return a+b;},0);
+      var mx = padL + iw*((sum-lo)/(hi-lo+1));
+      s += '<line x1="'+mx+'" y1="'+padT+'" x2="'+mx+'" y2="'+(padT+ih)+'" stroke="var(--lucky)" stroke-width="2"/>';
+      s += '<text x="'+mx+'" y="'+(padT-3)+'" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink-2)" font-family="Inter">suma '+sum+'</text>';
+    }
+    s += '</svg>';
+    return s;
+  }
+
+  /* ============ render ============ */
+  function refresh(){
+    draws = (era==='cur') ? allDraws.filter(function(d){return d.t>=ERA_START;}) : allDraws.slice();
+    stats = computeStats(draws);
+
+    $('pDraws').textContent = fmt(draws.length);
+    $('pRange').textContent = draws.length ? (new Date(draws[0].t).getUTCFullYear() + '–' + new Date(draws[draws.length-1].t).getUTCFullYear()) : '–';
+
+    var st = $('dataStatus');
+    var eraNote = (era==='cur')
+      ? 'Analizando la matriz actual <b>6 de 54</b> (desde el 26-abr-2006).'
+      : '<span class="warn">Incluye matrices antiguas (6/50 de 1992–2000 y 5/44+bono de 2003–2006): las frecuencias se mezclan entre juegos distintos.</span>';
+    st.innerHTML = 'Fuente: <b>' + sourceLabel + '</b> · ' + fmt(draws.length) + ' sorteos en el filtro actual. ' + eraNote +
+      (allDraws.length < 100 ? '<br><span class="warn">⚠ Muestra pequeña: carga el historial oficial para que el análisis tenga sentido.</span>' : '');
+
+    // gráficas
+    $('freqChart').innerHTML = freqChartSVG();
+    $('sumChart').innerHTML = sumChartSVG();
+    bindTips($('freqChart')); bindTips($('sumChart'));
+    $('sumMarkerLegend').style.display = lucky ? 'inline' : 'none';
+
+    // chips calientes / fríos
+    var order = [];
+    for (var n=1;n<=54;n++) order.push(n);
+    var hot = order.slice().sort(function(a,b){ return stats.counts[b]-stats.counts[a] || a-b; }).slice(0,6);
+    var cold = order.slice().sort(function(a,b){ return stats.gaps[b]-stats.gaps[a] || a-b; }).slice(0,6);
+    $('hotChips').innerHTML = hot.map(function(v){ return '<span class="chip"><span class="n">'+v+'</span><small>'+fmt(stats.counts[v])+' veces</small></span>'; }).join('');
+    $('coldChips').innerHTML = cold.map(function(v){ return '<span class="chip"><span class="n">'+v+'</span><small>'+fmt(stats.gaps[v])+' sin salir</small></span>'; }).join('');
+
+    // tabla accesible
+    var rows = '<tr><th>Número</th><th>Veces</th><th>%</th><th>Última vez</th><th>Sorteos sin salir</th></tr>';
+    for (n=1;n<=54;n++){
+      rows += '<tr><td>'+n+'</td><td>'+fmt(stats.counts[n])+'</td><td>'+(draws.length?(100*stats.counts[n]/(draws.length*6)).toFixed(2):'0')+'%</td><td>'+(stats.lastIdx[n]>=0?fdate(draws[stats.lastIdx[n]].t):'—')+'</td><td>'+fmt(stats.gaps[n])+'</td></tr>';
+    }
+    $('freqTable').innerHTML = rows;
+
+    $('sumHint').textContent = draws.length
+      ? 'Distribución histórica de la suma de cada combinación ganadora. El 70% central cae entre ' + stats.p15 + ' y ' + stats.p85 + ' — el método “Equilibrado” genera dentro de esa franja.'
+      : 'Carga datos para ver la distribución.';
+
+    $('mathLive').innerHTML = draws.length
+      ? 'Con los <b>' + fmt(draws.length) + '</b> sorteos analizados han salido ' + fmt(draws.length*6) + ' bolas: si el sorteo es justo, cada número debería aparecer cerca de <b>' + fmt(Math.round(stats.expected)) + '</b> veces — y eso es exactamente lo que muestra la gráfica: las diferencias entre números son ruido aleatorio normal, no una señal.'
+      : '';
+
+    if (lucky) renderVerify();
+  }
+
+  function renderVerify(){
+    var v = verifyCombo(lucky);
+    var sum = lucky.reduce(function(a,b){return a+b;},0);
+    var evens = lucky.filter(function(x){return x%2===0;}).length;
+    var html = '<b>Verificación contra los ' + fmt(draws.length) + ' sorteos reales:</b><br>';
+    if (v.c6 > 0){
+      html += '🤯 ¡Esta combinación exacta <b>ya ganó</b> alguna vez! (' + fdate(v.bestT) + ')<br>';
+    } else {
+      html += 'Esta combinación exacta <b>nunca ha salido</b> en la historia analizada (como el 99.99% de las ' + fmt(ODDS) + ' posibles).<br>';
+    }
+    html += 'Mejor coincidencia histórica: <b>' + v.best + ' de 6</b>' + (v.bestT ? ' (' + fdate(v.bestT) + ')' : '') + ' · ';
+    html += 'Sorteos con 3 aciertos: <b>' + fmt(v.c3) + '</b> · con 4: <b>' + fmt(v.c4) + '</b> · con 5: <b>' + fmt(v.c5) + '</b><br>';
+    html += 'Suma: <b>' + sum + '</b>' + (draws.length ? ' (franja típica ' + stats.p15 + '–' + stats.p85 + ')' : '') + ' · Pares/impares: <b>' + evens + '/' + (6-evens) + '</b> · Probabilidad exacta: <b>1 entre ' + fmt(ODDS) + '</b> — igual que cualquier otra.';
+    $('verify').innerHTML = html;
+  }
+
+  var lastMethod = 'mix';
+  function generate(method){
+    lastMethod = method;
+    if (draws.length < 20 && method !== 'rand'){
+      $('verify').innerHTML = '<span class="warn">⚠ Con menos de 20 sorteos cargados, todos los métodos usan azar puro. Carga el historial oficial primero.</span>';
+    }
+    lucky = genNumbers(method);
+    var b = $('balls');
+    b.innerHTML = '';
+    lucky.forEach(function(v){
+      var d = document.createElement('div');
+      d.className = 'ball';
+      d.textContent = v;
+      b.appendChild(d);
+    });
+    $('btnAgain').style.display = 'inline-flex';
+    $('btnCopy').style.display = 'inline-flex';
+    document.querySelectorAll('.method').forEach(function(m){ m.classList.toggle('active', m.getAttribute('data-m')===method); });
+    refresh();
+  }
+
+  /* ============ carga remota ============ */
+  function fetchOfficial(){
+    var btn = $('btnFetch');
+    btn.disabled = true; btn.textContent = '⏳ Descargando…';
+    var i = 0;
+    function tryNext(){
+      if (i >= PROXIES.length){
+        btn.disabled = false; btn.textContent = '⬇ Cargar historial oficial';
+        $('dataStatus').innerHTML = '<span class="warn">No se pudo descargar automáticamente (bloqueo del navegador/servidor). Usa la opción manual de abajo: descarga el CSV oficial y súbelo — tarda 30 segundos.</span>';
+        return;
+      }
+      var url = PROXIES[i++](CSV_URL);
+      var ctl = new AbortController();
+      var timer = setTimeout(function(){ ctl.abort(); }, 15000);
+      fetch(url, {signal: ctl.signal})
+        .then(function(r){ clearTimeout(timer); if(!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function(text){
+          var list = parseOfficial(text);
+          if (list.length < 100) throw new Error('respuesta inválida');
+          adoptDraws(list, 'Historial oficial de la Lotería de Texas (' + fmt(list.length) + ' sorteos)', text);
+          btn.disabled = false; btn.textContent = '✓ Historial cargado';
+        })
+        .catch(function(){ clearTimeout(timer); tryNext(); });
+    }
+    tryNext();
+  }
+
+  /* ============ eventos ============ */
+  $('btnFetch').addEventListener('click', fetchOfficial);
+  $('eraCur').addEventListener('click', function(){ era='cur'; $('eraCur').classList.add('on'); $('eraAll').classList.remove('on'); refresh(); });
+  $('eraAll').addEventListener('click', function(){ era='all'; $('eraAll').classList.add('on'); $('eraCur').classList.remove('on'); refresh(); });
+  document.querySelectorAll('.method').forEach(function(m){
+    m.addEventListener('click', function(){ generate(m.getAttribute('data-m')); });
+  });
+  $('btnAgain').addEventListener('click', function(){ generate(lastMethod); });
+  $('btnCopy').addEventListener('click', function(){
+    if (!lucky) return;
+    var txt = lucky.join(' - ');
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function(){
+      $('btnCopy').textContent = '✓ Copiado';
+      setTimeout(function(){ $('btnCopy').textContent = 'Copiar números'; }, 1600);
+    }).catch(function(){ prompt('Copia tus números:', txt); });
+  });
+  $('fileIn').addEventListener('change', function(ev){
+    var f = ev.target.files && ev.target.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function(){
+      var text = String(rd.result||'');
+      var list = parseOfficial(text);
+      if (!list.length) list = parseGeneric(text);
+      if (list.length) adoptDraws(list, 'Archivo cargado: ' + f.name + ' (' + fmt(list.length) + ' sorteos)', text);
+      else $('dataStatus').innerHTML = '<span class="warn">No se reconocieron sorteos en ese archivo. ¿Es el CSV de Lotto Texas?</span>';
+    };
+    rd.readAsText(f);
+  });
+  $('btnPaste').addEventListener('click', function(){
+    var text = $('pasteIn').value;
+    var list = parseOfficial(text);
+    if (!list.length) list = parseGeneric(text);
+    if (list.length) adoptDraws(list, 'Texto pegado (' + fmt(list.length) + ' sorteos)', text);
+    else $('dataStatus').innerHTML = '<span class="warn">No se reconocieron sorteos en el texto pegado.</span>';
+  });
+  $('btnClear').addEventListener('click', function(){
+    try { localStorage.removeItem('l6n_csv'); localStorage.removeItem('l6n_label'); } catch(e){}
+    adoptDraws(SEED.slice(), 'Muestra verificada (' + SEED.length + ' sorteos de julio 2026)');
+  });
+
+  /* ============ init ============ */
+  var saved = null, savedLabel = null;
+  try { saved = localStorage.getItem('l6n_csv'); savedLabel = localStorage.getItem('l6n_label'); } catch(e){}
+  if (saved){
+    var list = parseOfficial(saved);
+    if (!list.length) list = parseGeneric(saved);
+    if (list.length){ adoptDraws(list, (savedLabel||'Datos guardados') ); }
+  }
+  if (!allDraws.length){
+    adoptDraws(SEED.slice(), 'Muestra verificada (' + SEED.length + ' sorteos de julio 2026)');
+  }
+})();
+</script>
+</body>
+</html>
