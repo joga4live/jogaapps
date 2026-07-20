@@ -9,15 +9,16 @@
     <meta property="og:title" content="Joga Intelligence" />
     <meta property="og:description" content="Despierta lo que ya esta en ti con una experiencia premium, guiada y bilingue." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="jogasocialpreview.svg" />
+    <meta property="og:image" content="joga-social-preview.svg" />
     <meta property="og:image:alt" content="Joga Intelligence premium guided experience" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Joga Intelligence" />
     <meta name="twitter:description" content="Despierta lo que ya esta en ti con una experiencia premium, guiada y bilingue." />
-    <meta name="twitter:image" content="jogasocialpreview.svg" />
+    <meta name="twitter:image" content="joga-social-preview.svg" />
     <title>Joga Intelligence</title>
-    <link rel="icon" type="image/svg+xml" href="jogafavicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="jogaappletouchicon.png" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -458,7 +459,7 @@
       .module.joga-path { border-color: rgba(201, 106, 45, 0.25); }
       .module.joga-capital { border-color: rgba(184, 146, 74, 0.25); }
       .module.joga-ventix { border-color: rgba(139, 36, 48, 0.25); }
-      .module.joga-flow { border-color: rgba(47, 108, 160, 0.25); }
+      .module.joga-body { border-color: rgba(47, 108, 160, 0.25); }
 
       .pricing-card h3 {
         margin-bottom: 8px;
@@ -761,7 +762,7 @@
         <div class="hero-visual">
           <div class="visual-card">
             <h3 id="visualOneTitle">Tu evolución, integrada</h3>
-            <p id="visualOneDesc">Energía, mente, tiempo, hábitos, propósito, dinero y ventas en un solo camino.</p>
+            <p id="visualOneDesc">Mente, tiempo, hábitos, propósito, dinero, ventas y energía en un solo camino.</p>
           </div>
           <div class="visual-card">
             <h3 id="visualTwoTitle">Ruta diaria</h3>
@@ -834,13 +835,13 @@
         <div class="section-card">
           <h3 id="modulesTitle">Los 7 módulos</h3>
           <div class="module-grid">
-            <div class="module joga-flow">JogaFlow</div>
             <div class="module joga-mind">JogaMind</div>
             <div class="module joga-time">JogaTime</div>
             <div class="module joga-bit">JogaBit</div>
             <div class="module joga-path">JogaPath</div>
             <div class="module joga-capital">JogaCapital</div>
             <div class="module joga-ventix">JogaVentix</div>
+            <div class="module joga-body">JogaBody</div>
           </div>
         </div>
       </div>
@@ -857,7 +858,7 @@
               <h4 class="plan-name" id="planFreeTitle">Inicio gratuito</h4>
               <p class="plan-price" id="planFreePrice">$0</p>
               <ul class="plan-features">
-                <li id="planFreeFeatureOne">Acceso completo a JogaFlow.</li>
+                <li id="planFreeFeatureOne">Acceso completo a JogaBody.</li>
                 <li id="planFreeFeatureTwo">Ruta diaria y progreso personal.</li>
                 <li id="planFreeFeatureThree">Ideal para probar el metodo.</li>
               </ul>
@@ -869,16 +870,16 @@
               <div class="plan-price" aria-live="polite">
                 <div class="plan-price-row">
                   <span class="plan-price-label" id="planPriceWasLabel">Antes</span>
-                  <span class="plan-price-value was" id="planPremiumOldPrice">MXN 2,700 / USD 149</span>
+                  <span class="plan-price-value was" id="planPremiumOldPrice">MXN 299 / USD 29</span>
                 </div>
                 <div class="plan-price-row">
                   <span class="plan-price-label" id="planPriceNowLabel">Ahora</span>
-                  <span class="plan-price-value now" id="planPremiumPrice">MXN 1,290 / USD 67</span>
+                  <span class="plan-price-value now" id="planPremiumPrice">MXN 175 / USD 20</span>
                 </div>
               </div>
               <p class="plan-offer-note" id="planPremiumOfferNote">Oferta de lanzamiento por tiempo limitado.</p>
               <ul class="plan-features">
-                <li id="planPremiumFeatureOne">Desbloquea JogaMind, Time, Bit, Path, Capital y Ventix.</li>
+                <li id="planPremiumFeatureOne">Desbloquea JogaTime, Bit, Path, Capital, Ventix y Body.</li>
                 <li id="planPremiumFeatureTwo">Experiencia completa de crecimiento guiado.</li>
                 <li id="planPremiumFeatureThree">Acceso pensado para venta digital.</li>
               </ul>
@@ -938,6 +939,18 @@
       <span id="musicToastText">Abriendo Apple Music...</span>
     </div>
 
+    <!-- ===== Modal: Ingresa tu código (desbloqueo premium) ===== -->
+    <div id="unlockOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(31,25,22,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+      <div style="background:var(--bg);border:1px solid rgba(184,146,74,.3);border-radius:20px;max-width:420px;width:100%;padding:32px 28px;box-shadow:0 30px 80px rgba(0,0,0,.3);text-align:center;">
+        <div style="font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px;" id="unlockKicker">Acceso premium</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;margin:0 0 8px;color:var(--text);" id="unlockTitle">Ingresa tu código</h3>
+        <p style="color:#6a5f56;font-size:.95rem;margin:0 0 20px;" id="unlockSub">Escribe el código que recibiste en tu compra para desbloquear los 6 módulos premium.</p>
+        <input id="unlockInput" type="text" autocomplete="off" placeholder="Tu código" style="width:100%;box-sizing:border-box;padding:14px 16px;border:1px solid rgba(184,146,74,.4);border-radius:12px;font-size:1rem;text-align:center;letter-spacing:.06em;background:#fff;color:var(--text);outline:none;" />
+        <div id="unlockError" style="color:#c0392b;font-size:.85rem;min-height:18px;margin:8px 0 0;"></div>
+        <button id="unlockConfirm" type="button" style="margin-top:14px;width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent),#d8b06a);color:#1f1916;font-weight:700;font-size:1rem;cursor:pointer;" data-i18n="unlockConfirm">Desbloquear</button>
+        <button id="unlockCancel" type="button" style="margin-top:10px;width:100%;padding:12px;border:none;border-radius:12px;background:transparent;color:#6a5f56;font-size:.9rem;cursor:pointer;" data-i18n="unlockCancel">Cancelar</button>
+      </div>
+    </div>
     <script>
       const LANGUAGE_STORAGE_KEY = 'joga.language';
       let currentLanguage = 'es';
@@ -961,7 +974,7 @@
           musicOpeningApple: 'Abriendo Apple Music...',
           musicOpeningAmazon: 'Abriendo Amazon Music...',
           visualOneTitle: 'Tu evolución, integrada',
-          visualOneDesc: 'Energía, mente, tiempo, hábitos, propósito, dinero y ventas en un solo camino.',
+          visualOneDesc: 'Mente, tiempo, hábitos, propósito, dinero, ventas y energía en un solo camino.',
           visualTwoTitle: 'Ruta diaria',
           visualTwoDesc: 'Una acción clara para avanzar hoy con calma y dirección.',
           pillOne: 'Claridad',
@@ -987,18 +1000,18 @@
           planFreeBadge: 'Público',
           planFreeTitle: 'Inicio gratuito',
           planFreePrice: '$0',
-          planFreeFeatureOne: 'Acceso completo a JogaFlow.',
+          planFreeFeatureOne: 'Acceso completo a JogaBody.',
           planFreeFeatureTwo: 'Ruta diaria y progreso personal.',
           planFreeFeatureThree: 'Ideal para probar el método.',
           planFreeBtn: 'Empezar gratis',
           planPremiumBadge: 'Premium',
           planPremiumTitle: 'Paquete 6 módulos',
           planPriceWasLabel: 'Antes',
-          planPremiumOldPrice: 'MXN 2,700 / USD 149',
+          planPremiumOldPrice: 'MXN 299 / USD 29',
           planPriceNowLabel: 'Ahora',
-          planPremiumPrice: 'MXN 1,290 / USD 67',
+          planPremiumPrice: 'MXN 175 / USD 20',
           planPremiumOfferNote: 'Oferta de lanzamiento por tiempo limitado.',
-          planPremiumFeatureOne: 'Desbloquea JogaMind, Time, Bit, Path, Capital y Ventix.',
+          planPremiumFeatureOne: 'Desbloquea JogaTime, Bit, Path, Capital, Ventix y Body.',
           planPremiumFeatureTwo: 'Experiencia completa de crecimiento guiado.',
           planPremiumFeatureThree: 'Acceso pensado para venta digital.',
           planPremiumBtn: 'Desbloquear premium',
@@ -1033,7 +1046,7 @@
           musicOpeningApple: 'Opening Apple Music...',
           musicOpeningAmazon: 'Opening Amazon Music...',
           visualOneTitle: 'Your evolution, integrated',
-          visualOneDesc: 'Energy, mind, time, habits, purpose, money, and sales in one single path.',
+          visualOneDesc: 'Mind, time, habits, purpose, money, sales, and energy in one single path.',
           visualTwoTitle: 'Daily route',
           visualTwoDesc: 'A clear action to move forward today with calm and direction.',
           pillOne: 'Clarity',
@@ -1059,18 +1072,18 @@
           planFreeBadge: 'Public',
           planFreeTitle: 'Free starter',
           planFreePrice: '$0',
-          planFreeFeatureOne: 'Full access to JogaFlow.',
+          planFreeFeatureOne: 'Full access to JogaBody.',
           planFreeFeatureTwo: 'Daily route and personal progress.',
           planFreeFeatureThree: 'Perfect to validate the method.',
           planFreeBtn: 'Start free',
           planPremiumBadge: 'Premium',
           planPremiumTitle: '6-module package',
           planPriceWasLabel: 'Was',
-          planPremiumOldPrice: 'MXN 2,700 / USD 149',
+          planPremiumOldPrice: 'MXN 299 / USD 29',
           planPriceNowLabel: 'Now',
-          planPremiumPrice: 'MXN 1,290 / USD 67',
+          planPremiumPrice: 'MXN 175 / USD 20',
           planPremiumOfferNote: 'Launch offer for a limited time.',
-          planPremiumFeatureOne: 'Unlock JogaMind, Time, Bit, Path, Capital, and Ventix.',
+          planPremiumFeatureOne: 'Unlock JogaTime, Bit, Path, Capital, Ventix, and Body.',
           planPremiumFeatureTwo: 'Complete guided growth experience.',
           planPremiumFeatureThree: 'Built for digital product sales.',
           planPremiumBtn: 'Unlock premium',
@@ -1126,6 +1139,7 @@
             el.textContent = ui[key];
           }
         });
+        if (typeof reflectPremium === "function") reflectPremium();
       }
 
       function ensureAudioContext() {
@@ -1215,6 +1229,71 @@
       });
 
       setLanguage(getInitialLanguage());
+
+      /* ============================================================
+         ACCESO PREMIUM — mismo sistema que index.html (fuente oficial).
+         Códigos: el maestro JOGA7K2M9 + los 50 individuales.
+         Al desbloquear activa la MISMA llave (jiPaid) que usan los apps,
+         así desbloquear aquí abre los módulos en index.html.
+         ============================================================ */
+      const UNLOCK_CODE = "JOGA7K2M9";
+      const VALID_CODES = ["JOGA-4ET2L","JOGA-LVG2V","JOGA-9A4LV","JOGA-RAXR4","JOGA-G6XXH","JOGA-3HJSA","JOGA-BD8SL","JOGA-LVC3L","JOGA-ESDRT","JOGA-YAJMT","JOGA-AFPYV","JOGA-KJUYX","JOGA-BGVNL","JOGA-ZTZHD","JOGA-6QTGW","JOGA-DC8GC","JOGA-YMXEJ","JOGA-APXXG","JOGA-82KUS","JOGA-FZY9B","JOGA-8XDJD","JOGA-QUUFD","JOGA-XEARV","JOGA-A5LUD","JOGA-QSYE6","JOGA-XCGZV","JOGA-26ABC","JOGA-X3JB7","JOGA-WJ45D","JOGA-8HQTP","JOGA-8U9RY","JOGA-BGGUR","JOGA-4N6BQ","JOGA-EDE2Z","JOGA-QBEZQ","JOGA-YD7CF","JOGA-SNDQ3","JOGA-P6J72","JOGA-DQDTB","JOGA-M4AN3","JOGA-Q59TM","JOGA-6JQU5","JOGA-9C9M2","JOGA-G4PHH","JOGA-NGQSK","JOGA-AMJTA","JOGA-FUYPG","JOGA-SX6KY","JOGA-TP4Z2","JOGA-VH8MX"];
+      const UNLOCK_KEY = {"subment.html":"subment","jogatime.html":"jogatime","protoneutron.html":"protoneutron","metodoexito.html":"pasley","monexium.html":"monexium","ventmex.html":"ventmex","jogaflow.html":"jogaflow"};
+
+      function codeValid(v){ if(!v) return false; v=v.trim().toUpperCase(); if(v===UNLOCK_CODE) return true; for(var i=0;i<VALID_CODES.length;i++){ if(VALID_CODES[i]===v) return true; } return false; }
+      function doUnlock(){ try{ localStorage.setItem("jiPaid","1"); for(var k in UNLOCK_KEY){ localStorage.setItem("jiUnlocked_"+UNLOCK_KEY[k],"1"); } }catch(e){} }
+
+      const ov = document.getElementById("unlockOverlay");
+      const inp = document.getElementById("unlockInput");
+      const err = document.getElementById("unlockError");
+
+      function isUnlocked(){ try { return localStorage.getItem("jiPaid") === "1"; } catch(e){ return false; } }
+
+      function reflectPremium(){
+        if(!isUnlocked()) return;
+        // Botón premium pasa a "Entrar a mis módulos"
+        const pb = document.getElementById("planPremiumBtn");
+        if(pb){ pb.textContent = (currentLanguage==="en"?"Enter my modules →":"Entrar a mis módulos →"); pb.setAttribute("href","index.html?tour=1&present=1"); pb.onclick=null; }
+        // Sello "Premium activo" en la sección de precios
+        if(!document.getElementById("premiumActiveBadge")){
+          const desc = document.getElementById("pricingDesc");
+          if(desc){
+            const b=document.createElement("span");
+            b.id="premiumActiveBadge";
+            b.textContent = (currentLanguage==="en"?"  ✓ Premium active":"  ✓ Premium activo");
+            b.style.cssText="display:inline-block;margin-left:8px;color:#2e7d32;font-weight:700;";
+            desc.appendChild(b);
+          }
+        }
+      }
+
+      function openUnlock(e){ if(e) e.preventDefault();
+        if(isUnlocked()){ window.location.href="index.html?tour=1&present=1"; return; }
+        err.textContent=""; inp.value=""; ov.style.display="flex"; setTimeout(()=>inp.focus(),50);
+      }
+      function closeUnlock(){ ov.style.display="none"; }
+      function tryUnlock(){
+        const val=(inp.value||"").trim();
+        if(codeValid(val)){
+          doUnlock();
+          closeUnlock(); reflectPremium();
+          window.location.href="index.html?tour=1&present=1";
+        } else {
+          err.textContent = (currentLanguage==="en"?"Incorrect code. Check your purchase email.":"Código incorrecto. Revisa el correo de tu compra.");
+          inp.style.borderColor="#c0392b";
+        }
+      }
+
+      // Conectar el botón "Desbloquear premium"
+      const premiumBtn=document.getElementById("planPremiumBtn");
+      if(premiumBtn) premiumBtn.addEventListener("click", openUnlock);
+
+      document.getElementById("unlockConfirm").addEventListener("click", tryUnlock);
+      document.getElementById("unlockCancel").addEventListener("click", closeUnlock);
+      inp.addEventListener("keydown", e=>{ if(e.key==="Enter") tryUnlock(); });
+      ov.addEventListener("click", e=>{ if(e.target===ov) closeUnlock(); });
+
+      reflectPremium();
     </script>
   </body>
 </html>

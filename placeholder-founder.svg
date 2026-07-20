@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1125" viewBox="0 0 900 1125">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a130a"></stop>
+      <stop offset="1" stop-color="#0c0c0f"></stop>
+    </linearGradient>
+    <linearGradient id="mono" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4D78A"></stop>
+      <stop offset="0.5" stop-color="#E7C46A"></stop>
+      <stop offset="1" stop-color="#C9A050"></stop>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#E2703A" stop-opacity="0.18"></stop>
+      <stop offset="1" stop-color="#E2703A" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="1125" fill="url(#bg)"></rect>
+  <rect width="900" height="1125" fill="url(#glow)"></rect>
+  <rect x="34" y="34" width="832" height="1057" rx="18" fill="none" stroke="#E7C46A" stroke-opacity="0.18" stroke-width="2"></rect>
+  <text x="450" y="600" font-family="Newsreader, Georgia, serif" font-style="italic" font-weight="600" font-size="300" fill="url(#mono)" text-anchor="middle">JG</text>
+  <line x1="360" y1="700" x2="540" y2="700" stroke="#E2703A" stroke-opacity="0.6" stroke-width="2"></line>
+  <text x="450" y="772" font-family="Newsreader, Georgia, serif" font-weight="500" font-size="40" letter-spacing="1" fill="#F2ECDD" text-anchor="middle">José Omar Gallardo</text>
+  <text x="450" y="828" font-family="ui-monospace, Menlo, monospace" font-size="20" letter-spacing="6" fill="#A8A8B0" text-anchor="middle">FUNDADOR</text>
+  <text x="450" y="1040" font-family="ui-monospace, Menlo, monospace" font-size="16" letter-spacing="2" fill="#6f6a5e" text-anchor="middle">sube founder.jpg para reemplazar · 900×1125</text>
+</svg>
